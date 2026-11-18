@@ -49,3 +49,10 @@ A new review of worn combinations found defects that the prior isolated-part rev
 - Crossbody examination pose is bounded above the feet instead of extending under ground.
 
 See QA-tees.md, QA-clothing-combinations.md, QA-accessory-combinations.md and QA-hair.md for exact sampled outfit strata, pose counts, before/after evidence and remaining limitations. Counts across reports overlap; no exhaustive Cartesian product of every equipable item is claimed. Real browser boundary above is unchanged.
+
+## v0.7: 12 additional selections
+Expanded to 51 selectable parts with 12 new four-direction generated source artworks: four hair styles, three tops, two bottoms, bucket hat, tote and camera. New overlays use body-aware fitting and the existing seven source motions plus explicit idle. The full catalogue now references 1,015 atlases and 40 hair/hat combinations.
+
+Category artists inspected 448 new-hair poses, 560 new-clothing poses and 336 new-equipment poses. New hair/bucket combinations received another 448-pose pass. Independent selected-outfit review inspected all 12 additions × 7 motions × 4 directions × 4 frames (1,344 poses); subsequent skirt-foot visibility polish received six enlarged before/after pairs. Counts overlap and do not imply exhaustive item permutations. New catalogues contain 48 actual idle views; four new sample outfits have a 16-frame motion preview.
+
+Fixed during production: low-alpha source haze affecting hair bounds, high-bun top margin, camera's incorrect cup-like drinking behavior, and standing skirt shoe readability. Camera is stowed during drink and from the rear; it is not a dedicated photography action. High bun is compressed within the fixed 80px cell; afro may naturally cover rear shoulders. No browser/game runtime verification or new deployment.

@@ -51,6 +51,18 @@ let files=0,combinations=0;
 if(existsSync(manifestPath)){
  const m=JSON.parse(readFileSync(manifestPath,'utf8'));
  assert.equal(new Set(m.items.map(i=>i.id)).size,m.items.length,'duplicate item ID');
+ const legacy=JSON.parse(readFileSync(path.join(dir,'tools/baseline-item-slots.json'),'utf8'));
+ for(const [id,slot] of Object.entries(legacy))assert.equal(m.items.find(i=>i.id===id)?.slot,slot,`Legacy item lost: ${id}`);
+ for(const eye of m.items.filter(i=>i.slot==='eyes'))for(const lens of m.lensColors)for(const motion of Object.keys(m.motions))for(const direction of m.directions){
+  const p=api.layerPlan(m,{motion,selection:{eyes:eye.id},lens},direction);
+  const expected=lens==='charcoal'?eye.files[p.source]:eye.paletteFiles?.[lens]?.[p.source];
+  assert.ok(expected,`Missing palette ${eye.id}/${lens}/${p.source}`);
+  assert.ok(p.layers.some(l=>l.slot==='eyes'&&l.path===expected));
+ }
+ for(const hair of m.items.filter(i=>i.slot==='hair'))for(const hat of m.items.filter(i=>i.slot==='hat')){
+  assert.ok(hair.hatVariants?.[hat.id],`Missing variant ${hair.id}/${hat.id}`);
+ }
+
  for(const name of Object.keys(m.motions)){
   const motion=api.motionSpec(m,name);assert.ok(motion.frames.every(f=>Number.isInteger(f)&&f>=0&&f<4));
   for(const item of m.items){

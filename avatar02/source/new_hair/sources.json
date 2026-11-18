@@ -1,0 +1,46 @@
+[
+  {
+    "id": "hair-buzz",
+    "label": "버즈컷",
+    "slot": "hair",
+    "path": "source/new_hair/buzz.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "new-hair",
+    "widthScale": 1.04
+  },
+  {
+    "id": "hair-afro",
+    "label": "짧은 아프로",
+    "slot": "hair",
+    "path": "source/new_hair/afro.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "new-hair",
+    "widthScale": 1.28
+  },
+  {
+    "id": "hair-high-bun",
+    "label": "높은 번",
+    "slot": "hair",
+    "path": "source/new_hair/high-bun.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "new-hair",
+    "widthScale": 1.08
+  },
+  {
+    "id": "hair-side-ponytail",
+    "label": "옆 포니테일",
+    "slot": "hair",
+    "path": "source/new_hair/side-ponytail.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "new-hair",
+    "widthScale": 1.32
+  }
+]

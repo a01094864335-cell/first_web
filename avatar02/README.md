@@ -3,7 +3,7 @@
 승인된 동글 기본형을 기준으로 만든 카페 퀘스트 조합 애셋입니다. **품목 커버리지 제공 단계이며 최종 게임용 리깅 완료본이 아닙니다.** 기존 앱과 메인 브랜치는 바꾸지 않습니다.
 
 ## Included
-- 39 selectable entries: hair 6, tops 9, bottoms 5, shoes 3, hats 3, glasses 2, body accessories 3, handheld props 3, eye shapes 3, skin overlays 2 (plus original skin).
+- 51 selectable entries: hair 10, tops 12, bottoms 7, shoes 3, hats 4, glasses 2, body accessories 4, handheld props 4, eye shapes 3, skin overlays 2 (plus original skin).
 - Hair: short / curly bob / long straight / pixie / pigtails / braid.
 - Tops: plain tee / striped tee / shirt / cardigan / hoodie / vest / overall upper. Alternate plain/vest entries retained.
 - Bottoms: shorts / trousers / skirt / overall lower. Alternate shorts retained.

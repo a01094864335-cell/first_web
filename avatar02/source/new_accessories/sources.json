@@ -1,0 +1,29 @@
+[
+  {
+    "id": "hat-bucket",
+    "slot": "hat",
+    "label": "버킷햇",
+    "path": "source/new_accessories/hat-bucket.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4
+  },
+  {
+    "id": "body-tote",
+    "slot": "body",
+    "label": "캔버스 토트백",
+    "path": "source/new_accessories/body-tote.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4
+  },
+  {
+    "id": "hand-camera",
+    "slot": "hand",
+    "label": "소형 카메라",
+    "path": "source/new_accessories/hand-camera.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4
+  }
+]

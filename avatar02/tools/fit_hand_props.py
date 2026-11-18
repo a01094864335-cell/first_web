@@ -7,7 +7,7 @@ from scipy import ndimage
 
 def fit_hand_prop(z0, basecell, handsmask, directionIndex, action, frame, id):
     out=Image.new('RGBA',(80,80))
-    if 'book' in id and action=='drink':return out # stow book rather than pretend to drink it
+    if ('book' in id or 'camera' in id) and action=='drink':return out # stow book rather than pretend to drink it
     if directionIndex==2:return out # held ahead of torso, occluded from rear
     b=np.asarray(basecell.convert('RGBA')); m=np.asarray(handsmask.convert('RGBA'))[:,:,3]>0
     r,g,bl=[b[:,:,i].astype(int) for i in range(3)]
@@ -33,7 +33,7 @@ def fit_hand_prop(z0, basecell, handsmask, directionIndex, action, frame, id):
         for channel,color in enumerate((35,112,108)):
             a[:,:,channel]=np.where(cover,np.minimum(255,color*value).astype('uint8'),a[:,:,channel])
         z=Image.fromarray(a)
-    w,h=(13,13) if 'book' in id else (14,16)
+    w,h=(13,13) if 'book' in id else (15,11) if 'camera' in id else (14,16)
     z=z.resize((w,h),Image.Resampling.NEAREST)
     # A cupped hand covers upper/side edge, not the entirety of the prop.
     if directionIndex==0:
