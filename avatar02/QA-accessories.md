@@ -57,3 +57,34 @@ Reopened all 21 regenerated hand-item contact sheets individually after integrat
 - Finger grasp, cup tilt, and item-specific acting are still fitted overlays, not individually redrawn final animation.
 
 Result: acceptable as a reviewable modular-asset PR with disclosed P2 polish; do not label it final animation-art acceptance. Original body QA findings remain as above; this pass specifically rechecked the 21 hand sheets.
+
+## Subsequent PR3 improvement implementation
+Implemented further corrections, not only a limitation list:
+
+- `fit_hand_props.py`: cups enlarged to 14×16, frontal drinking cup centered between both hands; profile drink rim pulled toward face; raised celebration cup shifted beside rather than beneath forearm.
+- Added `grip_mask(basecell,handsmask)`: skin-and-contour-only hand mask. Root cause of severe cup occlusion was original handsMask including white shirt/body pixels. Required compositing: restore ordinary arms before hand prop layer, draw prop, restore actual hand skin with grip mask. Parent integrates rendering/viewer and generated mask atlases.
+- `fit_mini_bag.py`: full body width pouch changed to narrower side-shoulder silhouette; front/back anatomical side preserved, strap orientation corrected, seated position slightly raised. No longer central pelvis/waist-belt styling.
+
+Local direct-function contact proofs visually inspected for all seven actions, four directions and four frames for each of three hand props (336 poses) and mini bag (112 poses). Drink and celebrate cup bodies now visible with narrow grip compositing; book stow retained; bag sides and strap checked. These local proofs use base default skin with actual masks. Integrated renderer, alternative skin and clothing combinations remain parent's acceptance check. Source equipment is still direction-fitted raster art rather than individually articulated fingers, but previously reported conspicuous placement/occlusion defects are actively corrected.
+
+## Actual integrated renderer verification after grip/bag integration
+Opened all **28 actual `previews/individual` outputs**, not local mocks: `hand-mug`, `hand-takeout-cup`, `hand-book`, `body-mini-bag`, each walk/greet/drink/examine/sit/celebrate/dress, each F/R/B/L × frames 0–3. **448 integrated poses inspected.**
+
+Confirmed actual outputs:
+- Cup bodies now clearly visible in front drink frames 1–2; previously shirt restoration erased them. Narrow grip-mask compositing works in actual renderer.
+- Cup bodies remain visible in profile celebrate frame 1, and extend beside the raised hand at frame 3. No old waist-stationary detached cups.
+- Books retain teal identity, hand contact, and deliberate stow throughout drink.
+- Mini bag is unmistakably a side shoulder pouch rather than central belt bag. Front/back carry it on corresponding anatomical side; seated and tilted poses remain in cell bounds.
+- No image-cell clipping, rear floating hand item, or missing visible direction discovered.
+
+Residual polish accurately retained: mini-bag front drink frames 1–2 hangs a few pixels lower than frames 0/3 (head/hand skin components merge during raised-hands pose, shifting fitted anchor). Mug handles are not individually finger-grasped; cup rim contact reads as drinking but tilt is still rigid. Right walk frame 3 has a stronger hand-driven prop bounce. These are smaller articulation refinements; the targeted conspicuous occlusion and waist-bag placement failures are resolved in integrated outputs.
+
+## Final anchor/sip follow-up acceptance
+After the last integrated rebuild, directly reopened all seven `body-mini-bag` action sheets plus `hand-mug--drink` and `hand-takeout-cup--drink`: **9 sheets / 144 actual-renderer poses**.
+
+- Mini bag front drink frames 0–3 now have stable pouch height. Wide-face scanline shoulder detection successfully avoids raised hands joining the head skin component.
+- All seven bag actions retain correct side placement and readable pouch; no new clipping or detached strap observed.
+- Both cups show a subtle frame-2 profile sip tilt while remaining in contact with the hand. Frontal cup visibility and other drink frames unchanged. No new cell clipping.
+- Previous note about bag drink anchor drop is resolved. Cup-tilt rigidity note is superseded by this subtle profile sip implementation. Fine-grained individual finger/handle articulation remains a stylistic limitation, not a newly observed regression.
+
+No further code or image changes during this final verification. This closes the assigned accessory-placement/occlusion corrections; full application behavior and unrelated catalogue items are outside this specific visual pass.

@@ -43,3 +43,30 @@ Reopened all three final celebrate sheets (`eyes-dot`, `eyes-sleepy`, `eyes-smil
 Final coverage: 35 initial sheets / 560 poses, then 21 eye sheets / 336 poses after the main correction, then 3 celebrate sheets / 48 poses after the final threshold correction. These are repeated inspection counts, not 944 unique assets. The last threshold change was visually rechecked on celebrate only; no claim of a second exhaustive inspection of all final frozen assets.
 
 Outcome: the observed mask blockers are corrected. Review-candidate status remains because fixed expressions, subtle source face marks, cross-slot/palette combinations and real-browser animation have not all received exhaustive visual validation.
+
+## PR3 continuation: pose-aware cosmetic eyes
+
+The previous fixed-expression limitation is now addressed for the requested key poses by `tools/fit_eyes.py`:
+- drink frame 2 copies the base's actual closed-eye pixels.
+- sit frame 2 copies the base's actual smiling-eye pixels.
+- celebrate frames 1 and 3 use a joyful closed-eye arc aligned to detected eyes.
+- Other frames retain the chosen dot/sleepy/smile cosmetic silhouette. Back directions remain blank.
+- Charcoal/green/blue palettes are rendered through the same pose-aware function. Palette changes no longer recolor light blush pixels as if they were iris pixels.
+
+Visually opened **all 21** newly rendered `previews/eyes-motion/{eyes-dot,eyes-sleepy,eyes-smile}--{walk,greet,drink,examine,sit,celebrate,dress}.png` sheets, all 336 poses. Closed/smiling keyframes are visible, profiles retain ears/jaw, no original-eye overlap noticed in these poses. The final integrated `previews/individual` pose areas (excluding only title text, y<30) were then compared pixel-for-pixel to all 21 inspected module proofs: **all identical**. Thus the actual integrated pose images match what was visually reviewed; this is not a claim of a second direct opening of 21 identical files.
+
+Automated tests: 1,008 pose/palette outputs have correct 80×80 size and rear-eye visibility; all 12 semantic expression key poses consistently override all 3 cosmetic choices. Tests inspect output structure, not subjective art quality. Green/blue palettes were not each exhaustively visually opened. Celebrate arcs are deliberately simple and thinner than some cosmetic shapes; a fully hand-drawn facial-expression library remains future polish.
+
+Viewer continuation: hat-specific hair variants replace the old blanket hair hide when available. Hand props restore the arm layer before drawing the prop, then restore only grip pixels after the prop. The existing back-hair protection is retained. Node helper and DOM/Canvas test-double checks pass with the integrated manifest; these are not actual browser interaction tests.
+
+## Additional skin × lens palette visual check
+
+Directly opened all **9** `previews/eye-palettes/{skin-base,skin-warm,skin-deep}--{eyes-dot,eyes-sleepy,eyes-smile}.png` sheets (640×1510). Every sheet contains charcoal/green/blue, walk frame 2 / drink frame 2 / celebrate frame 1, and all four directions: **324 composed pose samples** reviewed.
+
+- Skin-matched eye-cover patches blend without obvious pale rectangles or face silhouette erasure in these samples.
+- Charcoal, green and blue visibly change the intended eyes. Skin, clothing, hands and head highlights do not change with lens selection.
+- Drink closed-eye and celebrate joyful-eye keys remain active for every selected eye shape and palette. No eyes appear on the rear head.
+- No newly blocking mismatch found in this sampling. Deep skin plus green/charcoal eyes has lower facial contrast, especially the thin celebrate arcs. This is an art-polish concern, not a claim of equal readability for every palette at game scale.
+- Current palette semantics color closed eyelids as well as open eyes; a separate dark eyelid/colored iris design would be a future art choice.
+
+This extends palette coverage only for the three sampled poses above. It is not exhaustive visual testing of all 7 actions × 4 frames × skin × palette combinations, nor browser animation playback.

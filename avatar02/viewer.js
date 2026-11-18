@@ -23,18 +23,19 @@
     const selection = state.selection || {};
     const byId = new Map((manifest.items || []).map(i => [i.id, i]));
     const chosen = Object.entries(selection).map(([slot,id]) => byId.get(id)).filter(Boolean);
-    const hat = chosen.some(i => i.slot === 'hat');
+    const hat = chosen.find(i => i.slot === 'hat');
+    const hairFiles = item => hat ? (item.hatVariants && item.hatVariants[hat.id]) : item;
     const order = manifest.layerOrder || DEFAULT_ORDER;
     const plan = [];
     function add(slot, path, item) { if (path) plan.push({slot, path, item: item ? item.id : null}); }
     for (const slot of order) {
       if (slot === 'base') { add(slot, manifest.base && manifest.base[source]); continue; }
       if (slot === 'hairRear') {
-        if (!hat && direction !== 'back') for (const item of chosen.filter(i => i.slot === 'hair')) add(slot, (item.rearFiles && item.rearFiles[source]) || (item.layer === 'rear' && fileFor(item, source, state.lens)), item);
+        if (direction !== 'back') for (const item of chosen.filter(i => i.slot === 'hair')) {const v=hairFiles(item);if(v)add(slot,(v.rearFiles&&v.rearFiles[source])||(item.layer==='rear'&&fileFor(v,source,state.lens)),item);}
         continue;
       }
-      if (slot === 'hair' && hat) continue;
-      if (slot === 'hair' && direction === 'back') for (const item of chosen.filter(i => i.slot === 'hair')) add('hairRearCover', (item.rearFiles && item.rearFiles[source]) || (item.layer === 'rear' && fileFor(item, source, state.lens)), item);
+
+      if (slot === 'hair' && direction === 'back') for (const item of chosen.filter(i => i.slot === 'hair')) {const v=hairFiles(item);if(v)add('hairRearCover',(v.rearFiles&&v.rearFiles[source])||(item.layer==='rear'&&fileFor(v,source,state.lens)),item);}
       if (slot === 'hand' && direction === 'back') continue;
       if (slot === 'eyes' && chosen.some(i => i.slot === 'eyes')) {
         const covers = manifest.eyeCover || {};
@@ -43,16 +44,19 @@
       }
       for (const item of chosen.filter(i => i.slot === slot)) {
         if (item.layer === 'rear' && slot === 'hair') continue;
-        add(slot, fileFor(item, source, state.lens), item);
+        const v=slot==='hair'?hairFiles(item):item;if(v)add(slot, fileFor(v, source, state.lens), item);
       }
     }
-    return { source, layers: plan, handsMask: manifest.handsMask && manifest.handsMask[source] };
+    return { source, layers: plan, handsMask: manifest.handsMask && manifest.handsMask[source], gripMask: manifest.gripMask && manifest.gripMask[source] };
   }
   function foregroundProtectionLayers(plan, direction) {
     // From behind, long hair covers the upper back. Hand restoration must not
     // repaint the original shirt/skin through that opaque hair. Repaint only
     // these visible hair layers after restoring hands; other slots keep order.
-    return direction === 'back' ? plan.layers.filter(l => l.slot === 'hairRearCover' || l.slot === 'hair') : [];
+    if (direction !== 'back') return [];
+    const hair = plan.layers.filter(l => l.slot === 'hairRearCover' || l.slot === 'hair');
+    // Repainting hair after hands must not hide a hat's rear strap or brim.
+    return hair.length ? [...hair, ...plan.layers.filter(l => l.slot === 'hat')] : [];
   }
   const API = {motionSpec, frameAt, stepFrame, fileFor, layerPlan, foregroundProtectionLayers};
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
@@ -105,7 +109,7 @@
     function notes() {
       const selected=manifest.items.filter(i=>Object.values(state.selection).includes(i.id));
       $('itemNotes').replaceChildren(...selected.flatMap(i=>(i.notes||[]).map(note=>{const li=document.createElement('li');li.textContent=(i.label||i.id)+': '+note;return li;})));
-      if (state.selection.hat && state.selection.hair) {const li=document.createElement('li');li.textContent='모자 착용으로 선택한 헤어는 현재 숨겨져 있습니다.';$('itemNotes').prepend(li);}
+      if (state.selection.hat && state.selection.hair) {const li=document.createElement('li');li.textContent='모자에 맞춘 헤어 변형을 사용합니다. 해당 조합 파일이 없는 경우 헤어는 숨겨집니다.';$('itemNotes').prepend(li);}
     }
     function pause(value) {state.paused=value;$('pause').textContent=value?'재생':'일시정지';$('pause').setAttribute('aria-pressed',String(value));if(!value)origin=performance.now()-motionSpec(manifest,state.motion).frames.indexOf(state.frame)*motionSpec(manifest,state.motion).durationMs;revision++;}
     $('pause').addEventListener('click',()=>pause(!state.paused));
@@ -118,8 +122,8 @@
     const canvas=$('stage'),ctx=canvas.getContext('2d');
     if(!ctx){issues.textContent='Canvas 2D를 사용할 수 없습니다.';return;}
     const [cw,ch]=manifest.cell||[80,80];
-    const tile=document.createElement('canvas'), before=document.createElement('canvas');tile.width=before.width=cw;tile.height=before.height=ch;
-    const tc=tile.getContext('2d'),bc=before.getContext('2d');
+    const tile=document.createElement('canvas'), before=document.createElement('canvas'), restored=document.createElement('canvas');tile.width=before.width=restored.width=cw;tile.height=before.height=restored.height=ch;
+    const tc=tile.getContext('2d'),bc=before.getContext('2d'),rc=restored.getContext('2d');
     const preSlots=new Set(['hairRear','base','skin','eyeCover','eyes','bottom','shoes','top']);
     function paint(context,path,row,frame) { const image=img(path);if(image.complete&&image.naturalWidth)context.drawImage(image,frame*cw,row*ch,cw,ch,0,0,cw,ch); }
     let lastPaint='';
@@ -133,8 +137,10 @@
         dirs.forEach((dir,index)=>{
           const row=manifest.directions.indexOf(dir),plan=layerPlan(manifest,state,dir);
           tc.clearRect(0,0,cw,ch);bc.clearRect(0,0,cw,ch);tc.imageSmoothingEnabled=bc.imageSmoothingEnabled=false;
-          for(const l of plan.layers){paint(tc,l.path,row,state.frame);if(preSlots.has(l.slot))paint(bc,l.path,row,state.frame);}
-          if(plan.handsMask){const maskImage=img(plan.handsMask);if(maskImage.complete&&maskImage.naturalWidth){bc.globalCompositeOperation='destination-in';paint(bc,plan.handsMask,row,state.frame);bc.globalCompositeOperation='source-over';tc.drawImage(before,0,0);}}
+          const restore = path => {if(!path)return;const mask=img(path);if(mask.complete&&mask.naturalWidth){rc.clearRect(0,0,cw,ch);rc.globalCompositeOperation='source-over';rc.drawImage(before,0,0);rc.globalCompositeOperation='destination-in';paint(rc,path,row,state.frame);rc.globalCompositeOperation='source-over';tc.drawImage(restored,0,0);}};
+          let hasHand=false;
+          for(const l of plan.layers){if(l.slot==='hand'){restore(plan.handsMask);hasHand=true;}paint(tc,l.path,row,state.frame);if(preSlots.has(l.slot))paint(bc,l.path,row,state.frame);}
+          restore(hasHand?plan.gripMask:plan.handsMask);
           for (const l of foregroundProtectionLayers(plan,dir)) paint(tc,l.path,row,state.frame);
           const x=index*240+20,y=10,scale=2.5;
           ctx.drawImage(tile,x,y,200,200);

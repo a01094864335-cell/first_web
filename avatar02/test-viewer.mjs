@@ -29,6 +29,16 @@ state.selection.hat='cap';plan=api.layerPlan(fixture,state,'front');
 assert.ok(!plan.layers.some(l=>['hair','hairRear'].includes(l.slot)));
 assert.ok(plan.layers.some(l=>l.path==='cap.png'));
 assert.deepEqual(api.foregroundProtectionLayers(api.layerPlan(fixture,state,'back'),'back'),[],'hat-hidden hair must never be repainted');
+fixture.items[0].hatVariants={cap:{files:{walk:'trimmed-hair.png'},rearFiles:{walk:'trimmed-rear.png'}}};
+fixture.gripMask={walk:'grip.png'};
+for(const direction of fixture.directions){
+ const hp=api.layerPlan(fixture,state,direction);
+ assert.ok(hp.layers.some(l=>l.path==='trimmed-hair.png'),'hat must use fitted hair instead of hiding it');
+ assert.ok(hp.layers.some(l=>l.path==='trimmed-rear.png'));
+ assert.ok(!hp.layers.some(l=>l.path==='hair.png'||l.path==='rear.png'));
+ assert.equal(hp.gripMask,'grip.png');
+ if(direction==='back')assert.deepEqual(api.foregroundProtectionLayers(hp,direction).map(l=>l.path),['trimmed-rear.png','trimmed-hair.png','cap.png'],'rear hat strap must repaint after protected hair');
+}
 state={motion:'walk',selection:{skin:'skin-deep',eyes:'smile'},lens:'green'};
 plan=api.layerPlan(fixture,state,'front');
 assert.deepEqual(plan.layers.map(l=>l.path),['base-w.png','skin.png','face-deep.png','smile-green.png']);
@@ -49,10 +59,15 @@ if(existsSync(manifestPath)){
     assert.ok(p.layers.some(l=>l.slot==='base'));
     for(const l of p.layers){assert.ok(existsSync(path.resolve(dir,l.path)),`Missing ${l.path}`);files++;}
     if(p.handsMask)assert.ok(existsSync(path.resolve(dir,p.handsMask)));
+    if(p.gripMask)assert.ok(existsSync(path.resolve(dir,p.gripMask)));
     combinations++;
    }
   }
  }
+ for(const hair of m.items.filter(i=>i.slot==='hair'))for(const [hatId,v] of Object.entries(hair.hatVariants||{}))for(const motion of Object.keys(m.motions))for(const direction of m.directions){
+ const p=api.layerPlan(m,{motion,selection:{hair:hair.id,hat:hatId}},direction);
+ for(const l of p.layers)assert.ok(existsSync(path.resolve(dir,l.path)),`Missing hat combination ${l.path}`);
+}
  console.log(`Real manifest: ${m.items.length} items, ${Object.keys(m.motions).length} motions; ${combinations} item/direction/motion layer plans; ${files} file references passed.`);
 }else console.log('Real manifest not yet available; fixture tests only.');
 console.log('Viewer helper tests passed: frame timing, pause-step mapping, hat/rear hair rule, rear hand occlusion, eye cover and palette fallback.');

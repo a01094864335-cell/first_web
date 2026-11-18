@@ -40,4 +40,20 @@ def fit_bottoms(z0, basecell, directionIndex, action, frame, id='', handsmask=No
     # Two-tone source palette mapped to baseline shading; no standing-leg box.
     target=c[None,None,:]*(.78+.44*np.clip((lum-25)/65,0,1))[:,:,None]
     out[:,:,:3]=np.clip(target,0,255).astype('uint8');out[:,:,3]=np.where(m,255,0)
+    # Restore pose-relative pixel tailoring without fixed source rectangles.
+    if any(k in id for k in ('trousers','overall','shorts')) and m.any():
+        dark=np.clip(c*.60,0,255).astype('uint8'); light=np.clip(c*1.35+8,0,255).astype('uint8')
+        for y in range(80):
+            xs=np.where(m[y])[0]
+            if len(xs)>=4:
+                for x in (xs[0]+1,xs[-1]-1):
+                    if m[y,x]:out[y,x,:3]=light
+        yy,xx=np.where(m);waist=int(yy.min())
+        for y in range(waist+2,min(waist+5,80)):
+            xs=np.where(m[y])[0]
+            if len(xs)<6:continue
+            targets=[xs[0]+2,xs[-1]-2]
+            if directionIndex in (1,3):targets=targets[:1] if directionIndex==3 else targets[1:]
+            for x in targets:
+                if m[y,x]:out[y,x,:3]=dark if y==waist+2 else light
     return Image.fromarray(out)

@@ -52,3 +52,25 @@ No further code or image edits made during final frozen-output recheck. Remainin
 
 Final compositing follow-up: rear glasses temple stubs looked like eyes when drawn over long rear hair. Compiler now intentionally hides glasses in the back direction, superseding the earlier 'rear temple stubs remain' observation. Final rear composite is rechecked by the integrating reviewer.
 Verified final glasses-direction contact sheet and long-hair/cardigan/glasses walk composite: rear eye-like stubs absent; front and both profile lenses preserved.
+
+## Rear glasses update (supersedes earlier temple-stub observation)
+
+Back-facing glasses are now intentionally hidden by the parent build. Earlier retained rear temple stubs read as false eyes over long hair in combinations, so retaining them is NOT an acceptance criterion. Final rear-glasses combination check is owned by the parent.
+
+## PR3 hat-compatible hairstyle fitting
+
+Implemented `tools/fit_hat_hair.py` without changing builder/viewer/render_proofs. Crown masking uses each hat cell's actual alpha bounding box: removes hair above 70% of cap height, retaining lower fringe/side/rear silhouettes. Hat is drawn last so its opaque brim covers hair naturally. This replaces the earlier whole-hairstyle suppression when a hat is selected.
+
+API: `fit_hat_hair(hair,hat,direction=0,rear=None)` returns `front`/`rear` RGBA cells and `mask` L image. `fit_hat_hair_atlas` performs the same operation on 4×4 80px atlas grids. Front/profile rear goes behind base; back rear goes in front of base. Front hair goes before hat in all directions.
+
+Direct visual review: all 6 hairs × 3 hats × 4 directions (72 combinations), walk frame1. Evidence saved in `previews/hat-hair/hat-{baseball,beanie,beret}-hair.png`. Confirmed selected hairstyle remains distinguishable under each cap, crown does not poke out, ponytails/braid/long rear retained, face and eyes remain readable. Short crop front fringe is naturally mostly covered by low brims, but sideburns/back hair remain; no blanket bald replacement occurs. These proofs check per-direction geometry, not all animation frames; caller must apply function per frame for correct moving anchors.
+
+## PR3 integrated hat-variant full pose recheck
+
+Reviewed actual integrated `previews/hat-combinations/{hatId}--{action}.png` outputs for **all 21 sheets**: 3 hats × 7 actions × 6 hairs × 4 directions × 4 frames = **2,016 posed combinations**. Opened every latest sheet after the final hat-restoration fix, with all rows/columns visible. Hats: baseball, beanie, beret. Hairs: short, curly-bob, pixie, pigtails, long-straight, braid. Actions: walk, greet, drink, examine, sit, celebrate, dress.
+
+First integrated pass found the back-facing hair-protection composite covering the cap's rear strap/lower edge. Parent fixed final cap restoration. **Latest 21-sheet pass confirms this issue resolved**, including baseball rear strap visibility across all six hairstyles and seven actions. Front/profile fringe, side hair, pigtails and rear/braid identity are retained; no wholesale bald replacement, obvious detached cap, crown breakthrough or canvas-edge clipping observed. Examine frame2 remains attached.
+
+Remaining non-blocking art tradeoff: low hat brims naturally hide most of the short-crop frontal fringe; sideburn/back-hair silhouettes still preserve the selected hair. Long straight rear hair continues to hide much of rear torso/inward gestures, as already documented. These are not new assembly regressions.
+
+This is exhaustive static pose QA for the stated hat–hair matrix, not an exhaustive test of all other clothing/accessory combinations or a browser-runtime animation-timing certification. Viewer integration is owned by parent; this reviewer did not operate the live viewer.

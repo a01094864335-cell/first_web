@@ -5,24 +5,38 @@ cache={}
 def cell(path,r,c):
  if path not in cache:cache[path]=Image.open(R/path).convert('RGBA')
  return cache[path].crop((c*80,r*80,c*80+80,r*80+80))
-def render(items,r=0,c=1,ac='walk'):
- out=Image.new('RGBA',(80,80));hat=any(i['slot']=='hat' for i in items);skin=next((i['id'] for i in items if i['slot']=='skin'),'base')
+def render(items,r=0,c=1,ac='walk',lens='charcoal'):
+ out=Image.new('RGBA',(80,80));hat=next((i for i in items if i['slot']=='hat'),None);skin=next((i['id'] for i in items if i['slot']=='skin'),'base')
+ def files(i):return i.get('hatVariants',{}).get(hat['id'],i) if hat and i['slot']=='hair' else i
  for i in items:
-  if i.get('rearFiles') and not hat and r!=2:out.alpha_composite(cell(i['rearFiles'][ac],r,c))
+  f=files(i)
+  if f.get('rearFiles') and r!=2:out.alpha_composite(cell(f['rearFiles'][ac],r,c))
  out.alpha_composite(cell(m['base'][ac],r,c));under=out.copy()
  for slot in m['layerOrder']:
-  if slot in ['base','hairRear']:continue
-  if slot=='hair' and r==2 and not hat:
+  if slot in ['base','hairRear','hand']:continue
+  if slot=='hair' and r==2:
    for i in items:
-    if i.get('rearFiles'):out.alpha_composite(cell(i['rearFiles'][ac],r,c))
+    f=files(i)
+    if f.get('rearFiles'):out.alpha_composite(cell(f['rearFiles'][ac],r,c))
   if slot=='eyes' and any(i['slot']=='eyes' for i in items):out.alpha_composite(cell(m['eyeCover'][skin][ac],r,c))
   for i in items:
-   if i['slot']!=slot or slot=='hair' and hat or slot=='hand' and r==2:continue
-   out.alpha_composite(cell(i['files'][ac],r,c))
+   if i['slot']==slot:
+    f=files(i);path=f.get('paletteFiles',{}).get(lens,{}).get(ac,f['files'][ac]);out.alpha_composite(cell(path,r,c))
   if slot in ['skin','bottom','top','shoes']:under=out.copy()
- mask=cell(m['handsMask'][ac],r,c).getchannel('A');
- if not (r==2 and any(i.get('rearFiles') for i in items) and not hat):out.paste(under,(0,0),mask)
+ mask=cell(m['handsMask'][ac],r,c).getchannel('A');out.paste(under,(0,0),mask)
+ if r==2:
+  for i in items:
+   if i['slot']=='hair':
+    f=files(i)
+    if f.get('rearFiles'):out.alpha_composite(cell(f['rearFiles'][ac],r,c))
+    out.alpha_composite(cell(f['files'][ac],r,c))
+  if hat:out.alpha_composite(cell(hat['files'][ac],r,c))
+ if r!=2 and any(i['slot']=='hand' for i in items):
+  for i in items:
+   if i['slot']=='hand':out.alpha_composite(cell(i['files'][ac],r,c))
+  grip=cell(m['gripMask'][ac],r,c).getchannel('A');out.paste(under,(0,0),grip)
  return out
+
 allitems=m['items'];out=Image.new('RGB',(1400,((len(allitems)+6)//7)*220),'#fff7e9');d=ImageDraw.Draw(out)
 for j,i in enumerate(allitems):
  x=j%7*200;y=j//7*220;s=render([i]).resize((176,176),Image.Resampling.NEAREST);out.paste(s,(x+12,y+8),s);d.text((x+8,y+190),i['id'],font=font,fill='#49382b')

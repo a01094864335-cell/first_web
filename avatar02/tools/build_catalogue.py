@@ -5,11 +5,15 @@ from scipy import ndimage
 from functools import lru_cache
 from fit_shoes import fit_shoes
 from fit_bottoms import fit_bottoms
-from fit_hand_props import fit_hand_prop
+from fit_hand_props import fit_hand_prop, grip_mask
+from fit_eyes import fit_eyes
+from fit_hat_hair import fit_hat_hair_atlas
+from fit_mini_bag import fit_mini_bag
+from fit_clothes import fit_top, fit_skirt
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 V3=ROOT/'source/baseline'
 ACTIONS=['walk','greet','drink','examine','sit','celebrate','dress']
-items=[];base={};hands={};eyeCover={k:{} for k in ['base','skin-warm','skin-deep']};meta={}
+items=[];base={};hands={};grips={};eyeCover={k:{} for k in ['base','skin-warm','skin-deep']};meta={}
 def save(im,action,id):
  p=ROOT/'assets'/action/f'{id}.png';p.parent.mkdir(parents=True,exist_ok=True);im.save(p);return str(p.relative_to(ROOT))
 @lru_cache(maxsize=256)
@@ -41,13 +45,18 @@ def add_existing(id,slot,sourceid,label):
   if slot=='skin':
    ar=np.array(im);bb=np.array(Image.open(V3/ac/'assets/base.png'));rr=bb[:,:,0].astype(int);gg=bb[:,:,1].astype(int);bl=bb[:,:,2].astype(int);valid=(rr-gg>22)&(gg-bl>20);ar[:,:,3]=np.where(valid,ar[:,:,3],0);im=Image.fromarray(ar)
   files[ac]=save(im,ac,id)
- items.append({'id':id,'slot':slot,'label':label,'files':files,'status':'review-candidate','notes':['Inherited v3 fitted overlay; manual final frame QA remains.']})
+ items.append({'id':id,'slot':slot,'label':label,'files':files,'status':'review-candidate','notes':['Inherited v3 overlay, reviewed alongside fitted catalogue; see category QA records.']})
 for ac in ACTIONS:
  b=Image.open(V3/ac/'assets/base.png').convert('RGBA');base[ac]=save(b,ac,'base');hands[ac]=save(Image.open(V3/ac/'assets/hands-mask.png'),ac,'hands-mask')
  for r in range(4):
   for c in range(4):
    box=(c*80,r*80,c*80+80,r*80+80);cell=b.crop(box);ar=np.array(cell);rr,gg,bb=[ar[:,:,i].astype(int) for i in range(3)];skin=(rr>145)&(rr-gg>12)&(gg-bb>10)&(ar[:,:,3]>0);lab,n=ndimage.label(skin);sz=np.bincount(lab.ravel());sz[0]=0;head=lab==sz.argmax();hy,hx=np.where(head)
    meta[ac,r,c]={'headtop':int(hy.min()),'headbottom':int(hy.max()),'cx':float((hx.min()+hx.max())/2),'headwidth':int(hx.max()-hx.min()+3),'bottom':cell.getbbox()[3],'cell':cell}
+ grip=Image.new('RGBA',(320,320));hm=Image.open(V3/ac/'assets/hands-mask.png').convert('RGBA')
+ for r in range(4):
+  for c in range(4):
+   grip.alpha_composite(grip_mask(meta[ac,r,c]['cell'],hm.crop((c*80,r*80,c*80+80,r*80+80))),(c*80,r*80))
+ grips[ac]=save(grip,ac,'hand-grip-mask')
  # Cover original eyes using adjacent face color, including closed-eye pose.
  covers={k:Image.new('RGBA',(320,320)) for k in eyeCover}
  for r in [0,1,3]:
@@ -111,6 +120,12 @@ for spec in sources:
    if ['front','right','back','left'][r] in spec.get('emptyDirections',[]):continue
    for c in range(4):
     mm=meta[ac,r,c];cx=mm['cx'];ht=mm['headtop'];hb=mm['headbottom'];bottom=mm['bottom']
+    if id in ['top-shirt-blue','top-cardigan-rust','top-hoodie-lavender']:
+     fitted=fit_top(z0,mm['cell'],r,ac,c,id=id);sheet.alpha_composite(fitted,(c*80,r*80));continue
+    if slot=='bottom' and 'skirt' in id:
+     fitted=fit_skirt(z0,mm['cell'],r,ac,c,id=id);sheet.alpha_composite(fitted,(c*80,r*80));continue
+    if id=='body-mini-bag':
+     fitted=fit_mini_bag(z0,mm['cell'],r,ac,c);sheet.alpha_composite(fitted,(c*80,r*80));continue
     if slot=='bottom' and 'skirt' not in id:
      fitted=fit_bottoms(z0,mm['cell'],r,ac,c,id=id);sheet.alpha_composite(fitted,(c*80,r*80));continue
     if slot=='hand':
@@ -143,27 +158,33 @@ for item in items:
  if item.get('rearPair'):
   item['rearFiles']=next(x['files'] for x in items if x['id']==item['rearPair'])
 items=[x for x in items if not x.get('isRear')]
-# Distinct eye shapes with actual color-variant files.
+# Hat-specific clipped front/rear hair preserves fringe instead of hiding hair.
+for item in [i for i in items if i['slot']=='hair']:
+ item['hatVariants']={}
+ for hat in [i for i in items if i['slot']=='hat']:
+  ff={};rr={}
+  for ac in ACTIONS:
+   front=Image.open(ROOT/item['files'][ac]).convert('RGBA');rear=Image.open(ROOT/item['rearFiles'][ac]).convert('RGBA') if item.get('rearFiles') else None
+   fitted=fit_hat_hair_atlas(front,Image.open(ROOT/hat['files'][ac]).convert('RGBA'),rear)
+   ff[ac]=save(fitted['front'],ac,item['id']+'--'+hat['id']);rr[ac]=save(fitted['rear'],ac,item['id']+'--'+hat['id']+'-rear')
+  item['hatVariants'][hat['id']]={'files':ff,'rearFiles':rr}
+# Pose-aware eye overlays and lens palettes.
 eyeSource=ROOT/'source/eyes.png'
 for row,(id,label) in enumerate([('eyes-dot','점 눈'),('eyes-sleepy','졸린 눈'),('eyes-smile','웃는 눈')]):
  files={};pals={'green':{},'blue':{}}
  for ac in ACTIONS:
-  sheet=Image.new('RGBA',(320,320))
-  for r in [0,1,3]:
+  sheets={k:Image.new('RGBA',(320,320)) for k in ['charcoal','green','blue']}
+  for r in range(4):
    z0=crop(eyeSource,r,row,3)
    for c in range(4):
-    mm=meta[ac,r,c];tw=19 if r==0 else 5;th=6 if row!=1 else 4;z=z0.resize((tw,th),Image.Resampling.NEAREST);x=round(mm['cx']-tw/2+(9 if r==1 else -9 if r==3 else 0));y=round(np.mean(mm.get('eyeYs',[mm['headtop']+20,mm['headtop']+26]))-th/2)
-    sheet.alpha_composite(z,(c*80+x,r*80+y))
-  files[ac]=save(sheet,ac,id)
-  for col,color in [('green',(40,91,48)),('blue',(35,81,137))]:
-   arr=np.array(sheet);arr[:,:,:3]=color;pals[col][ac]=save(Image.fromarray(arr),ac,id+'-'+col)
- items.append({'id':id,'slot':'eyes','label':label,'files':files,'paletteFiles':pals,'status':'review-candidate','notes':['Rear-facing eyes intentionally hidden. Eye cover patches erase underlying eyes.']})
+    mm=meta[ac,r,c]
+    for palette in sheets:
+     sheets[palette].alpha_composite(fit_eyes(z0,mm['cell'],r,ac,c,id,meta=mm,palette=palette),(c*80,r*80))
+  files[ac]=save(sheets['charcoal'],ac,id)
+  for palette in pals:pals[palette][ac]=save(sheets[palette],ac,id+'-'+palette)
+ items.append({'id':id,'slot':'eyes','label':label,'files':files,'paletteFiles':pals,'status':'review-candidate','notes':['Pose expressions override cosmetic shape during drinking, smiling and celebration; rear eyes hidden.']})
 for item in items:
- if item['id'] in ['top-cardigan-rust','top-hoodie-lavender','top-shirt-blue','bottom-skirt-coral']:
-  item['status']='needs-pose-redraw'
-  item['notes'].append('Raised-arm sleeve or seated skirt silhouette needs pose-specific redraw. Do not treat as production-ready.')
- if item['id']=='hand-book':item['notes'].append('Book is stowed during drink; dedicated reading animation not included.')
- if item['slot']=='bottom' and 'skirt' not in item['id']:item['notes'].append('Pose-conforming color-transfer fallback sacrifices source pocket detail.')
+ if item['id']=='hand-book':item['notes'].append('Book stowed during drink; held/read-like pose during examine.')
 motions={a:{'source':a,'frames':[0,1,2,3],'durationMs':180 if a=='walk' else 400} for a in ACTIONS};motions={'idle':{'source':'walk','frames':[1],'durationMs':600},**motions}
-manifest={'version':'0.4-full-catalogue-review','cell':[80,80],'pivot':[40,74],'directions':['front','right','back','left'],'motions':motions,'items':items,'base':base,'handsMask':hands,'eyeCover':eyeCover,'lensColors':['charcoal','green','blue'],'layerOrder':['hairRear','base','skin','eyes','bottom','shoes','top','body','hair','hat','glasses','hand'],'warnings':['All requested named silhouettes are represented; final production QA is not complete.','Accessory/clothing transforms are deterministic fitting, not frame-by-frame drawn articulation.','Tops with long sleeves and seated skirt silhouette need pose-specific redraw; see QA reports.']}
+manifest={'version':'0.5-pose-aware-catalogue','cell':[80,80],'pivot':[40,74],'directions':['front','right','back','left'],'motions':motions,'items':items,'base':base,'handsMask':hands,'gripMask':grips,'eyeCover':eyeCover,'lensColors':['charcoal','green','blue'],'layerOrder':['hairRear','base','skin','eyes','bottom','shoes','top','body','hair','hat','glasses','hand'],'warnings':['All requested named silhouettes are represented; final production QA is not complete.','Accessory/clothing transforms are deterministic fitting, not frame-by-frame drawn articulation.','Motion-specific sleeves, seated skirt, prop grip and hat-hair variants fitted; final game runtime validation still required.']}
 (ROOT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2));print('ITEMS',len(items),[(s,len([i for i in items if i['slot']==s])) for s in sorted({i['slot'] for i in items})])

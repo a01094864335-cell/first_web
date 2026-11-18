@@ -47,3 +47,23 @@ Confirmed in integrated output:
 - All seven actions retain foot placements and no major detached footwear or new cell-edge truncation was found in this rechecked subset.
 
 Remaining limitations: footwear is necessarily tiny, boot shaft/side-profile proportions still simplified; garment pocket/seam source detail is lost by pose-conforming recolor. This review does not certify unseen outfit combinations or runtime animation cadence. Initial sleeve and skirt articulation findings are not resolved by this footwear/lower-body recheck. The repeated/similar baseline walk phases also remain a baseline-motion issue, not solved by accessory fitting.
+
+## PR3 follow-up: articulated sleeves, seated skirt, tailoring pixels
+
+Implemented rather than only deferring:
+
+- New `tools/fit_clothes.py::fit_top(z0, basecell, directionIndex, action, frame, id='', handsmask=None)` for top-shirt-blue / top-cardigan-rust / top-hoodie-lavender. Removes outer relaxed source sleeve areas, preserves central original torso/collar/front detail, fits a shorter torso when seated, and recolors the proximal 60% of baseline arm skin components using the garment palette. Distal hand skin remains visible. Raised greet and celebrate arms now carry garment-colored sleeves instead of a second relaxed sleeve being left behind.
+- `fit_skirt` with same parameters: seated frames 1/2 use a wider, shorter lap silhouette and side-view forward shift. A garment-colored knee underlay prevents bare knee patches through the source waist transparency. Standing source silhouette retained in other frames.
+- `fit_bottoms` now adds clipped one-pixel seam highlights and pocket-mouth stitching relative to the current moving fabric mask. This restores actual tailoring detail without putting a static standing pocket rectangle over the gait.
+
+Standalone post-change rendered previews directly inspected for six items (shirt-blue, cardigan-rust, hoodie-lavender, skirt-coral, trousers-navy, overall-denim), all seven actions × four directions × four frames: 42 sheets / 672 pose thumbnails. Every action/direction was present; inspected as item montages, not claiming per-pixel native-size or browser playback verification. Source sheets were cleaned with the same connected-alpha-component threshold as builder before fitting.
+
+Observed: raised-arm sleeve coloring follows current arm poses; no extra full lowered source sleeve at the sides, torso remains recognizable by buttons/zipper/hood. Seated skirt now lies across bent lap rather than extending as standing skirt. Leg seams/pockets track actual fabric mask and do not cover shoes. No new cell-boundary truncation observed in this subset.
+
+Remaining polish, not the old unfixed behavior: sleeves use geometric proximal skin classification rather than a hand-painted elbow rig; cuff/hand boundary can be abrupt at 80px. Skirt lap is compressed source art with underlay rather than bespoke fold drawings; pocket stitching is newly constructed pixel detail rather than exact recovery of every source seam. Torso fit is intentionally narrower than the old garment-with-static-sleeves rectangle. Final builder integration and outfit-combination proof recheck remains parent's responsibility.
+
+### Integrated PR3 follow-up closeout
+
+Reopened the actual rebuilt `previews/individual` output after parent connected the modules, for top-shirt-blue, top-cardigan-rust, top-hoodie-lavender, bottom-skirt-coral, bottom-trousers-navy, bottom-overall-denim. Reviewed every one of their seven action contact sheets (walk/greet/drink/examine/sit/celebrate/dress), four directions × four frames each: 42 sheets / 672 poses, in six current output montages.
+
+The renderer's restoration step does not revert the sleeve colors, skirt knee coverage or tailoring pixels in these single-item proofs. Integrated results retain garment sleeves along raised arms, shortened seated torso, forward lap skirt and current-pose leg stitches. No new major detachment or cell clipping found. This closes the specific fixed-sleeve, standing-skirt-on-seated-pose and blank-trouser-detail defects as implemented improvements; it does not claim hand-drawn-quality cloth folds or exhaustive mixed-outfit coverage. Distal hand/cuff transition remains simplified, and runtime animation cadence was not independently retested by this reviewer. No code/image changes made during this final integrated review.

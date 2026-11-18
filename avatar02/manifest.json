@@ -1,5 +1,5 @@
 {
-  "version": "0.4-full-catalogue-review",
+  "version": "0.5-pose-aware-catalogue",
   "cell": [
     80,
     80
@@ -109,7 +109,7 @@
       },
       "status": "review-candidate",
       "notes": [
-        "Inherited v3 fitted overlay; manual final frame QA remains."
+        "Inherited v3 overlay, reviewed alongside fitted catalogue; see category QA records."
       ]
     },
     {
@@ -127,7 +127,7 @@
       },
       "status": "review-candidate",
       "notes": [
-        "Inherited v3 fitted overlay; manual final frame QA remains."
+        "Inherited v3 overlay, reviewed alongside fitted catalogue; see category QA records."
       ]
     },
     {
@@ -145,8 +145,70 @@
       },
       "status": "review-candidate",
       "notes": [
-        "Inherited v3 fitted overlay; manual final frame QA remains."
-      ]
+        "Inherited v3 overlay, reviewed alongside fitted catalogue; see category QA records."
+      ],
+      "hatVariants": {
+        "hat-baseball": {
+          "files": {
+            "walk": "assets/walk/hair-short--hat-baseball.png",
+            "greet": "assets/greet/hair-short--hat-baseball.png",
+            "drink": "assets/drink/hair-short--hat-baseball.png",
+            "examine": "assets/examine/hair-short--hat-baseball.png",
+            "sit": "assets/sit/hair-short--hat-baseball.png",
+            "celebrate": "assets/celebrate/hair-short--hat-baseball.png",
+            "dress": "assets/dress/hair-short--hat-baseball.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-short--hat-baseball-rear.png",
+            "greet": "assets/greet/hair-short--hat-baseball-rear.png",
+            "drink": "assets/drink/hair-short--hat-baseball-rear.png",
+            "examine": "assets/examine/hair-short--hat-baseball-rear.png",
+            "sit": "assets/sit/hair-short--hat-baseball-rear.png",
+            "celebrate": "assets/celebrate/hair-short--hat-baseball-rear.png",
+            "dress": "assets/dress/hair-short--hat-baseball-rear.png"
+          }
+        },
+        "hat-beanie": {
+          "files": {
+            "walk": "assets/walk/hair-short--hat-beanie.png",
+            "greet": "assets/greet/hair-short--hat-beanie.png",
+            "drink": "assets/drink/hair-short--hat-beanie.png",
+            "examine": "assets/examine/hair-short--hat-beanie.png",
+            "sit": "assets/sit/hair-short--hat-beanie.png",
+            "celebrate": "assets/celebrate/hair-short--hat-beanie.png",
+            "dress": "assets/dress/hair-short--hat-beanie.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-short--hat-beanie-rear.png",
+            "greet": "assets/greet/hair-short--hat-beanie-rear.png",
+            "drink": "assets/drink/hair-short--hat-beanie-rear.png",
+            "examine": "assets/examine/hair-short--hat-beanie-rear.png",
+            "sit": "assets/sit/hair-short--hat-beanie-rear.png",
+            "celebrate": "assets/celebrate/hair-short--hat-beanie-rear.png",
+            "dress": "assets/dress/hair-short--hat-beanie-rear.png"
+          }
+        },
+        "hat-beret": {
+          "files": {
+            "walk": "assets/walk/hair-short--hat-beret.png",
+            "greet": "assets/greet/hair-short--hat-beret.png",
+            "drink": "assets/drink/hair-short--hat-beret.png",
+            "examine": "assets/examine/hair-short--hat-beret.png",
+            "sit": "assets/sit/hair-short--hat-beret.png",
+            "celebrate": "assets/celebrate/hair-short--hat-beret.png",
+            "dress": "assets/dress/hair-short--hat-beret.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-short--hat-beret-rear.png",
+            "greet": "assets/greet/hair-short--hat-beret-rear.png",
+            "drink": "assets/drink/hair-short--hat-beret-rear.png",
+            "examine": "assets/examine/hair-short--hat-beret-rear.png",
+            "sit": "assets/sit/hair-short--hat-beret-rear.png",
+            "celebrate": "assets/celebrate/hair-short--hat-beret-rear.png",
+            "dress": "assets/dress/hair-short--hat-beret-rear.png"
+          }
+        }
+      }
     },
     {
       "id": "top-plain",
@@ -163,7 +225,7 @@
       },
       "status": "review-candidate",
       "notes": [
-        "Inherited v3 fitted overlay; manual final frame QA remains."
+        "Inherited v3 overlay, reviewed alongside fitted catalogue; see category QA records."
       ]
     },
     {
@@ -181,7 +243,7 @@
       },
       "status": "review-candidate",
       "notes": [
-        "Inherited v3 fitted overlay; manual final frame QA remains."
+        "Inherited v3 overlay, reviewed alongside fitted catalogue; see category QA records."
       ]
     },
     {
@@ -199,8 +261,7 @@
       },
       "status": "review-candidate",
       "notes": [
-        "Inherited v3 fitted overlay; manual final frame QA remains.",
-        "Pose-conforming color-transfer fallback sacrifices source pocket detail."
+        "Inherited v3 overlay, reviewed alongside fitted catalogue; see category QA records."
       ]
     },
     {
@@ -218,7 +279,7 @@
       },
       "status": "review-candidate",
       "notes": [
-        "Inherited v3 fitted overlay; manual final frame QA remains."
+        "Inherited v3 overlay, reviewed alongside fitted catalogue; see category QA records."
       ]
     },
     {
@@ -236,7 +297,7 @@
       },
       "status": "review-candidate",
       "notes": [
-        "Inherited v3 fitted overlay; manual final frame QA remains."
+        "Inherited v3 overlay, reviewed alongside fitted catalogue; see category QA records."
       ]
     },
     {
@@ -254,7 +315,7 @@
       },
       "status": "review-candidate",
       "notes": [
-        "Inherited v3 fitted overlay; manual final frame QA remains."
+        "Inherited v3 overlay, reviewed alongside fitted catalogue; see category QA records."
       ]
     },
     {
@@ -272,7 +333,7 @@
       },
       "status": "review-candidate",
       "notes": [
-        "Inherited v3 fitted overlay; manual final frame QA remains."
+        "Inherited v3 overlay, reviewed alongside fitted catalogue; see category QA records."
       ]
     },
     {
@@ -423,7 +484,7 @@
       "status": "review-candidate",
       "notes": [
         "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
-        "Book is stowed during drink; dedicated reading animation not included."
+        "Book stowed during drink; held/read-like pose during examine."
       ]
     },
     {
@@ -484,10 +545,9 @@
       "rearPair": null,
       "isRear": false,
       "pair": null,
-      "status": "needs-pose-redraw",
+      "status": "review-candidate",
       "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
-        "Raised-arm sleeve or seated skirt silhouette needs pose-specific redraw. Do not treat as production-ready."
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
       ]
     },
     {
@@ -506,10 +566,9 @@
       "rearPair": null,
       "isRear": false,
       "pair": null,
-      "status": "needs-pose-redraw",
+      "status": "review-candidate",
       "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
-        "Raised-arm sleeve or seated skirt silhouette needs pose-specific redraw. Do not treat as production-ready."
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
       ]
     },
     {
@@ -528,10 +587,9 @@
       "rearPair": null,
       "isRear": false,
       "pair": null,
-      "status": "needs-pose-redraw",
+      "status": "review-candidate",
       "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
-        "Raised-arm sleeve or seated skirt silhouette needs pose-specific redraw. Do not treat as production-ready."
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
       ]
     },
     {
@@ -594,8 +652,7 @@
       "pair": null,
       "status": "review-candidate",
       "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
-        "Pose-conforming color-transfer fallback sacrifices source pocket detail."
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
       ]
     },
     {
@@ -616,8 +673,7 @@
       "pair": null,
       "status": "review-candidate",
       "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
-        "Pose-conforming color-transfer fallback sacrifices source pocket detail."
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
       ]
     },
     {
@@ -636,10 +692,9 @@
       "rearPair": null,
       "isRear": false,
       "pair": null,
-      "status": "needs-pose-redraw",
+      "status": "review-candidate",
       "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
-        "Raised-arm sleeve or seated skirt silhouette needs pose-specific redraw. Do not treat as production-ready."
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
       ]
     },
     {
@@ -660,8 +715,7 @@
       "pair": null,
       "status": "review-candidate",
       "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
-        "Pose-conforming color-transfer fallback sacrifices source pocket detail."
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
       ]
     },
     {
@@ -683,7 +737,69 @@
       "status": "review-candidate",
       "notes": [
         "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
-      ]
+      ],
+      "hatVariants": {
+        "hat-baseball": {
+          "files": {
+            "walk": "assets/walk/hair-curly-bob--hat-baseball.png",
+            "greet": "assets/greet/hair-curly-bob--hat-baseball.png",
+            "drink": "assets/drink/hair-curly-bob--hat-baseball.png",
+            "examine": "assets/examine/hair-curly-bob--hat-baseball.png",
+            "sit": "assets/sit/hair-curly-bob--hat-baseball.png",
+            "celebrate": "assets/celebrate/hair-curly-bob--hat-baseball.png",
+            "dress": "assets/dress/hair-curly-bob--hat-baseball.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-curly-bob--hat-baseball-rear.png",
+            "greet": "assets/greet/hair-curly-bob--hat-baseball-rear.png",
+            "drink": "assets/drink/hair-curly-bob--hat-baseball-rear.png",
+            "examine": "assets/examine/hair-curly-bob--hat-baseball-rear.png",
+            "sit": "assets/sit/hair-curly-bob--hat-baseball-rear.png",
+            "celebrate": "assets/celebrate/hair-curly-bob--hat-baseball-rear.png",
+            "dress": "assets/dress/hair-curly-bob--hat-baseball-rear.png"
+          }
+        },
+        "hat-beanie": {
+          "files": {
+            "walk": "assets/walk/hair-curly-bob--hat-beanie.png",
+            "greet": "assets/greet/hair-curly-bob--hat-beanie.png",
+            "drink": "assets/drink/hair-curly-bob--hat-beanie.png",
+            "examine": "assets/examine/hair-curly-bob--hat-beanie.png",
+            "sit": "assets/sit/hair-curly-bob--hat-beanie.png",
+            "celebrate": "assets/celebrate/hair-curly-bob--hat-beanie.png",
+            "dress": "assets/dress/hair-curly-bob--hat-beanie.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-curly-bob--hat-beanie-rear.png",
+            "greet": "assets/greet/hair-curly-bob--hat-beanie-rear.png",
+            "drink": "assets/drink/hair-curly-bob--hat-beanie-rear.png",
+            "examine": "assets/examine/hair-curly-bob--hat-beanie-rear.png",
+            "sit": "assets/sit/hair-curly-bob--hat-beanie-rear.png",
+            "celebrate": "assets/celebrate/hair-curly-bob--hat-beanie-rear.png",
+            "dress": "assets/dress/hair-curly-bob--hat-beanie-rear.png"
+          }
+        },
+        "hat-beret": {
+          "files": {
+            "walk": "assets/walk/hair-curly-bob--hat-beret.png",
+            "greet": "assets/greet/hair-curly-bob--hat-beret.png",
+            "drink": "assets/drink/hair-curly-bob--hat-beret.png",
+            "examine": "assets/examine/hair-curly-bob--hat-beret.png",
+            "sit": "assets/sit/hair-curly-bob--hat-beret.png",
+            "celebrate": "assets/celebrate/hair-curly-bob--hat-beret.png",
+            "dress": "assets/dress/hair-curly-bob--hat-beret.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-curly-bob--hat-beret-rear.png",
+            "greet": "assets/greet/hair-curly-bob--hat-beret-rear.png",
+            "drink": "assets/drink/hair-curly-bob--hat-beret-rear.png",
+            "examine": "assets/examine/hair-curly-bob--hat-beret-rear.png",
+            "sit": "assets/sit/hair-curly-bob--hat-beret-rear.png",
+            "celebrate": "assets/celebrate/hair-curly-bob--hat-beret-rear.png",
+            "dress": "assets/dress/hair-curly-bob--hat-beret-rear.png"
+          }
+        }
+      }
     },
     {
       "id": "hair-pixie",
@@ -704,7 +820,69 @@
       "status": "review-candidate",
       "notes": [
         "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
-      ]
+      ],
+      "hatVariants": {
+        "hat-baseball": {
+          "files": {
+            "walk": "assets/walk/hair-pixie--hat-baseball.png",
+            "greet": "assets/greet/hair-pixie--hat-baseball.png",
+            "drink": "assets/drink/hair-pixie--hat-baseball.png",
+            "examine": "assets/examine/hair-pixie--hat-baseball.png",
+            "sit": "assets/sit/hair-pixie--hat-baseball.png",
+            "celebrate": "assets/celebrate/hair-pixie--hat-baseball.png",
+            "dress": "assets/dress/hair-pixie--hat-baseball.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-pixie--hat-baseball-rear.png",
+            "greet": "assets/greet/hair-pixie--hat-baseball-rear.png",
+            "drink": "assets/drink/hair-pixie--hat-baseball-rear.png",
+            "examine": "assets/examine/hair-pixie--hat-baseball-rear.png",
+            "sit": "assets/sit/hair-pixie--hat-baseball-rear.png",
+            "celebrate": "assets/celebrate/hair-pixie--hat-baseball-rear.png",
+            "dress": "assets/dress/hair-pixie--hat-baseball-rear.png"
+          }
+        },
+        "hat-beanie": {
+          "files": {
+            "walk": "assets/walk/hair-pixie--hat-beanie.png",
+            "greet": "assets/greet/hair-pixie--hat-beanie.png",
+            "drink": "assets/drink/hair-pixie--hat-beanie.png",
+            "examine": "assets/examine/hair-pixie--hat-beanie.png",
+            "sit": "assets/sit/hair-pixie--hat-beanie.png",
+            "celebrate": "assets/celebrate/hair-pixie--hat-beanie.png",
+            "dress": "assets/dress/hair-pixie--hat-beanie.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-pixie--hat-beanie-rear.png",
+            "greet": "assets/greet/hair-pixie--hat-beanie-rear.png",
+            "drink": "assets/drink/hair-pixie--hat-beanie-rear.png",
+            "examine": "assets/examine/hair-pixie--hat-beanie-rear.png",
+            "sit": "assets/sit/hair-pixie--hat-beanie-rear.png",
+            "celebrate": "assets/celebrate/hair-pixie--hat-beanie-rear.png",
+            "dress": "assets/dress/hair-pixie--hat-beanie-rear.png"
+          }
+        },
+        "hat-beret": {
+          "files": {
+            "walk": "assets/walk/hair-pixie--hat-beret.png",
+            "greet": "assets/greet/hair-pixie--hat-beret.png",
+            "drink": "assets/drink/hair-pixie--hat-beret.png",
+            "examine": "assets/examine/hair-pixie--hat-beret.png",
+            "sit": "assets/sit/hair-pixie--hat-beret.png",
+            "celebrate": "assets/celebrate/hair-pixie--hat-beret.png",
+            "dress": "assets/dress/hair-pixie--hat-beret.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-pixie--hat-beret-rear.png",
+            "greet": "assets/greet/hair-pixie--hat-beret-rear.png",
+            "drink": "assets/drink/hair-pixie--hat-beret-rear.png",
+            "examine": "assets/examine/hair-pixie--hat-beret-rear.png",
+            "sit": "assets/sit/hair-pixie--hat-beret-rear.png",
+            "celebrate": "assets/celebrate/hair-pixie--hat-beret-rear.png",
+            "dress": "assets/dress/hair-pixie--hat-beret-rear.png"
+          }
+        }
+      }
     },
     {
       "id": "hair-pigtails",
@@ -725,7 +903,69 @@
       "status": "review-candidate",
       "notes": [
         "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
-      ]
+      ],
+      "hatVariants": {
+        "hat-baseball": {
+          "files": {
+            "walk": "assets/walk/hair-pigtails--hat-baseball.png",
+            "greet": "assets/greet/hair-pigtails--hat-baseball.png",
+            "drink": "assets/drink/hair-pigtails--hat-baseball.png",
+            "examine": "assets/examine/hair-pigtails--hat-baseball.png",
+            "sit": "assets/sit/hair-pigtails--hat-baseball.png",
+            "celebrate": "assets/celebrate/hair-pigtails--hat-baseball.png",
+            "dress": "assets/dress/hair-pigtails--hat-baseball.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-pigtails--hat-baseball-rear.png",
+            "greet": "assets/greet/hair-pigtails--hat-baseball-rear.png",
+            "drink": "assets/drink/hair-pigtails--hat-baseball-rear.png",
+            "examine": "assets/examine/hair-pigtails--hat-baseball-rear.png",
+            "sit": "assets/sit/hair-pigtails--hat-baseball-rear.png",
+            "celebrate": "assets/celebrate/hair-pigtails--hat-baseball-rear.png",
+            "dress": "assets/dress/hair-pigtails--hat-baseball-rear.png"
+          }
+        },
+        "hat-beanie": {
+          "files": {
+            "walk": "assets/walk/hair-pigtails--hat-beanie.png",
+            "greet": "assets/greet/hair-pigtails--hat-beanie.png",
+            "drink": "assets/drink/hair-pigtails--hat-beanie.png",
+            "examine": "assets/examine/hair-pigtails--hat-beanie.png",
+            "sit": "assets/sit/hair-pigtails--hat-beanie.png",
+            "celebrate": "assets/celebrate/hair-pigtails--hat-beanie.png",
+            "dress": "assets/dress/hair-pigtails--hat-beanie.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-pigtails--hat-beanie-rear.png",
+            "greet": "assets/greet/hair-pigtails--hat-beanie-rear.png",
+            "drink": "assets/drink/hair-pigtails--hat-beanie-rear.png",
+            "examine": "assets/examine/hair-pigtails--hat-beanie-rear.png",
+            "sit": "assets/sit/hair-pigtails--hat-beanie-rear.png",
+            "celebrate": "assets/celebrate/hair-pigtails--hat-beanie-rear.png",
+            "dress": "assets/dress/hair-pigtails--hat-beanie-rear.png"
+          }
+        },
+        "hat-beret": {
+          "files": {
+            "walk": "assets/walk/hair-pigtails--hat-beret.png",
+            "greet": "assets/greet/hair-pigtails--hat-beret.png",
+            "drink": "assets/drink/hair-pigtails--hat-beret.png",
+            "examine": "assets/examine/hair-pigtails--hat-beret.png",
+            "sit": "assets/sit/hair-pigtails--hat-beret.png",
+            "celebrate": "assets/celebrate/hair-pigtails--hat-beret.png",
+            "dress": "assets/dress/hair-pigtails--hat-beret.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-pigtails--hat-beret-rear.png",
+            "greet": "assets/greet/hair-pigtails--hat-beret-rear.png",
+            "drink": "assets/drink/hair-pigtails--hat-beret-rear.png",
+            "examine": "assets/examine/hair-pigtails--hat-beret-rear.png",
+            "sit": "assets/sit/hair-pigtails--hat-beret-rear.png",
+            "celebrate": "assets/celebrate/hair-pigtails--hat-beret-rear.png",
+            "dress": "assets/dress/hair-pigtails--hat-beret-rear.png"
+          }
+        }
+      }
     },
     {
       "id": "hair-long-straight",
@@ -755,6 +995,68 @@
         "sit": "assets/sit/hair-long-straight-rear.png",
         "celebrate": "assets/celebrate/hair-long-straight-rear.png",
         "dress": "assets/dress/hair-long-straight-rear.png"
+      },
+      "hatVariants": {
+        "hat-baseball": {
+          "files": {
+            "walk": "assets/walk/hair-long-straight--hat-baseball.png",
+            "greet": "assets/greet/hair-long-straight--hat-baseball.png",
+            "drink": "assets/drink/hair-long-straight--hat-baseball.png",
+            "examine": "assets/examine/hair-long-straight--hat-baseball.png",
+            "sit": "assets/sit/hair-long-straight--hat-baseball.png",
+            "celebrate": "assets/celebrate/hair-long-straight--hat-baseball.png",
+            "dress": "assets/dress/hair-long-straight--hat-baseball.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-long-straight--hat-baseball-rear.png",
+            "greet": "assets/greet/hair-long-straight--hat-baseball-rear.png",
+            "drink": "assets/drink/hair-long-straight--hat-baseball-rear.png",
+            "examine": "assets/examine/hair-long-straight--hat-baseball-rear.png",
+            "sit": "assets/sit/hair-long-straight--hat-baseball-rear.png",
+            "celebrate": "assets/celebrate/hair-long-straight--hat-baseball-rear.png",
+            "dress": "assets/dress/hair-long-straight--hat-baseball-rear.png"
+          }
+        },
+        "hat-beanie": {
+          "files": {
+            "walk": "assets/walk/hair-long-straight--hat-beanie.png",
+            "greet": "assets/greet/hair-long-straight--hat-beanie.png",
+            "drink": "assets/drink/hair-long-straight--hat-beanie.png",
+            "examine": "assets/examine/hair-long-straight--hat-beanie.png",
+            "sit": "assets/sit/hair-long-straight--hat-beanie.png",
+            "celebrate": "assets/celebrate/hair-long-straight--hat-beanie.png",
+            "dress": "assets/dress/hair-long-straight--hat-beanie.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-long-straight--hat-beanie-rear.png",
+            "greet": "assets/greet/hair-long-straight--hat-beanie-rear.png",
+            "drink": "assets/drink/hair-long-straight--hat-beanie-rear.png",
+            "examine": "assets/examine/hair-long-straight--hat-beanie-rear.png",
+            "sit": "assets/sit/hair-long-straight--hat-beanie-rear.png",
+            "celebrate": "assets/celebrate/hair-long-straight--hat-beanie-rear.png",
+            "dress": "assets/dress/hair-long-straight--hat-beanie-rear.png"
+          }
+        },
+        "hat-beret": {
+          "files": {
+            "walk": "assets/walk/hair-long-straight--hat-beret.png",
+            "greet": "assets/greet/hair-long-straight--hat-beret.png",
+            "drink": "assets/drink/hair-long-straight--hat-beret.png",
+            "examine": "assets/examine/hair-long-straight--hat-beret.png",
+            "sit": "assets/sit/hair-long-straight--hat-beret.png",
+            "celebrate": "assets/celebrate/hair-long-straight--hat-beret.png",
+            "dress": "assets/dress/hair-long-straight--hat-beret.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-long-straight--hat-beret-rear.png",
+            "greet": "assets/greet/hair-long-straight--hat-beret-rear.png",
+            "drink": "assets/drink/hair-long-straight--hat-beret-rear.png",
+            "examine": "assets/examine/hair-long-straight--hat-beret-rear.png",
+            "sit": "assets/sit/hair-long-straight--hat-beret-rear.png",
+            "celebrate": "assets/celebrate/hair-long-straight--hat-beret-rear.png",
+            "dress": "assets/dress/hair-long-straight--hat-beret-rear.png"
+          }
+        }
       }
     },
     {
@@ -785,6 +1087,68 @@
         "sit": "assets/sit/hair-braid-rear.png",
         "celebrate": "assets/celebrate/hair-braid-rear.png",
         "dress": "assets/dress/hair-braid-rear.png"
+      },
+      "hatVariants": {
+        "hat-baseball": {
+          "files": {
+            "walk": "assets/walk/hair-braid--hat-baseball.png",
+            "greet": "assets/greet/hair-braid--hat-baseball.png",
+            "drink": "assets/drink/hair-braid--hat-baseball.png",
+            "examine": "assets/examine/hair-braid--hat-baseball.png",
+            "sit": "assets/sit/hair-braid--hat-baseball.png",
+            "celebrate": "assets/celebrate/hair-braid--hat-baseball.png",
+            "dress": "assets/dress/hair-braid--hat-baseball.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-braid--hat-baseball-rear.png",
+            "greet": "assets/greet/hair-braid--hat-baseball-rear.png",
+            "drink": "assets/drink/hair-braid--hat-baseball-rear.png",
+            "examine": "assets/examine/hair-braid--hat-baseball-rear.png",
+            "sit": "assets/sit/hair-braid--hat-baseball-rear.png",
+            "celebrate": "assets/celebrate/hair-braid--hat-baseball-rear.png",
+            "dress": "assets/dress/hair-braid--hat-baseball-rear.png"
+          }
+        },
+        "hat-beanie": {
+          "files": {
+            "walk": "assets/walk/hair-braid--hat-beanie.png",
+            "greet": "assets/greet/hair-braid--hat-beanie.png",
+            "drink": "assets/drink/hair-braid--hat-beanie.png",
+            "examine": "assets/examine/hair-braid--hat-beanie.png",
+            "sit": "assets/sit/hair-braid--hat-beanie.png",
+            "celebrate": "assets/celebrate/hair-braid--hat-beanie.png",
+            "dress": "assets/dress/hair-braid--hat-beanie.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-braid--hat-beanie-rear.png",
+            "greet": "assets/greet/hair-braid--hat-beanie-rear.png",
+            "drink": "assets/drink/hair-braid--hat-beanie-rear.png",
+            "examine": "assets/examine/hair-braid--hat-beanie-rear.png",
+            "sit": "assets/sit/hair-braid--hat-beanie-rear.png",
+            "celebrate": "assets/celebrate/hair-braid--hat-beanie-rear.png",
+            "dress": "assets/dress/hair-braid--hat-beanie-rear.png"
+          }
+        },
+        "hat-beret": {
+          "files": {
+            "walk": "assets/walk/hair-braid--hat-beret.png",
+            "greet": "assets/greet/hair-braid--hat-beret.png",
+            "drink": "assets/drink/hair-braid--hat-beret.png",
+            "examine": "assets/examine/hair-braid--hat-beret.png",
+            "sit": "assets/sit/hair-braid--hat-beret.png",
+            "celebrate": "assets/celebrate/hair-braid--hat-beret.png",
+            "dress": "assets/dress/hair-braid--hat-beret.png"
+          },
+          "rearFiles": {
+            "walk": "assets/walk/hair-braid--hat-beret-rear.png",
+            "greet": "assets/greet/hair-braid--hat-beret-rear.png",
+            "drink": "assets/drink/hair-braid--hat-beret-rear.png",
+            "examine": "assets/examine/hair-braid--hat-beret-rear.png",
+            "sit": "assets/sit/hair-braid--hat-beret-rear.png",
+            "celebrate": "assets/celebrate/hair-braid--hat-beret-rear.png",
+            "dress": "assets/dress/hair-braid--hat-beret-rear.png"
+          }
+        }
       }
     },
     {
@@ -885,7 +1249,7 @@
       },
       "status": "review-candidate",
       "notes": [
-        "Rear-facing eyes intentionally hidden. Eye cover patches erase underlying eyes."
+        "Pose expressions override cosmetic shape during drinking, smiling and celebration; rear eyes hidden."
       ]
     },
     {
@@ -923,7 +1287,7 @@
       },
       "status": "review-candidate",
       "notes": [
-        "Rear-facing eyes intentionally hidden. Eye cover patches erase underlying eyes."
+        "Pose expressions override cosmetic shape during drinking, smiling and celebration; rear eyes hidden."
       ]
     },
     {
@@ -961,7 +1325,7 @@
       },
       "status": "review-candidate",
       "notes": [
-        "Rear-facing eyes intentionally hidden. Eye cover patches erase underlying eyes."
+        "Pose expressions override cosmetic shape during drinking, smiling and celebration; rear eyes hidden."
       ]
     }
   ],
@@ -982,6 +1346,15 @@
     "sit": "assets/sit/hands-mask.png",
     "celebrate": "assets/celebrate/hands-mask.png",
     "dress": "assets/dress/hands-mask.png"
+  },
+  "gripMask": {
+    "walk": "assets/walk/hand-grip-mask.png",
+    "greet": "assets/greet/hand-grip-mask.png",
+    "drink": "assets/drink/hand-grip-mask.png",
+    "examine": "assets/examine/hand-grip-mask.png",
+    "sit": "assets/sit/hand-grip-mask.png",
+    "celebrate": "assets/celebrate/hand-grip-mask.png",
+    "dress": "assets/dress/hand-grip-mask.png"
   },
   "eyeCover": {
     "base": {
@@ -1034,6 +1407,6 @@
   "warnings": [
     "All requested named silhouettes are represented; final production QA is not complete.",
     "Accessory/clothing transforms are deterministic fitting, not frame-by-frame drawn articulation.",
-    "Tops with long sleeves and seated skirt silhouette need pose-specific redraw; see QA reports."
+    "Motion-specific sleeves, seated skirt, prop grip and hat-hair variants fitted; final game runtime validation still required."
   ]
 }

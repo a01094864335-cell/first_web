@@ -33,7 +33,7 @@ def fit_hand_prop(z0, basecell, handsmask, directionIndex, action, frame, id):
         for channel,color in enumerate((35,112,108)):
             a[:,:,channel]=np.where(cover,np.minimum(255,color*value).astype('uint8'),a[:,:,channel])
         z=Image.fromarray(a)
-    w,h=(13,13) if 'book' in id else (11,12)
+    w,h=(13,13) if 'book' in id else (14,16)
     z=z.resize((w,h),Image.Resampling.NEAREST)
     # A cupped hand covers upper/side edge, not the entirety of the prop.
     if directionIndex==0:
@@ -42,8 +42,34 @@ def fit_hand_prop(z0, basecell, handsmask, directionIndex, action, frame, id):
         x=round(hx-2);y=round(hy-3)
     else:
         x=round(hx-w+2);y=round(hy-3)
-    # During drinking raise rim toward lips while leaving hand on cup side.
-    if action=='drink' and frame in (1,2) and 'book' not in id:y-=2
+    # Drinking: center front cup between both hands, rim at lower face.
+    if action=='drink' and frame in (1,2) and 'book' not in id:
+        if directionIndex==0:
+            allx=np.concatenate([q[2] for q in candidates]); ally=np.concatenate([q[3] for q in candidates])
+            x=round((allx.min()+allx.max())/2-w/2);y=int(ally.min())-2
+        else:
+            x=round(hx-w/2);y=round(hy-5)
+    # Raise prop beside hand instead of hiding it below raised forearm.
+    if action=='celebrate' and frame in (1,3) and directionIndex in (1,3):
+        x=round(hx+(2 if directionIndex==1 else -w-2));y=round(hy-h/2)
     x=max(1,min(79-w,x));y=max(1,min(79-h,y))
     out.alpha_composite(z,(x,y))
+    if action=='drink' and frame==2 and directionIndex in (1,3) and 'book' not in id:
+        # A tiny sip tilt around the grip, not the sprite center. Keep pixel
+        # nearest sampling and the exact same hand pivot.
+        out=out.rotate(8 if directionIndex==1 else -8,
+                       resample=Image.Resampling.NEAREST,center=(hx,hy))
     return out
+
+
+def grip_mask(basecell, handsmask):
+    """RGBA mask containing actual hand skin + one-pixel contour, not shirt.
+    Render clothing/body normally with original arm mask BEFORE hand props;
+    then render hand props and redraw base/skin using this narrow mask.
+    """
+    b=np.array(basecell.convert('RGBA'));m=np.array(handsmask.convert('RGBA'))[:,:,3]>0
+    r,g,bl=[b[:,:,i].astype(int) for i in range(3)]
+    skin=m&(b[:,:,3]>0)&(r-g>12)&(g-bl>10)&(r>100)
+    grip=ndimage.binary_dilation(skin,iterations=1)&m
+    a=np.zeros((80,80,4),dtype='uint8');a[:,:,:3]=255;a[:,:,3]=grip.astype('uint8')*255
+    return Image.fromarray(a)
