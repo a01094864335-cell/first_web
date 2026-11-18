@@ -56,3 +56,22 @@ Additional server-backed features now available:
 These operator and stamp operations have automated tests with isolated synthetic accounts. They are **not available to real operators until Kakao and the operator allowlist are integrated**. No production role assignment shortcut exists. Conversion remains disabled.
 
 Backup: `python scripts/backup.py /secure/local/path/cafe-backup.sqlite3` creates a new backup with an integrity check, refuses existing destinations and public paths. No automatic deletion or retention policy is assumed. Never commit or publicly share real database backups.
+
+## Isolated demonstration mode
+
+Open `http://127.0.0.1:8000/?demo=1` after starting the server. The persistent **데모 · 실제 계정/스탬프와 무관** banner identifies this mode. It uses only the browser's `cafe-quest-demo-v1` storage and never calls the production `/api` endpoints. The existing server-backed mode remains at `/`.
+
+The demo tools let you switch guest/customer/staff/admin, advance time, reset, simulate Kakao new/existing-account merge/restoration, approve purchase quests, grant/reverse stamps, redeem, and demonstrate account deletion. The local QR encodes a `DEMO:` identifier, not real account authority. Conversion is **sample-only 1 stamp : 50 coins**; this does not decide the real rate or enable production conversion. No real login, beverage entitlement, stamp issuance, camera scanning or deletion occurs.
+
+Original approved character and motion sheets are available in the wardrobe's design preview. They load only on demand. They are opaque concept contact sheets, not individual runtime sprites; the map still uses development characters.
+
+### Additional checks
+
+```sh
+node scripts/test-client.cjs
+node scripts/test-demo.cjs
+npm ci
+npm run test:dom
+```
+
+The DOM suite checks actual UI handlers against the mock module, including onboarding, reward, purchase/equipment, mock linking, operator grant, redemption and conversion, while rejecting all live fetch calls. jsdom is **not** a visual browser: this does not validate pixel layout, iOS Safari, camera access or real authentication.

@@ -260,13 +260,13 @@ class Handler(SimpleHTTPRequestHandler):
     if path=='/api/blocks' and uid:
      self.send_json([dict(r) for r in c.execute('SELECT u.id,u.nickname FROM blocks b JOIN users u ON u.id=b.target WHERE b.uid=?',(uid,))]);return
    self.send_json({'error':'연결되지 않은 기능이에요'},404);return
-  allowed={'/':'index.html','/index.html':'index.html','/style.css':'style.css','/script.js':'script.js'}
+  allowed={'/':'index.html','/index.html':'index.html','/style.css':'style.css','/script.js':'script.js','/demo-api.js':'demo-api.js'}
   if path in allowed:self.path='/'+allowed[path]
   elif not path.startswith('/public/assets/') or '..' in path or not (ROOT/path.lstrip('/')).resolve().is_relative_to((ROOT/'public/assets').resolve()):self.send_error(404);return
   return super().do_GET()
  def do_HEAD(self):
   path=unquote(urlsplit(self.path).path)
-  if path not in ('/','/index.html','/style.css','/script.js') and (not path.startswith('/public/assets/') or '..' in path or not (ROOT/path.lstrip('/')).resolve().is_relative_to((ROOT/'public/assets').resolve())):
+  if path not in ('/','/index.html','/style.css','/script.js','/demo-api.js') and (not path.startswith('/public/assets/') or '..' in path or not (ROOT/path.lstrip('/')).resolve().is_relative_to((ROOT/'public/assets').resolve())):
    self.send_error(404);return
   super().do_HEAD()
  def do_POST(self):

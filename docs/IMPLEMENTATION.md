@@ -44,3 +44,11 @@ Second-checkpoint independent review found and fixed: content JSON/boolean prese
 
 ### Static paper QR boundary
 The fixed QR URL can intentionally be saved/shared and reused outside the café. The entry value selects a participation mode; it is not secret authentication, GPS evidence, a rotating token, or proof of purchase. Check-in and quests issue digital coins only. Stamp grants still require a separately authenticated, allowlisted staff actor and a linked customer plus an audited source reference. Three regression checks explicitly preserve these distinctions.
+
+## Isolated mock mode requested by the user
+
+`?demo=1` now completes the external-integration flows using explicitly fictitious data. Real API/DB code remains unchanged in purpose. The mock module never calls live endpoints, including when module loading fails. Persistent page/modal notices, demo-only role tools and separate storage prevent confusing the demo with real Kakao/stamp operations.
+
+Mock coverage includes new/existing-account linkage and once-only merge, recovery, separate balances and QR identifier, sample conversion, redemption receipt, operator actions, content scheduling, expiry, deletion and reset. A local QR image encodes only the demo identifier. Real camera scanning is not implemented; the operator form uses the displayed identifier.
+
+Validation: existing 56 Python tests still pass; client retry and demo API suites pass; jsdom handler integration passes guest→QR→reward→purchase/equip→mock link→operator grant→redemption→sample conversion with zero live fetch calls. Browser rendering/real-device QC remains unverified due the previously recorded execution limitation.

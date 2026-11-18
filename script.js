@@ -1,6 +1,11 @@
 const app = document.querySelector("#app"),
   sheet = document.querySelector("#sheet"),
   toastEl = document.querySelector("#toast");
+const demoRuntime = {
+  enabled: new URLSearchParams(location.search).get("demo") === "1",
+  api: null,
+};
+const inDemo = () => demoRuntime.enabled && state?.config?.demo === true;
 let state = null,
   page = "cafe",
   wardrobeTab = "closet",
@@ -62,7 +67,9 @@ function unresolvedMessage(message) {
   );
 }
 async function api(path, data) {
+  const isDemo = typeof demoRuntime !== "undefined" && demoRuntime.enabled;
   const signature = JSON.stringify([
+    isDemo ? "demo" : "server",
     state?.user?.id || "anonymous",
     path,
     data,
@@ -78,17 +85,31 @@ async function api(path, data) {
   for (let attempt = 0; attempt < 2; attempt++) {
     let res, result;
     try {
-      res = await fetch("/api/" + path, {
-        method: data === undefined ? "GET" : "POST",
-        headers:
-          data === undefined
-            ? {}
-            : { "Content-Type": "application/json", "Idempotency-Key": key },
-        body: data === undefined ? undefined : JSON.stringify(data),
-        signal: AbortSignal.timeout(15000),
-      });
-      result = await res.json();
+      if (isDemo) {
+        if (!demoRuntime.api)
+          throw Error(
+            "데모 모듈을 불러오지 못했어요. 실제 서버로 전환하지 않습니다.",
+          );
+        result = await demoRuntime.api(path, data, key);
+        res = { ok: true, status: 200 };
+      } else {
+        res = await fetch("/api/" + path, {
+          method: data === undefined ? "GET" : "POST",
+          headers:
+            data === undefined
+              ? {}
+              : { "Content-Type": "application/json", "Idempotency-Key": key },
+          body: data === undefined ? undefined : JSON.stringify(data),
+          signal: AbortSignal.timeout(15000),
+        });
+        result = await res.json();
+      }
     } catch (e) {
+      if (isDemo) {
+        uncertainRequests.delete(signature);
+        persistRetryMetadata();
+        throw e;
+      }
       if (attempt === 0) {
         if (data !== undefined)
           notify(
@@ -129,8 +150,7 @@ async function refresh(render = true) {
     offline = true;
     if (state && render) draw();
     else if (!state)
-      app.innerHTML =
-        '<p class="loading">서버에 연결할 수 없어요.<br><button data-action="retry">다시 연결</button></p>';
+      app.innerHTML = `<p class="loading">${demoRuntime.enabled ? "데모를 불러오지 못했어요. 실제 서버에 연결하지 않았어요." : "서버에 연결할 수 없어요."}<br><button data-action="retry">다시 연결</button></p>`;
     throw e;
   }
 }
@@ -223,13 +243,17 @@ function characterView() {
   const items = (state.items || []).filter(
     (i) => wardrobeTab === "shop" || i.owned,
   );
-  return `<section class="page"><h2>${esc(state.user.nickname)}의 옷장</h2><p class="muted">내 취향대로, 천천히 모아가요.</p><div class="wardrobe-preview">${person(state.user, { mode: "store", x: 0.5, y: 0.5 }, true)}</div><div class="actions"><button data-action="privacy">공개 설정</button><button data-action="account">계정 · 복구 안내</button></div><div class="tabs"><button data-tab="closet" class="${wardrobeTab === "closet" ? "active" : ""}">내 아이템</button><button data-tab="shop" class="${wardrobeTab === "shop" ? "active" : ""}">꾸미기 상점</button></div><div class="grid">${items.map((i) => `<article class="card"><div class="item-icon">${icons[i.slot] || "✦"}</div><h3>${esc(i.name)}</h3><p class="muted">${i.owned ? "보유 중" : "◉ " + i.price}</p><div class="actions"><button data-item="${esc(i.id)}" data-iaction="${i.owned ? "equip" : "buy"}">${i.owned ? (i.equipped ? "해제" : "착용") : "구매"}</button></div></article>`).join("")}</div>${!items.length ? '<p class="empty">아직 모은 아이템이 없어요.<br>퀘스트로 코인을 모아 상점을 구경해보세요.</p>' : ""}</section>`;
+  return `<section class="page"><h2>${esc(state.user.nickname)}의 옷장</h2><p class="muted">내 취향대로, 천천히 모아가요.</p><div class="wardrobe-preview">${person(state.user, { mode: "store", x: 0.5, y: 0.5 }, true)}</div><div class="actions"><button data-action="privacy">공개 설정</button><button data-action="account">계정 · 복구 안내</button><button data-action="character-concepts">캐릭터 시안·동작 미리보기</button></div><div class="tabs"><button data-tab="closet" class="${wardrobeTab === "closet" ? "active" : ""}">내 아이템</button><button data-tab="shop" class="${wardrobeTab === "shop" ? "active" : ""}">꾸미기 상점</button></div><div class="grid">${items.map((i) => `<article class="card"><div class="item-icon">${icons[i.slot] || "✦"}</div><h3>${esc(i.name)}</h3><p class="muted">${i.owned ? "보유 중" : "◉ " + i.price}</p><div class="actions"><button data-item="${esc(i.id)}" data-iaction="${i.owned ? "equip" : "buy"}">${i.owned ? (i.equipped ? "해제" : "착용") : "구매"}</button></div></article>`).join("")}</div>${!items.length ? '<p class="empty">아직 모은 아이템이 없어요.<br>퀘스트로 코인을 모아 상점을 구경해보세요.</p>' : ""}</section>`;
 }
 function draw() {
   app.removeAttribute("aria-busy");
+  const storageWarning = document.querySelector("#demo-storage-warning");
+  if (storageWarning)
+    storageWarning.hidden = !(
+      demoRuntime.enabled && state?.config?.storagePersistent === false
+    );
   if (!state?.user) {
-    app.innerHTML =
-      '<div class="loading"><h1>THE CREDIT</h1><p>카페에 머무는 또 하나의 방법</p><button data-action="onboard" class="primary">내 캐릭터 만들기</button></div>';
+    app.innerHTML = `<div class="loading"><h1>THE CREDIT</h1><p>카페에 머무는 또 하나의 방법</p><button data-action="onboard" class="primary">내 캐릭터 만들기</button>${demoRuntime.enabled ? '<p><button data-demo-kakao="restore">데모 연결 계정 복원</button></p>' : '<p><a href="/?demo=1">연동 없이 데모 체험하기</a></p>'}</div>`;
     return;
   }
   const remaining = new Date(state.session.expiresAt).getTime() - Date.now();
@@ -249,13 +273,13 @@ function draw() {
     nav();
 }
 function modal(title, body) {
-  sheet.innerHTML = `<div class="sheet-header"><h2 id="sheet-title">${esc(title)}</h2><button data-action="close" aria-label="닫기">×</button></div><div class="sheet-content">${body}</div>`;
+  sheet.innerHTML = `<div class="sheet-header"><h2 id="sheet-title">${esc(title)}</h2><button data-action="close" aria-label="닫기">×</button></div><div class="sheet-content">${demoRuntime.enabled ? '<p class="demo-notice">데모 · 실제 계정/스탬프와 무관</p>' : ""}${body}</div>`;
   if (!sheet.open) sheet.showModal();
 }
 function onboard() {
   modal(
     "처음 오셨네요 ☕",
-    `<p>닉네임과 기본 색상을 골라주세요.</p><form id="onboard"><label>닉네임<input name="nickname" maxlength="16" required autocomplete="nickname" placeholder="카페에서 부를 이름"></label><label>기본 옷 색상<select name="appearance"><option value="0">라벤더</option><option value="1">세이지</option><option value="2">하늘</option><option value="3">코랄</option></select></label><p class="muted">진행도는 서버에 저장돼요. 카카오에 연결하지 않은 게스트는 브라우저 데이터를 삭제하거나 기기를 바꾸면 복구하기 어려울 수 있어요.</p><button class="primary" type="submit">카페 들어가기</button></form>`,
+    `<p>닉네임과 기본 색상을 골라주세요.</p><form id="onboard"><label>닉네임<input name="nickname" maxlength="16" required autocomplete="nickname" placeholder="카페에서 부를 이름"></label><label>기본 옷 색상<select name="appearance"><option value="0">라벤더</option><option value="1">세이지</option><option value="2">하늘</option><option value="3">코랄</option></select></label><p class="muted">${demoRuntime.enabled ? "지금은 브라우저 안의 가상 데이터로 체험해요. 실제 카카오 인증이나 매장 적립은 하지 않아요." : "진행도는 서버에 저장돼요. 카카오에 연결하지 않은 게스트는 브라우저 데이터를 삭제하거나 기기를 바꾸면 복구하기 어려울 수 있어요."}</p><button class="primary" type="submit">카페 들어가기</button></form>`,
   );
 }
 function privacy() {
@@ -274,13 +298,77 @@ function stamps() {
   const linked = !!state.user.linked;
   modal(
     "내 스탬프",
-    `<h3>${state.user.stamps}개</h3><div class="stamp-grid">${Array.from({ length: 10 }, (_, i) => `<span class="${i < state.user.stamps ? "filled" : ""}">${i < state.user.stamps ? "☕" : "·"}</span>`).join("")}</div><p>유료 음료 한 잔당 1개. 10개로 원하는 음료 한 잔을 교환해요.</p><p class="muted">웹 코인과 별개의 잔액이에요. 적립에는 카카오 계정 연결과 직원 확인이 필요해요.</p><div class="stack"><button data-action="ledger-stamps">스탬프 내역</button><button data-action="account">${linked ? "연결 계정 확인" : "카카오 연결 안내"}</button><button data-action="redeem" ${!linked || !isStore() || state.user.stamps < 10 ? "disabled" : ""}>무료 음료 사용 · 10개</button>${!isStore() ? "<small>무료 음료는 매장 모드에서만 사용할 수 있어요.</small>" : ""}<button disabled>코인 전환 · 비율 확정 후 제공</button></div>`,
+    `<h3>${state.user.stamps}개</h3><div class="stamp-grid">${Array.from({ length: 10 }, (_, i) => `<span class="${i < state.user.stamps ? "filled" : ""}">${i < state.user.stamps ? "☕" : "·"}</span>`).join("")}</div><p>유료 음료 한 잔당 1개. 10개로 원하는 음료 한 잔을 교환해요.</p><p class="muted">웹 코인과 별개의 잔액이에요. 적립에는 카카오 계정 연결과 직원 확인이 필요해요.</p><div class="stack"><button data-action="ledger-stamps">스탬프 내역</button><button data-action="account">${linked ? "연결 계정 확인" : "카카오 연결 안내"}</button><button data-action="redeem" ${!linked || !isStore() || state.user.stamps < 10 ? "disabled" : ""}>무료 음료 사용 · 10개</button>${!isStore() ? "<small>무료 음료는 매장 모드에서만 사용할 수 있어요.</small>" : ""}${inDemo() ? `<button data-action="demo-stamp-code" ${!linked ? "disabled" : ""}>데모 적립 코드 보기</button><button data-action="demo-convert" ${!linked || state.user.stamps < 1 ? "disabled" : ""}>스탬프 → 코인 체험 · 예시 비율</button>` : "<button disabled>코인 전환 · 비율 확정 후 제공</button>"}</div>`,
   );
 }
 function account() {
   modal(
     "계정과 데이터",
-    `<p>${state.user.linked ? "카카오에 연결된 계정이에요." : "현재 게스트 계정이에요."}</p><form id="nickname"><label>닉네임<input name="nickname" required maxlength="16" value="${esc(state.user.nickname)}"></label><button type="submit">닉네임 저장</button></form><p class="muted">진행도는 서버에 저장돼요. 미연결 게스트는 브라우저 데이터 삭제·기기 변경·로그아웃 시 복구가 제한돼요.</p><div class="stack"><button data-action="blocks">차단한 손님 관리</button>${["staff", "admin"].includes(state.user.role) ? '<button data-action="staff">운영자 대시보드</button>' : ""}<button disabled>카카오 연결 · 운영 설정 필요</button><button disabled>탈퇴 · 데이터 처리 정책 검토 중</button><button data-action="logout">로그아웃</button></div>`,
+    `<p>${state.user.linked ? (inDemo() ? "데모 카카오 연결 계정이에요. 실제 인증이 아니에요." : "카카오에 연결된 계정이에요.") : "현재 게스트 계정이에요."}</p><form id="nickname"><label>닉네임<input name="nickname" required maxlength="16" value="${esc(state.user.nickname)}"></label><button type="submit">닉네임 저장</button></form><p class="muted">${inDemo() ? "가상 데이터는 브라우저에 보관해요. 데이터 초기화 시 체험 상태가 사라져요." : "진행도는 서버에 저장돼요. 미연결 게스트는 브라우저 데이터 삭제·기기 변경·로그아웃 시 복구가 제한돼요."}</p><div class="stack"><button data-action="blocks">차단한 손님 관리</button>${["staff", "admin"].includes(state.user.role) ? '<button data-action="staff">운영자 대시보드</button>' : ""}${inDemo() ? `${!state.user.linked ? '<button data-demo-kakao="new">카카오 신규 연결 체험</button><button data-demo-kakao="existing">기존 계정으로 병합 체험</button>' : ""}<button data-action="demo-delete">데모 계정 삭제 체험</button>` : "<button disabled>카카오 연결 · 운영 설정 필요</button><button disabled>탈퇴 · 데이터 처리 정책 검토 중</button>"}<button data-action="logout">로그아웃</button></div>`,
+  );
+}
+const conceptMotions = [
+  ["01-walk-aligned.gif", "걷기"],
+  ["02-idle-aligned.gif", "대기"],
+  ["03-wave-aligned.gif", "인사"],
+  ["04-drink-aligned.gif", "음료 마시기"],
+  ["05-inspect-aligned.gif", "살펴보기"],
+  ["06-sit-aligned.gif", "앉기"],
+  ["07-happy-aligned.gif", "기뻐하기"],
+  ["08-dress-up-aligned.gif", "꾸미기"],
+];
+function characterConcepts(motion = "sheet") {
+  const selected = conceptMotions.find(([file]) => file === motion);
+  const src = selected
+    ? "/public/assets/concepts/motions/" + selected[0]
+    : "/public/assets/concepts/variants-12.png";
+  modal(
+    "캐릭터 시안·동작 미리보기",
+    `<p class="notice">승인된 디자인 시안 · 현재 맵 캐릭터는 개발용 표시</p><p class="muted">개별 게임 스프라이트가 아닌 12종 컨셉 모음이에요. 현재 맵에 이 이미지가 그대로 적용된 상태는 아니에요.</p><div class="actions"><button data-concept-motion="sheet">12종 캐릭터</button>${conceptMotions.map(([file, label]) => `<button data-concept-motion="${file}">${label}</button>`).join("")}</div><figure class="concept-preview"><img loading="lazy" src="${src}" alt="${selected ? selected[1] + " 12종 캐릭터 동작 시안" : "12종 캐릭터 스타일 시안"}"><figcaption>${selected ? selected[1] : "기본 스타일 12종"} · 선택한 이미지 하나만 불러와요.</figcaption></figure>`,
+  );
+}
+function demoControls() {
+  if (!demoRuntime.enabled) return;
+  const banner = document.querySelector("#demo-banner");
+  banner.hidden = false;
+  banner.innerHTML =
+    '<strong>데모 · 실제 계정/스탬프와 무관</strong><p id="demo-storage-warning" hidden>브라우저 저장에 실패했어요. 현재 탭에서만 유지되며 새로고침하면 변경을 잃을 수 있어요.</p><details><summary>체험 도구</summary><div class="demo-tools"><label>역할 <select id="demo-role"><option value="">선택</option><option value="guest">게스트</option><option value="customer">연결 손님</option><option value="staff">직원</option><option value="admin">관리자</option></select></label><button data-action="demo-checkin">매장 입장 체험</button><button data-action="demo-advance">91분 후 만료 체험</button><button data-action="demo-reset">데모 초기화</button></div></details>';
+  banner.addEventListener("click", handle);
+  banner.querySelector("#demo-role").addEventListener("change", async (e) => {
+    if (!e.target.value) return;
+    const r = await act(
+      "demo/role",
+      { role: e.target.value },
+      "데모 역할을 변경했어요.",
+    );
+    if (r) {
+      page = "cafe";
+      sheet.close();
+      draw();
+    }
+    e.target.value = "";
+  });
+}
+async function demoStampCode() {
+  try {
+    const qr = await api("stamps/qr");
+    const { default: qrcode } =
+      await import("./public/assets/vendor/qrcode.mjs");
+    const code = qrcode(0, "M");
+    code.addData(qr.payload);
+    code.make();
+    modal(
+      "데모 적립 식별 코드",
+      `<p>실제 매장에서 사용할 수 없는 데모 QR이에요. 실제 계정이나 적립 권한을 담지 않아요.</p><div class="demo-qr">${code.createSvgTag(4, 16)}</div><label>손님 식별자<input readonly value="${esc(qr.uid)}"></label><p><code>${esc(qr.payload)}</code></p><p class="muted">직원 체험에서는 아래 식별자를 입력해 적립해보세요. 실제 카메라 스캔·계정 인증 연동은 아직 없어요.</p>`,
+    );
+  } catch (e) {
+    notify(e.message);
+  }
+}
+function demoConversion() {
+  modal(
+    "데모 스탬프 전환",
+    `<p class="notice">예시 비율: 스탬프 1개 = 50 코인. 실제 사용 불가.</p><p>보유 ${state.user.stamps}개. 코인에서 스탬프로 되돌릴 수 없어요.</p><form id="demo-convert"><label>전환할 스탬프<input name="amount" type="number" min="1" max="${state.user.stamps}" step="1" value="1" required></label><button type="submit">전환 내용 확인</button></form>`,
   );
 }
 function ledger(currency = "coins") {
@@ -557,6 +645,32 @@ app.addEventListener("keydown", (e) => {
 async function handle(e) {
   const b = e.target.closest("button");
   if (b) {
+    if (b.dataset.conceptMotion) {
+      characterConcepts(b.dataset.conceptMotion);
+      return;
+    }
+    if (b.dataset.demoKakao && demoRuntime.enabled) {
+      const r = await act(
+        "demo/kakao",
+        { mode: b.dataset.demoKakao },
+        "데모 계정 연결 상태를 갱신했어요. 실제 카카오 인증은 하지 않았어요.",
+      );
+      if (r) {
+        sheet.close();
+        page = "cafe";
+        draw();
+      }
+      return;
+    }
+    if (b.dataset.demoConvert && inDemo()) {
+      const r = await act(
+        "stamps/convert",
+        { amount: Number(b.dataset.demoConvert) },
+        "예시 전환이 완료됐어요. 실제 매장 스탬프에는 영향이 없어요.",
+      );
+      if (r) stamps();
+      return;
+    }
     if (b.dataset.contentKind) {
       contentForm(b.dataset.contentKind, b.dataset.contentIndex);
       return;
@@ -652,6 +766,68 @@ async function handle(e) {
       return;
     }
     const action = b.dataset.action;
+    if (action === "character-concepts") {
+      characterConcepts();
+      return;
+    }
+    if (demoRuntime.enabled) {
+      if (action === "demo-stamp-code") {
+        await demoStampCode();
+        return;
+      }
+      if (action === "demo-convert") {
+        demoConversion();
+        return;
+      }
+      if (action === "demo-checkin") {
+        await act("checkin", { entry: "cafe" }, "가상 매장에 입장했어요.");
+        return;
+      }
+      if (action === "demo-advance") {
+        await act(
+          "demo/advance",
+          { minutes: 91 },
+          "데모 시간을 91분 진행했어요.",
+        );
+        return;
+      }
+      if (action === "demo-reset") {
+        modal(
+          "데모를 초기화할까요?",
+          '<p>이 브라우저의 가상 계정·거래·진행도만 초기화해요. 실제 서비스 데이터는 건드리지 않아요.</p><button data-action="confirm-demo-reset">데모 초기화 확정</button>',
+        );
+        return;
+      }
+      if (action === "confirm-demo-reset") {
+        if (await act("demo/reset", {}, "데모를 초기화했어요.")) {
+          sheet.close();
+          page = "cafe";
+          draw();
+        }
+        return;
+      }
+      if (action === "demo-delete") {
+        modal(
+          "데모 계정 삭제 체험",
+          '<p>현재 가상 계정 데이터만 삭제해요. 실제 카카오 계정이나 서비스 데이터는 삭제하지 않아요.</p><button data-action="confirm-demo-delete">가상 계정 삭제 확정</button>',
+        );
+        return;
+      }
+      if (action === "confirm-demo-delete") {
+        if (
+          await act(
+            "account/delete",
+            { confirm: true },
+            "가상 계정을 삭제했어요.",
+          )
+        ) {
+          sheet.close();
+          page = "cafe";
+          draw();
+        }
+        return;
+      }
+    }
     if (action === "close") sheet.close();
     if (action === "retry") {
       try {
@@ -757,6 +933,18 @@ sheet.addEventListener("submit", async (e) => {
   e.preventDefault();
   const f = e.target,
     d = new FormData(f);
+  if (f.id === "demo-convert" && inDemo()) {
+    const amount = Number(d.get("amount"));
+    if (!Number.isInteger(amount) || amount < 1 || amount > state.user.stamps) {
+      notify("보유량 안에서 전환할 수량을 골라주세요.");
+      return;
+    }
+    modal(
+      "예시 전환 확인",
+      `<p>가상 스탬프 ${amount}개 차감 → ${amount * 50} 코인 지급</p><p>전환 후 스탬프 ${state.user.stamps - amount}개, 코인 ${state.user.coins + amount * 50}개예요.</p><p class="notice">예시 비율 · 실제 사용 불가 · 역전환 불가</p><button class="primary" data-demo-convert="${amount}">가상 전환 확정</button>`,
+    );
+    return;
+  }
   if (f.id === "content") {
     const kind = f.dataset.kind,
       starts = d.get("starts")
@@ -870,7 +1058,9 @@ async function checkEntry() {
       { entry: entryCode },
       "매장 모드로 참여했어요. 공개는 직접 선택해주세요.",
     );
-    history.replaceState(null, "", location.pathname);
+    const cleanUrl = new URL(location.href);
+    cleanUrl.searchParams.delete("entry");
+    history.replaceState(null, "", cleanUrl.pathname + cleanUrl.search);
     if (checkedIn) privacy();
   }
 }
@@ -894,6 +1084,14 @@ async function walk(x, y) {
     notify(e.message);
   } finally {
     busy = false;
+  }
+}
+if (demoRuntime.enabled) {
+  demoControls();
+  try {
+    demoRuntime.api = (await import("./demo-api.js")).demoApi;
+  } catch (e) {
+    notify("데모 모듈을 불러오지 못했어요. 실제 서버는 호출하지 않아요.");
   }
 }
 try {

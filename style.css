@@ -582,3 +582,74 @@ input[type="checkbox"] {
 .operation-summary dd {
   white-space: pre-wrap;
 }
+#demo-banner {
+  position: sticky;
+  top: 0;
+  z-index: 120;
+  max-width: 760px;
+  margin: auto;
+  padding: 10px 16px;
+  background: #ffd563;
+  color: #362810;
+  border-bottom: 2px solid #7c5b20;
+  font-size: 13px;
+}
+#demo-banner[hidden] {
+  display: none;
+}
+#demo-banner summary {
+  cursor: pointer;
+  margin-top: 5px;
+  min-height: 24px;
+}
+.demo-tools {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.demo-tools button,
+.demo-tools select {
+  font-size: 12px;
+  padding: 7px;
+  min-height: 36px;
+}
+.demo-tools select {
+  background: #fff0c0;
+  color: #322415;
+}
+.demo-notice {
+  background: #ffd563;
+  color: #362810;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.concept-preview {
+  margin: 18px 0 0;
+}
+.concept-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  background: #f8f0df;
+}
+.concept-preview figcaption {
+  font-size: 12px;
+  color: #cbb49d;
+  margin-top: 8px;
+}
+
+.demo-qr {
+  background: #fff;
+  padding: 12px;
+  width: fit-content;
+  margin: 16px auto;
+}
+.demo-qr svg {
+  display: block;
+  max-width: 220px;
+  height: auto;
+}
