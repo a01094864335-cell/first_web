@@ -30,6 +30,18 @@ def fit_top(z0,basecell,directionIndex,action,frame,id='',handsmask=None):
     y=hb+1;x=round(cx-tw/2)
     core=core.resize((tw,th),Image.Resampling.NEAREST)
     out.alpha_composite(core,(x,y))
+    if 'vest' in id or 'overall' in id:
+        # Sleeveless pieces must not carry the source drawing's lowered arms.
+        # Keep only the real torso envelope and leave all posed skin visible.
+        aa=np.asarray(out).copy()
+        torso=op & ~skin
+        torso[:hb+1]=False
+        torso[min(80,hb+th+1):]=False
+        # Restrict to the actual shirt, then retain its neighbouring outlines.
+        shirt=(v.min(2)>135)&(v.max(2)-v.min(2)<55)&torso
+        envelope=ndimage.binary_dilation(shirt,iterations=1)&torso
+        aa[~envelope]=0
+        return Image.fromarray(aa)
     # Repaint proximal skin in arm components. Distal 40% remains hand/skin.
     arms=skin&~head
     arms[max(hb+15,bottom-14):]=False

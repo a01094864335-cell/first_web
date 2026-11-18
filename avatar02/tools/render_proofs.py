@@ -1,6 +1,7 @@
 from PIL import Image,ImageDraw,ImageFont
 import json,pathlib
 R=pathlib.Path(__file__).resolve().parents[1];m=json.loads((R/'manifest.json').read_text());font=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',11)
+from fit_glasses_occlusion import fit_glasses_occlusion
 cache={}
 def cell(path,r,c):
  if path not in cache:cache[path]=Image.open(R/path).convert('RGBA')
@@ -20,8 +21,15 @@ def render(items,r=0,c=1,ac='walk',lens='charcoal'):
     if f.get('rearFiles'):out.alpha_composite(cell(f['rearFiles'][ac],r,c))
   if slot=='eyes' and any(i['slot']=='eyes' for i in items):out.alpha_composite(cell(m['eyeCover'][skin][ac],r,c))
   for i in items:
-   if i['slot']==slot:
-    f=files(i);path=f.get('paletteFiles',{}).get(lens,{}).get(ac,f['files'][ac]);out.alpha_composite(cell(path,r,c))
+   if i['slot']==slot and i['id']!='body-headphones':
+    f=files(i);path=f.get('paletteFiles',{}).get(lens,{}).get(ac,f['files'][ac]);layer=cell(path,r,c)
+    if slot=='glasses':
+     hair=next((j for j in items if j['slot']=='hair'),None)
+     layer=fit_glasses_occlusion(layer,cell(files(hair)['files'][ac],r,c) if hair else None,cell(hat['files'][ac],r,c) if hat else None,r)
+    out.alpha_composite(layer)
+  if slot=='hair':
+   for hp in items:
+    if hp['id']=='body-headphones':out.alpha_composite(cell(hp['files'][ac],r,c))
   if slot in ['skin','bottom','top','shoes']:under=out.copy()
  mask=cell(m['handsMask'][ac],r,c).getchannel('A');out.paste(under,(0,0),mask)
  if r==2:
@@ -30,6 +38,8 @@ def render(items,r=0,c=1,ac='walk',lens='charcoal'):
     f=files(i)
     if f.get('rearFiles'):out.alpha_composite(cell(f['rearFiles'][ac],r,c))
     out.alpha_composite(cell(f['files'][ac],r,c))
+  for hp in items:
+   if hp['id']=='body-headphones':out.alpha_composite(cell(hp['files'][ac],r,c))
   if hat:out.alpha_composite(cell(hat['files'][ac],r,c))
  if r!=2 and any(i['slot']=='hand' for i in items):
   for i in items:

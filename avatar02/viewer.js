@@ -43,10 +43,12 @@
         add('eyeCover', cover && cover[source]);
       }
       for (const item of chosen.filter(i => i.slot === slot)) {
-        if (item.layer === 'rear' && slot === 'hair') continue;
+        if ((item.layer === 'rear' && slot === 'hair') || item.id==='body-headphones') continue;
         const v=slot==='hair'?hairFiles(item):item;if(v)add(slot, fileFor(v, source, state.lens), item);
       }
     }
+    const hp=chosen.find(i=>i.id==='body-headphones');
+    if(hp){const entry={slot:'headphones',path:fileFor(hp,source,state.lens),item:hp.id};const at=plan.findIndex(l=>['hat','glasses','hand'].includes(l.slot));plan.splice(at<0?plan.length:at,0,entry);}
     return { source, layers: plan, handsMask: manifest.handsMask && manifest.handsMask[source], gripMask: manifest.gripMask && manifest.gripMask[source] };
   }
   function foregroundProtectionLayers(plan, direction) {
@@ -56,9 +58,17 @@
     if (direction !== 'back') return [];
     const hair = plan.layers.filter(l => l.slot === 'hairRearCover' || l.slot === 'hair');
     // Repainting hair after hands must not hide a hat's rear strap or brim.
-    return hair.length ? [...hair, ...plan.layers.filter(l => l.slot === 'hat')] : [];
+    return hair.length ? [...hair, ...plan.layers.filter(l => l.slot === 'headphones'), ...plan.layers.filter(l => l.slot === 'hat')] : [];
   }
-  const API = {motionSpec, frameAt, stepFrame, fileFor, layerPlan, foregroundProtectionLayers};
+  function clipGlassesPixels(data,hair,hat,width,direction) {
+    const out=new Uint8ClampedArray(data);let min=width,max=-1;
+    for(let p=0;p<out.length;p+=4)if(out[p+3]){const x=(p/4)%width;min=Math.min(min,x);max=Math.max(max,x);}
+    const mid=(min+max)/2;
+    for(let p=0;p<out.length;p+=4){const x=(p/4)%width,stem=direction==='right'?x<mid:direction==='left'?x>mid:false;
+      if(direction==='back'||(hat&&hat[p+3]>=128)||(stem&&hair&&hair[p+3]>=128))out[p+3]=0;
+    }return out;
+  }
+  const API = {clipGlassesPixels, motionSpec, frameAt, stepFrame, fileFor, layerPlan, foregroundProtectionLayers};
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.AvatarViewer = API;
   if (typeof document === 'undefined') return;
@@ -126,6 +136,12 @@
     const tc=tile.getContext('2d'),bc=before.getContext('2d'),rc=restored.getContext('2d');
     const preSlots=new Set(['hairRear','base','skin','eyeCover','eyes','bottom','shoes','top']);
     function paint(context,path,row,frame) { const image=img(path);if(image.complete&&image.naturalWidth)context.drawImage(image,frame*cw,row*ch,cw,ch,0,0,cw,ch); }
+    function paintGlasses(path,row,frame,plan,dir) {
+      const off=document.createElement('canvas');off.width=cw;off.height=ch;const oc=off.getContext('2d');
+      const pixels=p=>{oc.clearRect(0,0,cw,ch);if(p)paint(oc,p,row,frame);return oc.getImageData(0,0,cw,ch).data;};
+      const raw=pixels(path),hair=plan.layers.find(l=>l.slot==='hair'),hat=plan.layers.find(l=>l.slot==='hat');
+      const out=oc.createImageData(cw,ch);out.data.set(clipGlassesPixels(raw,hair?pixels(hair.path):null,hat?pixels(hat.path):null,cw,dir));oc.putImageData(out,0,0);tc.drawImage(off,0,0);
+    }
     let lastPaint='';
     function render(now) {
       if (!state.paused) state.frame=frameAt(manifest,state.motion,now-origin);
@@ -139,7 +155,7 @@
           tc.clearRect(0,0,cw,ch);bc.clearRect(0,0,cw,ch);tc.imageSmoothingEnabled=bc.imageSmoothingEnabled=false;
           const restore = path => {if(!path)return;const mask=img(path);if(mask.complete&&mask.naturalWidth){rc.clearRect(0,0,cw,ch);rc.globalCompositeOperation='source-over';rc.drawImage(before,0,0);rc.globalCompositeOperation='destination-in';paint(rc,path,row,state.frame);rc.globalCompositeOperation='source-over';tc.drawImage(restored,0,0);}};
           let hasHand=false;
-          for(const l of plan.layers){if(l.slot==='hand'){restore(plan.handsMask);hasHand=true;}paint(tc,l.path,row,state.frame);if(preSlots.has(l.slot))paint(bc,l.path,row,state.frame);}
+          for(const l of plan.layers){if(l.slot==='hand'){restore(plan.handsMask);hasHand=true;}if(l.slot==='glasses')paintGlasses(l.path,row,state.frame,plan,dir);else paint(tc,l.path,row,state.frame);if(preSlots.has(l.slot))paint(bc,l.path,row,state.frame);}
           restore(hasHand?plan.gripMask:plan.handsMask);
           for (const l of foregroundProtectionLayers(plan,dir)) paint(tc,l.path,row,state.frame);
           const x=index*240+20,y=10,scale=2.5;

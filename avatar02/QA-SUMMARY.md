@@ -38,3 +38,14 @@ Idle reuses a walk frame, so adds no unique pose. These counts overlap and are n
 A real CUA Chromium was opened for testing, but `http://127.0.0.1:8773/avatar02/preview.html` returned `ERR_CONNECTION_REFUSED`: browser and execution workspace do not share localhost. **No successful actual-browser or in-game test is claimed.** No public deployment was created to bypass this limitation. Static frame sheets and sampled GIFs were used for visual inspection.
 
 Remaining polish is finer than the corrected defects: compact source-derived pixel detail, simplified fabric folds/seams, precise finger/handle grasp, darker eye colors' contrast on deep skin, and rear long-hair coverage of torso gestures. Short hair fringes can naturally be mostly covered by a low brim. There is no dedicated page-turning/reading action or continuous fabric rig. This is a reviewable, pose-aware asset implementation, not final game integration or exhaustive visual approval of every possible outfit.
+
+## v0.6: actual outfit fit review (2026-11-18)
+A new review of worn combinations found defects that the prior isolated-part review did not catch. This is a corrective pass, not a claim that the previous pass was visually complete.
+- Plain mint/ivory and striped tees now recolour the actual baseline garment mask, preserving collar, shoulders, short sleeves and moving hem. Fixed a grey-shoe contamination caught during the revision. Explicit idle (walk frame 1) checks included.
+- Sleeveless vests and overall bib use torso-only fitting rather than source-image arms that could leave phantom lowered hands during gestures.
+- Skin tint includes pale skin highlights on lifted hands, avoiding conspicuously light hands with deep skin.
+- Side glasses stems are occluded by selected hair; hat overlap is clipped. Python proof compositor and JavaScript viewer implement the same rule.
+- Headphones render over hair and under hats; rear protection preserves them after hair repaint.
+- Crossbody examination pose is bounded above the feet instead of extending under ground.
+
+See QA-tees.md, QA-clothing-combinations.md, QA-accessory-combinations.md and QA-hair.md for exact sampled outfit strata, pose counts, before/after evidence and remaining limitations. Counts across reports overlap; no exhaustive Cartesian product of every equipable item is claimed. Real browser boundary above is unchanged.

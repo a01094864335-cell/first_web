@@ -1,5 +1,5 @@
 {
-  "version": "0.5-pose-aware-catalogue",
+  "version": "0.6-outfit-fit-review",
   "cell": [
     80,
     80
@@ -485,237 +485,6 @@
       "notes": [
         "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
         "Book stowed during drink; held/read-like pose during examine."
-      ]
-    },
-    {
-      "id": "top-tee-plain",
-      "slot": "top",
-      "label": "top-tee-plain",
-      "files": {
-        "walk": "assets/walk/top-tee-plain.png",
-        "greet": "assets/greet/top-tee-plain.png",
-        "drink": "assets/drink/top-tee-plain.png",
-        "examine": "assets/examine/top-tee-plain.png",
-        "sit": "assets/sit/top-tee-plain.png",
-        "celebrate": "assets/celebrate/top-tee-plain.png",
-        "dress": "assets/dress/top-tee-plain.png"
-      },
-      "rearPair": null,
-      "isRear": false,
-      "pair": null,
-      "status": "review-candidate",
-      "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
-      ]
-    },
-    {
-      "id": "top-tee-striped",
-      "slot": "top",
-      "label": "top-tee-striped",
-      "files": {
-        "walk": "assets/walk/top-tee-striped.png",
-        "greet": "assets/greet/top-tee-striped.png",
-        "drink": "assets/drink/top-tee-striped.png",
-        "examine": "assets/examine/top-tee-striped.png",
-        "sit": "assets/sit/top-tee-striped.png",
-        "celebrate": "assets/celebrate/top-tee-striped.png",
-        "dress": "assets/dress/top-tee-striped.png"
-      },
-      "rearPair": null,
-      "isRear": false,
-      "pair": null,
-      "status": "review-candidate",
-      "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
-      ]
-    },
-    {
-      "id": "top-shirt-blue",
-      "slot": "top",
-      "label": "top-shirt-blue",
-      "files": {
-        "walk": "assets/walk/top-shirt-blue.png",
-        "greet": "assets/greet/top-shirt-blue.png",
-        "drink": "assets/drink/top-shirt-blue.png",
-        "examine": "assets/examine/top-shirt-blue.png",
-        "sit": "assets/sit/top-shirt-blue.png",
-        "celebrate": "assets/celebrate/top-shirt-blue.png",
-        "dress": "assets/dress/top-shirt-blue.png"
-      },
-      "rearPair": null,
-      "isRear": false,
-      "pair": null,
-      "status": "review-candidate",
-      "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
-      ]
-    },
-    {
-      "id": "top-cardigan-rust",
-      "slot": "top",
-      "label": "top-cardigan-rust",
-      "files": {
-        "walk": "assets/walk/top-cardigan-rust.png",
-        "greet": "assets/greet/top-cardigan-rust.png",
-        "drink": "assets/drink/top-cardigan-rust.png",
-        "examine": "assets/examine/top-cardigan-rust.png",
-        "sit": "assets/sit/top-cardigan-rust.png",
-        "celebrate": "assets/celebrate/top-cardigan-rust.png",
-        "dress": "assets/dress/top-cardigan-rust.png"
-      },
-      "rearPair": null,
-      "isRear": false,
-      "pair": null,
-      "status": "review-candidate",
-      "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
-      ]
-    },
-    {
-      "id": "top-hoodie-lavender",
-      "slot": "top",
-      "label": "top-hoodie-lavender",
-      "files": {
-        "walk": "assets/walk/top-hoodie-lavender.png",
-        "greet": "assets/greet/top-hoodie-lavender.png",
-        "drink": "assets/drink/top-hoodie-lavender.png",
-        "examine": "assets/examine/top-hoodie-lavender.png",
-        "sit": "assets/sit/top-hoodie-lavender.png",
-        "celebrate": "assets/celebrate/top-hoodie-lavender.png",
-        "dress": "assets/dress/top-hoodie-lavender.png"
-      },
-      "rearPair": null,
-      "isRear": false,
-      "pair": null,
-      "status": "review-candidate",
-      "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
-      ]
-    },
-    {
-      "id": "top-vest-moss",
-      "slot": "top",
-      "label": "top-vest-moss",
-      "files": {
-        "walk": "assets/walk/top-vest-moss.png",
-        "greet": "assets/greet/top-vest-moss.png",
-        "drink": "assets/drink/top-vest-moss.png",
-        "examine": "assets/examine/top-vest-moss.png",
-        "sit": "assets/sit/top-vest-moss.png",
-        "celebrate": "assets/celebrate/top-vest-moss.png",
-        "dress": "assets/dress/top-vest-moss.png"
-      },
-      "rearPair": null,
-      "isRear": false,
-      "pair": null,
-      "status": "review-candidate",
-      "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
-      ]
-    },
-    {
-      "id": "top-overall-denim",
-      "slot": "top",
-      "label": "top-overall-denim",
-      "files": {
-        "walk": "assets/walk/top-overall-denim.png",
-        "greet": "assets/greet/top-overall-denim.png",
-        "drink": "assets/drink/top-overall-denim.png",
-        "examine": "assets/examine/top-overall-denim.png",
-        "sit": "assets/sit/top-overall-denim.png",
-        "celebrate": "assets/celebrate/top-overall-denim.png",
-        "dress": "assets/dress/top-overall-denim.png"
-      },
-      "rearPair": null,
-      "isRear": false,
-      "pair": null,
-      "status": "review-candidate",
-      "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
-      ]
-    },
-    {
-      "id": "bottom-shorts-charcoal",
-      "slot": "bottom",
-      "label": "bottom-shorts-charcoal",
-      "files": {
-        "walk": "assets/walk/bottom-shorts-charcoal.png",
-        "greet": "assets/greet/bottom-shorts-charcoal.png",
-        "drink": "assets/drink/bottom-shorts-charcoal.png",
-        "examine": "assets/examine/bottom-shorts-charcoal.png",
-        "sit": "assets/sit/bottom-shorts-charcoal.png",
-        "celebrate": "assets/celebrate/bottom-shorts-charcoal.png",
-        "dress": "assets/dress/bottom-shorts-charcoal.png"
-      },
-      "rearPair": null,
-      "isRear": false,
-      "pair": null,
-      "status": "review-candidate",
-      "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
-      ]
-    },
-    {
-      "id": "bottom-trousers-navy",
-      "slot": "bottom",
-      "label": "bottom-trousers-navy",
-      "files": {
-        "walk": "assets/walk/bottom-trousers-navy.png",
-        "greet": "assets/greet/bottom-trousers-navy.png",
-        "drink": "assets/drink/bottom-trousers-navy.png",
-        "examine": "assets/examine/bottom-trousers-navy.png",
-        "sit": "assets/sit/bottom-trousers-navy.png",
-        "celebrate": "assets/celebrate/bottom-trousers-navy.png",
-        "dress": "assets/dress/bottom-trousers-navy.png"
-      },
-      "rearPair": null,
-      "isRear": false,
-      "pair": null,
-      "status": "review-candidate",
-      "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
-      ]
-    },
-    {
-      "id": "bottom-skirt-coral",
-      "slot": "bottom",
-      "label": "bottom-skirt-coral",
-      "files": {
-        "walk": "assets/walk/bottom-skirt-coral.png",
-        "greet": "assets/greet/bottom-skirt-coral.png",
-        "drink": "assets/drink/bottom-skirt-coral.png",
-        "examine": "assets/examine/bottom-skirt-coral.png",
-        "sit": "assets/sit/bottom-skirt-coral.png",
-        "celebrate": "assets/celebrate/bottom-skirt-coral.png",
-        "dress": "assets/dress/bottom-skirt-coral.png"
-      },
-      "rearPair": null,
-      "isRear": false,
-      "pair": null,
-      "status": "review-candidate",
-      "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
-      ]
-    },
-    {
-      "id": "bottom-overall-denim",
-      "slot": "bottom",
-      "label": "bottom-overall-denim",
-      "files": {
-        "walk": "assets/walk/bottom-overall-denim.png",
-        "greet": "assets/greet/bottom-overall-denim.png",
-        "drink": "assets/drink/bottom-overall-denim.png",
-        "examine": "assets/examine/bottom-overall-denim.png",
-        "sit": "assets/sit/bottom-overall-denim.png",
-        "celebrate": "assets/celebrate/bottom-overall-denim.png",
-        "dress": "assets/dress/bottom-overall-denim.png"
-      },
-      "rearPair": null,
-      "isRear": false,
-      "pair": null,
-      "status": "review-candidate",
-      "notes": [
-        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
       ]
     },
     {
@@ -1205,6 +974,237 @@
         "sit": "assets/sit/glasses-square.png",
         "celebrate": "assets/celebrate/glasses-square.png",
         "dress": "assets/dress/glasses-square.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "top-tee-plain",
+      "slot": "top",
+      "label": "top-tee-plain",
+      "files": {
+        "walk": "assets/walk/top-tee-plain.png",
+        "greet": "assets/greet/top-tee-plain.png",
+        "drink": "assets/drink/top-tee-plain.png",
+        "examine": "assets/examine/top-tee-plain.png",
+        "sit": "assets/sit/top-tee-plain.png",
+        "celebrate": "assets/celebrate/top-tee-plain.png",
+        "dress": "assets/dress/top-tee-plain.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "top-tee-striped",
+      "slot": "top",
+      "label": "top-tee-striped",
+      "files": {
+        "walk": "assets/walk/top-tee-striped.png",
+        "greet": "assets/greet/top-tee-striped.png",
+        "drink": "assets/drink/top-tee-striped.png",
+        "examine": "assets/examine/top-tee-striped.png",
+        "sit": "assets/sit/top-tee-striped.png",
+        "celebrate": "assets/celebrate/top-tee-striped.png",
+        "dress": "assets/dress/top-tee-striped.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "top-shirt-blue",
+      "slot": "top",
+      "label": "top-shirt-blue",
+      "files": {
+        "walk": "assets/walk/top-shirt-blue.png",
+        "greet": "assets/greet/top-shirt-blue.png",
+        "drink": "assets/drink/top-shirt-blue.png",
+        "examine": "assets/examine/top-shirt-blue.png",
+        "sit": "assets/sit/top-shirt-blue.png",
+        "celebrate": "assets/celebrate/top-shirt-blue.png",
+        "dress": "assets/dress/top-shirt-blue.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "top-cardigan-rust",
+      "slot": "top",
+      "label": "top-cardigan-rust",
+      "files": {
+        "walk": "assets/walk/top-cardigan-rust.png",
+        "greet": "assets/greet/top-cardigan-rust.png",
+        "drink": "assets/drink/top-cardigan-rust.png",
+        "examine": "assets/examine/top-cardigan-rust.png",
+        "sit": "assets/sit/top-cardigan-rust.png",
+        "celebrate": "assets/celebrate/top-cardigan-rust.png",
+        "dress": "assets/dress/top-cardigan-rust.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "top-hoodie-lavender",
+      "slot": "top",
+      "label": "top-hoodie-lavender",
+      "files": {
+        "walk": "assets/walk/top-hoodie-lavender.png",
+        "greet": "assets/greet/top-hoodie-lavender.png",
+        "drink": "assets/drink/top-hoodie-lavender.png",
+        "examine": "assets/examine/top-hoodie-lavender.png",
+        "sit": "assets/sit/top-hoodie-lavender.png",
+        "celebrate": "assets/celebrate/top-hoodie-lavender.png",
+        "dress": "assets/dress/top-hoodie-lavender.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "top-vest-moss",
+      "slot": "top",
+      "label": "top-vest-moss",
+      "files": {
+        "walk": "assets/walk/top-vest-moss.png",
+        "greet": "assets/greet/top-vest-moss.png",
+        "drink": "assets/drink/top-vest-moss.png",
+        "examine": "assets/examine/top-vest-moss.png",
+        "sit": "assets/sit/top-vest-moss.png",
+        "celebrate": "assets/celebrate/top-vest-moss.png",
+        "dress": "assets/dress/top-vest-moss.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "top-overall-denim",
+      "slot": "top",
+      "label": "top-overall-denim",
+      "files": {
+        "walk": "assets/walk/top-overall-denim.png",
+        "greet": "assets/greet/top-overall-denim.png",
+        "drink": "assets/drink/top-overall-denim.png",
+        "examine": "assets/examine/top-overall-denim.png",
+        "sit": "assets/sit/top-overall-denim.png",
+        "celebrate": "assets/celebrate/top-overall-denim.png",
+        "dress": "assets/dress/top-overall-denim.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "bottom-shorts-charcoal",
+      "slot": "bottom",
+      "label": "bottom-shorts-charcoal",
+      "files": {
+        "walk": "assets/walk/bottom-shorts-charcoal.png",
+        "greet": "assets/greet/bottom-shorts-charcoal.png",
+        "drink": "assets/drink/bottom-shorts-charcoal.png",
+        "examine": "assets/examine/bottom-shorts-charcoal.png",
+        "sit": "assets/sit/bottom-shorts-charcoal.png",
+        "celebrate": "assets/celebrate/bottom-shorts-charcoal.png",
+        "dress": "assets/dress/bottom-shorts-charcoal.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "bottom-trousers-navy",
+      "slot": "bottom",
+      "label": "bottom-trousers-navy",
+      "files": {
+        "walk": "assets/walk/bottom-trousers-navy.png",
+        "greet": "assets/greet/bottom-trousers-navy.png",
+        "drink": "assets/drink/bottom-trousers-navy.png",
+        "examine": "assets/examine/bottom-trousers-navy.png",
+        "sit": "assets/sit/bottom-trousers-navy.png",
+        "celebrate": "assets/celebrate/bottom-trousers-navy.png",
+        "dress": "assets/dress/bottom-trousers-navy.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "bottom-skirt-coral",
+      "slot": "bottom",
+      "label": "bottom-skirt-coral",
+      "files": {
+        "walk": "assets/walk/bottom-skirt-coral.png",
+        "greet": "assets/greet/bottom-skirt-coral.png",
+        "drink": "assets/drink/bottom-skirt-coral.png",
+        "examine": "assets/examine/bottom-skirt-coral.png",
+        "sit": "assets/sit/bottom-skirt-coral.png",
+        "celebrate": "assets/celebrate/bottom-skirt-coral.png",
+        "dress": "assets/dress/bottom-skirt-coral.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "bottom-overall-denim",
+      "slot": "bottom",
+      "label": "bottom-overall-denim",
+      "files": {
+        "walk": "assets/walk/bottom-overall-denim.png",
+        "greet": "assets/greet/bottom-overall-denim.png",
+        "drink": "assets/drink/bottom-overall-denim.png",
+        "examine": "assets/examine/bottom-overall-denim.png",
+        "sit": "assets/sit/bottom-overall-denim.png",
+        "celebrate": "assets/celebrate/bottom-overall-denim.png",
+        "dress": "assets/dress/bottom-overall-denim.png"
       },
       "rearPair": null,
       "isRear": false,

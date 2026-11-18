@@ -74,3 +74,22 @@ First integrated pass found the back-facing hair-protection composite covering t
 Remaining non-blocking art tradeoff: low hat brims naturally hide most of the short-crop frontal fringe; sideburn/back-hair silhouettes still preserve the selected hair. Long straight rear hair continues to hide much of rear torso/inward gestures, as already documented. These are not new assembly regressions.
 
 This is exhaustive static pose QA for the stated hat–hair matrix, not an exhaustive test of all other clothing/accessory combinations or a browser-runtime animation-timing certification. Viewer integration is owned by parent; this reviewer did not operate the live viewer.
+
+## Full-parts follow-up: eyewear and headphones composition
+
+Fixed two actual combination faults in both `viewer.js` and `tools/render_proofs.py`:
+
+1. Profile eyewear temples were drawn across opaque side hair, and glasses could draw over low hat brims. `fit_glasses_occlusion.py` plus the equivalent exported JS `clipGlassesPixels` now hides the rear half (temple) behind opaque hair, preserves the forward lens half, and clips all eyewear where a cap is opaque. Front lenses are NOT erased by hair. Rear glasses remain hidden.
+2. `body-headphones` was below hair and disappeared in profile with short hair. Headphones now render after hair and before hat, with rear protection restoring headphones after rear hair but before cap. Ear pads and band remain visible in all four directions.
+
+Actual current-renderer visual coverage: opened all 21 generated sheets in `previews/head-followup`: 6 hairstyles × (2 glasses + headphones) × 7 actions × 4 directions × 4 frames = **2,016 combination poses**. Additional before/after hat–hair–glasses matrices cover 6 hairs × 4 hat choices (none/baseball/beanie/beret) × 2 glasses × 4 directions at examine frame2 = **192 poses per before/after set**. These are new checks, separate from the earlier exhaustive 2,016 hat–hair poses. All sheets were viewed, not merely generated. Confirmed visible lenses remain, temples disappear appropriately into hair, cap edges remain in front, no rear false eyes, and headphones remain visible across all seven motions. Before/after evidence is in the same folder.
+
+Tests passed: `node avatar02/test-viewer.mjs` including new directional clipping/lens-preservation/cap-mask/headphone-order cases and existing 1,248 real-manifest plans; Python `tools/test_fit_glasses_occlusion.py`. DOM/canvas tests use doubles, not a real-browser pixel test. No blanket claim of every possible 3+ accessory combination across all frames: hat+glasses triples were sampled at the problematic examine pose, while hair+glasses and hair+headphones pairs were exhaustive.
+
+Residual artwork limitation unchanged: long straight rear mass hides torso/inner gestures. Side bangs may still visually overlap the front lens edge by design because this pass deliberately preserves the forward lens half instead of aggressively deleting it.
+
+## Python–JS eyewear helper pixel parity
+
+`python avatar02/tools/test_head_pixel_parity.py` passed **2,016 exact RGBA byte comparisons** using actual current atlases: hair-short/pigtails/long-straight × no hat/baseball/beret × round/square glasses × 7 actions × 4 directions × 4 frames. Hat-compatible hair variants are used where selected. The test sends each real cell to exported JS `clipGlassesPixels` and compares every RGBA byte against Python `fit_glasses_occlusion` for that same cell. No mismatch.
+
+Scope is eyewear clipping helper output, not the entire composed avatar. Layer ordering is separately covered by `test-viewer.mjs`; real browser Canvas final pixels and localhost display remain unverified in this worker. Do not label the helper parity result a full Python-renderer vs browser-screenshot equivalence test.

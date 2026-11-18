@@ -75,7 +75,7 @@ console.log('Viewer helper tests passed: frame timing, pause-step mapping, hat/r
 // Exercise event wiring with a minimal DOM/Canvas test double. This is not browser QA.
 import vm from 'node:vm';
 const canvasCalls=[];
-const drawing={clearRect(){},fillRect(){},beginPath(){},moveTo(){},lineTo(){},stroke(){},fillText(){},drawImage(...args){canvasCalls.push(args);}};
+const drawing={getImageData(){return {data:new Uint8ClampedArray(80*80*4)};},createImageData(w,h){return {data:new Uint8ClampedArray(w*h*4)};},putImageData(){},clearRect(){},fillRect(){},beginPath(){},moveTo(){},lineTo(){},stroke(){},fillText(){},drawImage(...args){canvasCalls.push(args);}};
 class Element {
  constructor(tag='div'){this.tagName=tag;this.children=[];this.listeners={};this.attributes={};this.dataset={};this.value='';this.checked=false;this.textContent='';}
  append(...els){this.children.push(...els);} prepend(...els){this.children.unshift(...els);}
@@ -111,3 +111,16 @@ elements.motion.value='idle';elements.motion.listeners.change();raf.shift()(500)
 elements.reset.listeners.click();assert.ok(selectors.every(s=>s.value===''));
 assert.equal(elements.issues.textContent,'');
 console.log('DOM/Canvas test-double integration passed: boot, render, pause, step, direction, every slot change, grid, idle, reset. This is not a real browser test.');
+
+// Hair hides only the temple half; lens half remains intact. Cap occludes all.
+const raw=new Uint8ClampedArray(8*4);for(let x=0;x<8;x++)raw[x*4+3]=255;
+const hair=new Uint8ClampedArray(raw),hat=new Uint8ClampedArray(raw.length);
+assert.deepEqual([...api.clipGlassesPixels(raw,hair,hat,8,'right')].filter((_,i)=>i%4===3),[0,0,0,0,255,255,255,255]);
+assert.deepEqual([...api.clipGlassesPixels(raw,hair,hat,8,'left')].filter((_,i)=>i%4===3),[255,255,255,255,0,0,0,0]);
+assert.deepEqual(api.clipGlassesPixels(raw,hair,hat,8,'front'),raw);
+assert.ok(api.clipGlassesPixels(raw,hair,hat,8,'back').every((v,i)=>i%4!==3||v===0));
+hat[7*4+3]=255;assert.equal(api.clipGlassesPixels(raw,null,hat,8,'front')[31],0);
+const hpManifest={...fixture,items:[...fixture.items,{id:'body-headphones',slot:'body',files:{walk:'hp.png'}}]};
+const hpPlan=api.layerPlan(hpManifest,{motion:'walk',selection:{hair:'hair-long',body:'body-headphones',hat:'cap'}},'front');
+assert.ok(hpPlan.layers.findIndex(l=>l.slot==='headphones')<hpPlan.layers.findIndex(l=>l.slot==='hat'));
+console.log('Head occlusion and headphones order unit checks passed');
