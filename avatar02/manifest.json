@@ -1,0 +1,1039 @@
+{
+  "version": "0.4-full-catalogue-review",
+  "cell": [
+    80,
+    80
+  ],
+  "pivot": [
+    40,
+    74
+  ],
+  "directions": [
+    "front",
+    "right",
+    "back",
+    "left"
+  ],
+  "motions": {
+    "idle": {
+      "source": "walk",
+      "frames": [
+        1
+      ],
+      "durationMs": 600
+    },
+    "walk": {
+      "source": "walk",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "durationMs": 180
+    },
+    "greet": {
+      "source": "greet",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "durationMs": 400
+    },
+    "drink": {
+      "source": "drink",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "durationMs": 400
+    },
+    "examine": {
+      "source": "examine",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "durationMs": 400
+    },
+    "sit": {
+      "source": "sit",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "durationMs": 400
+    },
+    "celebrate": {
+      "source": "celebrate",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "durationMs": 400
+    },
+    "dress": {
+      "source": "dress",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "durationMs": 400
+    }
+  },
+  "items": [
+    {
+      "id": "skin-warm",
+      "slot": "skin",
+      "label": "피부 · 따뜻한 톤",
+      "files": {
+        "walk": "assets/walk/skin-warm.png",
+        "greet": "assets/greet/skin-warm.png",
+        "drink": "assets/drink/skin-warm.png",
+        "examine": "assets/examine/skin-warm.png",
+        "sit": "assets/sit/skin-warm.png",
+        "celebrate": "assets/celebrate/skin-warm.png",
+        "dress": "assets/dress/skin-warm.png"
+      },
+      "status": "review-candidate",
+      "notes": [
+        "Inherited v3 fitted overlay; manual final frame QA remains."
+      ]
+    },
+    {
+      "id": "skin-deep",
+      "slot": "skin",
+      "label": "피부 · 깊은 톤",
+      "files": {
+        "walk": "assets/walk/skin-deep.png",
+        "greet": "assets/greet/skin-deep.png",
+        "drink": "assets/drink/skin-deep.png",
+        "examine": "assets/examine/skin-deep.png",
+        "sit": "assets/sit/skin-deep.png",
+        "celebrate": "assets/celebrate/skin-deep.png",
+        "dress": "assets/dress/skin-deep.png"
+      },
+      "status": "review-candidate",
+      "notes": [
+        "Inherited v3 fitted overlay; manual final frame QA remains."
+      ]
+    },
+    {
+      "id": "hair-short",
+      "slot": "hair",
+      "label": "짧은 머리",
+      "files": {
+        "walk": "assets/walk/hair-short.png",
+        "greet": "assets/greet/hair-short.png",
+        "drink": "assets/drink/hair-short.png",
+        "examine": "assets/examine/hair-short.png",
+        "sit": "assets/sit/hair-short.png",
+        "celebrate": "assets/celebrate/hair-short.png",
+        "dress": "assets/dress/hair-short.png"
+      },
+      "status": "review-candidate",
+      "notes": [
+        "Inherited v3 fitted overlay; manual final frame QA remains."
+      ]
+    },
+    {
+      "id": "top-plain",
+      "slot": "top",
+      "label": "무지 티",
+      "files": {
+        "walk": "assets/walk/top-plain.png",
+        "greet": "assets/greet/top-plain.png",
+        "drink": "assets/drink/top-plain.png",
+        "examine": "assets/examine/top-plain.png",
+        "sit": "assets/sit/top-plain.png",
+        "celebrate": "assets/celebrate/top-plain.png",
+        "dress": "assets/dress/top-plain.png"
+      },
+      "status": "review-candidate",
+      "notes": [
+        "Inherited v3 fitted overlay; manual final frame QA remains."
+      ]
+    },
+    {
+      "id": "top-vest",
+      "slot": "top",
+      "label": "조끼",
+      "files": {
+        "walk": "assets/walk/top-vest.png",
+        "greet": "assets/greet/top-vest.png",
+        "drink": "assets/drink/top-vest.png",
+        "examine": "assets/examine/top-vest.png",
+        "sit": "assets/sit/top-vest.png",
+        "celebrate": "assets/celebrate/top-vest.png",
+        "dress": "assets/dress/top-vest.png"
+      },
+      "status": "review-candidate",
+      "notes": [
+        "Inherited v3 fitted overlay; manual final frame QA remains."
+      ]
+    },
+    {
+      "id": "bottom-shorts",
+      "slot": "bottom",
+      "label": "반바지",
+      "files": {
+        "walk": "assets/walk/bottom-shorts.png",
+        "greet": "assets/greet/bottom-shorts.png",
+        "drink": "assets/drink/bottom-shorts.png",
+        "examine": "assets/examine/bottom-shorts.png",
+        "sit": "assets/sit/bottom-shorts.png",
+        "celebrate": "assets/celebrate/bottom-shorts.png",
+        "dress": "assets/dress/bottom-shorts.png"
+      },
+      "status": "review-candidate",
+      "notes": [
+        "Inherited v3 fitted overlay; manual final frame QA remains.",
+        "Pose-conforming color-transfer fallback sacrifices source pocket detail."
+      ]
+    },
+    {
+      "id": "hat-baseball",
+      "slot": "hat",
+      "label": "야구모자",
+      "files": {
+        "walk": "assets/walk/hat-baseball.png",
+        "greet": "assets/greet/hat-baseball.png",
+        "drink": "assets/drink/hat-baseball.png",
+        "examine": "assets/examine/hat-baseball.png",
+        "sit": "assets/sit/hat-baseball.png",
+        "celebrate": "assets/celebrate/hat-baseball.png",
+        "dress": "assets/dress/hat-baseball.png"
+      },
+      "status": "review-candidate",
+      "notes": [
+        "Inherited v3 fitted overlay; manual final frame QA remains."
+      ]
+    },
+    {
+      "id": "glasses-round",
+      "slot": "glasses",
+      "label": "동그란 안경",
+      "files": {
+        "walk": "assets/walk/glasses-round.png",
+        "greet": "assets/greet/glasses-round.png",
+        "drink": "assets/drink/glasses-round.png",
+        "examine": "assets/examine/glasses-round.png",
+        "sit": "assets/sit/glasses-round.png",
+        "celebrate": "assets/celebrate/glasses-round.png",
+        "dress": "assets/dress/glasses-round.png"
+      },
+      "status": "review-candidate",
+      "notes": [
+        "Inherited v3 fitted overlay; manual final frame QA remains."
+      ]
+    },
+    {
+      "id": "body-crossbody",
+      "slot": "body",
+      "label": "크로스백",
+      "files": {
+        "walk": "assets/walk/body-crossbody.png",
+        "greet": "assets/greet/body-crossbody.png",
+        "drink": "assets/drink/body-crossbody.png",
+        "examine": "assets/examine/body-crossbody.png",
+        "sit": "assets/sit/body-crossbody.png",
+        "celebrate": "assets/celebrate/body-crossbody.png",
+        "dress": "assets/dress/body-crossbody.png"
+      },
+      "status": "review-candidate",
+      "notes": [
+        "Inherited v3 fitted overlay; manual final frame QA remains."
+      ]
+    },
+    {
+      "id": "hand-mug",
+      "slot": "hand",
+      "label": "머그컵",
+      "files": {
+        "walk": "assets/walk/hand-mug.png",
+        "greet": "assets/greet/hand-mug.png",
+        "drink": "assets/drink/hand-mug.png",
+        "examine": "assets/examine/hand-mug.png",
+        "sit": "assets/sit/hand-mug.png",
+        "celebrate": "assets/celebrate/hand-mug.png",
+        "dress": "assets/dress/hand-mug.png"
+      },
+      "status": "review-candidate",
+      "notes": [
+        "Inherited v3 fitted overlay; manual final frame QA remains."
+      ]
+    },
+    {
+      "id": "shoes-sneakers",
+      "slot": "shoes",
+      "label": "shoes-sneakers",
+      "files": {
+        "walk": "assets/walk/shoes-sneakers.png",
+        "greet": "assets/greet/shoes-sneakers.png",
+        "drink": "assets/drink/shoes-sneakers.png",
+        "examine": "assets/examine/shoes-sneakers.png",
+        "sit": "assets/sit/shoes-sneakers.png",
+        "celebrate": "assets/celebrate/shoes-sneakers.png",
+        "dress": "assets/dress/shoes-sneakers.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
+        "Footwear source separated and fitted to detected baseline feet; complex gait shading still needs art polish."
+      ]
+    },
+    {
+      "id": "shoes-loafers",
+      "slot": "shoes",
+      "label": "shoes-loafers",
+      "files": {
+        "walk": "assets/walk/shoes-loafers.png",
+        "greet": "assets/greet/shoes-loafers.png",
+        "drink": "assets/drink/shoes-loafers.png",
+        "examine": "assets/examine/shoes-loafers.png",
+        "sit": "assets/sit/shoes-loafers.png",
+        "celebrate": "assets/celebrate/shoes-loafers.png",
+        "dress": "assets/dress/shoes-loafers.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
+        "Footwear source separated and fitted to detected baseline feet; complex gait shading still needs art polish."
+      ]
+    },
+    {
+      "id": "shoes-boots",
+      "slot": "shoes",
+      "label": "shoes-boots",
+      "files": {
+        "walk": "assets/walk/shoes-boots.png",
+        "greet": "assets/greet/shoes-boots.png",
+        "drink": "assets/drink/shoes-boots.png",
+        "examine": "assets/examine/shoes-boots.png",
+        "sit": "assets/sit/shoes-boots.png",
+        "celebrate": "assets/celebrate/shoes-boots.png",
+        "dress": "assets/dress/shoes-boots.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
+        "Footwear source separated and fitted to detected baseline feet; complex gait shading still needs art polish."
+      ]
+    },
+    {
+      "id": "body-mini-bag",
+      "slot": "body",
+      "label": "body-mini-bag",
+      "files": {
+        "walk": "assets/walk/body-mini-bag.png",
+        "greet": "assets/greet/body-mini-bag.png",
+        "drink": "assets/drink/body-mini-bag.png",
+        "examine": "assets/examine/body-mini-bag.png",
+        "sit": "assets/sit/body-mini-bag.png",
+        "celebrate": "assets/celebrate/body-mini-bag.png",
+        "dress": "assets/dress/body-mini-bag.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "body-headphones",
+      "slot": "body",
+      "label": "body-headphones",
+      "files": {
+        "walk": "assets/walk/body-headphones.png",
+        "greet": "assets/greet/body-headphones.png",
+        "drink": "assets/drink/body-headphones.png",
+        "examine": "assets/examine/body-headphones.png",
+        "sit": "assets/sit/body-headphones.png",
+        "celebrate": "assets/celebrate/body-headphones.png",
+        "dress": "assets/dress/body-headphones.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "hand-takeout-cup",
+      "slot": "hand",
+      "label": "hand-takeout-cup",
+      "files": {
+        "walk": "assets/walk/hand-takeout-cup.png",
+        "greet": "assets/greet/hand-takeout-cup.png",
+        "drink": "assets/drink/hand-takeout-cup.png",
+        "examine": "assets/examine/hand-takeout-cup.png",
+        "sit": "assets/sit/hand-takeout-cup.png",
+        "celebrate": "assets/celebrate/hand-takeout-cup.png",
+        "dress": "assets/dress/hand-takeout-cup.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "hand-book",
+      "slot": "hand",
+      "label": "hand-book",
+      "files": {
+        "walk": "assets/walk/hand-book.png",
+        "greet": "assets/greet/hand-book.png",
+        "drink": "assets/drink/hand-book.png",
+        "examine": "assets/examine/hand-book.png",
+        "sit": "assets/sit/hand-book.png",
+        "celebrate": "assets/celebrate/hand-book.png",
+        "dress": "assets/dress/hand-book.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
+        "Book is stowed during drink; dedicated reading animation not included."
+      ]
+    },
+    {
+      "id": "top-tee-plain",
+      "slot": "top",
+      "label": "top-tee-plain",
+      "files": {
+        "walk": "assets/walk/top-tee-plain.png",
+        "greet": "assets/greet/top-tee-plain.png",
+        "drink": "assets/drink/top-tee-plain.png",
+        "examine": "assets/examine/top-tee-plain.png",
+        "sit": "assets/sit/top-tee-plain.png",
+        "celebrate": "assets/celebrate/top-tee-plain.png",
+        "dress": "assets/dress/top-tee-plain.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "top-tee-striped",
+      "slot": "top",
+      "label": "top-tee-striped",
+      "files": {
+        "walk": "assets/walk/top-tee-striped.png",
+        "greet": "assets/greet/top-tee-striped.png",
+        "drink": "assets/drink/top-tee-striped.png",
+        "examine": "assets/examine/top-tee-striped.png",
+        "sit": "assets/sit/top-tee-striped.png",
+        "celebrate": "assets/celebrate/top-tee-striped.png",
+        "dress": "assets/dress/top-tee-striped.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "top-shirt-blue",
+      "slot": "top",
+      "label": "top-shirt-blue",
+      "files": {
+        "walk": "assets/walk/top-shirt-blue.png",
+        "greet": "assets/greet/top-shirt-blue.png",
+        "drink": "assets/drink/top-shirt-blue.png",
+        "examine": "assets/examine/top-shirt-blue.png",
+        "sit": "assets/sit/top-shirt-blue.png",
+        "celebrate": "assets/celebrate/top-shirt-blue.png",
+        "dress": "assets/dress/top-shirt-blue.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "needs-pose-redraw",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
+        "Raised-arm sleeve or seated skirt silhouette needs pose-specific redraw. Do not treat as production-ready."
+      ]
+    },
+    {
+      "id": "top-cardigan-rust",
+      "slot": "top",
+      "label": "top-cardigan-rust",
+      "files": {
+        "walk": "assets/walk/top-cardigan-rust.png",
+        "greet": "assets/greet/top-cardigan-rust.png",
+        "drink": "assets/drink/top-cardigan-rust.png",
+        "examine": "assets/examine/top-cardigan-rust.png",
+        "sit": "assets/sit/top-cardigan-rust.png",
+        "celebrate": "assets/celebrate/top-cardigan-rust.png",
+        "dress": "assets/dress/top-cardigan-rust.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "needs-pose-redraw",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
+        "Raised-arm sleeve or seated skirt silhouette needs pose-specific redraw. Do not treat as production-ready."
+      ]
+    },
+    {
+      "id": "top-hoodie-lavender",
+      "slot": "top",
+      "label": "top-hoodie-lavender",
+      "files": {
+        "walk": "assets/walk/top-hoodie-lavender.png",
+        "greet": "assets/greet/top-hoodie-lavender.png",
+        "drink": "assets/drink/top-hoodie-lavender.png",
+        "examine": "assets/examine/top-hoodie-lavender.png",
+        "sit": "assets/sit/top-hoodie-lavender.png",
+        "celebrate": "assets/celebrate/top-hoodie-lavender.png",
+        "dress": "assets/dress/top-hoodie-lavender.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "needs-pose-redraw",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
+        "Raised-arm sleeve or seated skirt silhouette needs pose-specific redraw. Do not treat as production-ready."
+      ]
+    },
+    {
+      "id": "top-vest-moss",
+      "slot": "top",
+      "label": "top-vest-moss",
+      "files": {
+        "walk": "assets/walk/top-vest-moss.png",
+        "greet": "assets/greet/top-vest-moss.png",
+        "drink": "assets/drink/top-vest-moss.png",
+        "examine": "assets/examine/top-vest-moss.png",
+        "sit": "assets/sit/top-vest-moss.png",
+        "celebrate": "assets/celebrate/top-vest-moss.png",
+        "dress": "assets/dress/top-vest-moss.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "top-overall-denim",
+      "slot": "top",
+      "label": "top-overall-denim",
+      "files": {
+        "walk": "assets/walk/top-overall-denim.png",
+        "greet": "assets/greet/top-overall-denim.png",
+        "drink": "assets/drink/top-overall-denim.png",
+        "examine": "assets/examine/top-overall-denim.png",
+        "sit": "assets/sit/top-overall-denim.png",
+        "celebrate": "assets/celebrate/top-overall-denim.png",
+        "dress": "assets/dress/top-overall-denim.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "bottom-shorts-charcoal",
+      "slot": "bottom",
+      "label": "bottom-shorts-charcoal",
+      "files": {
+        "walk": "assets/walk/bottom-shorts-charcoal.png",
+        "greet": "assets/greet/bottom-shorts-charcoal.png",
+        "drink": "assets/drink/bottom-shorts-charcoal.png",
+        "examine": "assets/examine/bottom-shorts-charcoal.png",
+        "sit": "assets/sit/bottom-shorts-charcoal.png",
+        "celebrate": "assets/celebrate/bottom-shorts-charcoal.png",
+        "dress": "assets/dress/bottom-shorts-charcoal.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
+        "Pose-conforming color-transfer fallback sacrifices source pocket detail."
+      ]
+    },
+    {
+      "id": "bottom-trousers-navy",
+      "slot": "bottom",
+      "label": "bottom-trousers-navy",
+      "files": {
+        "walk": "assets/walk/bottom-trousers-navy.png",
+        "greet": "assets/greet/bottom-trousers-navy.png",
+        "drink": "assets/drink/bottom-trousers-navy.png",
+        "examine": "assets/examine/bottom-trousers-navy.png",
+        "sit": "assets/sit/bottom-trousers-navy.png",
+        "celebrate": "assets/celebrate/bottom-trousers-navy.png",
+        "dress": "assets/dress/bottom-trousers-navy.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
+        "Pose-conforming color-transfer fallback sacrifices source pocket detail."
+      ]
+    },
+    {
+      "id": "bottom-skirt-coral",
+      "slot": "bottom",
+      "label": "bottom-skirt-coral",
+      "files": {
+        "walk": "assets/walk/bottom-skirt-coral.png",
+        "greet": "assets/greet/bottom-skirt-coral.png",
+        "drink": "assets/drink/bottom-skirt-coral.png",
+        "examine": "assets/examine/bottom-skirt-coral.png",
+        "sit": "assets/sit/bottom-skirt-coral.png",
+        "celebrate": "assets/celebrate/bottom-skirt-coral.png",
+        "dress": "assets/dress/bottom-skirt-coral.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "needs-pose-redraw",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
+        "Raised-arm sleeve or seated skirt silhouette needs pose-specific redraw. Do not treat as production-ready."
+      ]
+    },
+    {
+      "id": "bottom-overall-denim",
+      "slot": "bottom",
+      "label": "bottom-overall-denim",
+      "files": {
+        "walk": "assets/walk/bottom-overall-denim.png",
+        "greet": "assets/greet/bottom-overall-denim.png",
+        "drink": "assets/drink/bottom-overall-denim.png",
+        "examine": "assets/examine/bottom-overall-denim.png",
+        "sit": "assets/sit/bottom-overall-denim.png",
+        "celebrate": "assets/celebrate/bottom-overall-denim.png",
+        "dress": "assets/dress/bottom-overall-denim.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose.",
+        "Pose-conforming color-transfer fallback sacrifices source pocket detail."
+      ]
+    },
+    {
+      "id": "hair-curly-bob",
+      "slot": "hair",
+      "label": "hair-curly-bob",
+      "files": {
+        "walk": "assets/walk/hair-curly-bob.png",
+        "greet": "assets/greet/hair-curly-bob.png",
+        "drink": "assets/drink/hair-curly-bob.png",
+        "examine": "assets/examine/hair-curly-bob.png",
+        "sit": "assets/sit/hair-curly-bob.png",
+        "celebrate": "assets/celebrate/hair-curly-bob.png",
+        "dress": "assets/dress/hair-curly-bob.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "hair-pixie",
+      "slot": "hair",
+      "label": "hair-pixie",
+      "files": {
+        "walk": "assets/walk/hair-pixie.png",
+        "greet": "assets/greet/hair-pixie.png",
+        "drink": "assets/drink/hair-pixie.png",
+        "examine": "assets/examine/hair-pixie.png",
+        "sit": "assets/sit/hair-pixie.png",
+        "celebrate": "assets/celebrate/hair-pixie.png",
+        "dress": "assets/dress/hair-pixie.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "hair-pigtails",
+      "slot": "hair",
+      "label": "hair-pigtails",
+      "files": {
+        "walk": "assets/walk/hair-pigtails.png",
+        "greet": "assets/greet/hair-pigtails.png",
+        "drink": "assets/drink/hair-pigtails.png",
+        "examine": "assets/examine/hair-pigtails.png",
+        "sit": "assets/sit/hair-pigtails.png",
+        "celebrate": "assets/celebrate/hair-pigtails.png",
+        "dress": "assets/dress/hair-pigtails.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "hair-long-straight",
+      "slot": "hair",
+      "label": "hair-long-straight",
+      "files": {
+        "walk": "assets/walk/hair-long-straight.png",
+        "greet": "assets/greet/hair-long-straight.png",
+        "drink": "assets/drink/hair-long-straight.png",
+        "examine": "assets/examine/hair-long-straight.png",
+        "sit": "assets/sit/hair-long-straight.png",
+        "celebrate": "assets/celebrate/hair-long-straight.png",
+        "dress": "assets/dress/hair-long-straight.png"
+      },
+      "rearPair": "hair-long-straight-rear",
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ],
+      "rearFiles": {
+        "walk": "assets/walk/hair-long-straight-rear.png",
+        "greet": "assets/greet/hair-long-straight-rear.png",
+        "drink": "assets/drink/hair-long-straight-rear.png",
+        "examine": "assets/examine/hair-long-straight-rear.png",
+        "sit": "assets/sit/hair-long-straight-rear.png",
+        "celebrate": "assets/celebrate/hair-long-straight-rear.png",
+        "dress": "assets/dress/hair-long-straight-rear.png"
+      }
+    },
+    {
+      "id": "hair-braid",
+      "slot": "hair",
+      "label": "hair-braid",
+      "files": {
+        "walk": "assets/walk/hair-braid.png",
+        "greet": "assets/greet/hair-braid.png",
+        "drink": "assets/drink/hair-braid.png",
+        "examine": "assets/examine/hair-braid.png",
+        "sit": "assets/sit/hair-braid.png",
+        "celebrate": "assets/celebrate/hair-braid.png",
+        "dress": "assets/dress/hair-braid.png"
+      },
+      "rearPair": "hair-braid-rear",
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ],
+      "rearFiles": {
+        "walk": "assets/walk/hair-braid-rear.png",
+        "greet": "assets/greet/hair-braid-rear.png",
+        "drink": "assets/drink/hair-braid-rear.png",
+        "examine": "assets/examine/hair-braid-rear.png",
+        "sit": "assets/sit/hair-braid-rear.png",
+        "celebrate": "assets/celebrate/hair-braid-rear.png",
+        "dress": "assets/dress/hair-braid-rear.png"
+      }
+    },
+    {
+      "id": "hat-beanie",
+      "slot": "hat",
+      "label": "hat-beanie",
+      "files": {
+        "walk": "assets/walk/hat-beanie.png",
+        "greet": "assets/greet/hat-beanie.png",
+        "drink": "assets/drink/hat-beanie.png",
+        "examine": "assets/examine/hat-beanie.png",
+        "sit": "assets/sit/hat-beanie.png",
+        "celebrate": "assets/celebrate/hat-beanie.png",
+        "dress": "assets/dress/hat-beanie.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "hat-beret",
+      "slot": "hat",
+      "label": "hat-beret",
+      "files": {
+        "walk": "assets/walk/hat-beret.png",
+        "greet": "assets/greet/hat-beret.png",
+        "drink": "assets/drink/hat-beret.png",
+        "examine": "assets/examine/hat-beret.png",
+        "sit": "assets/sit/hat-beret.png",
+        "celebrate": "assets/celebrate/hat-beret.png",
+        "dress": "assets/dress/hat-beret.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "glasses-square",
+      "slot": "glasses",
+      "label": "glasses-square",
+      "files": {
+        "walk": "assets/walk/glasses-square.png",
+        "greet": "assets/greet/glasses-square.png",
+        "drink": "assets/drink/glasses-square.png",
+        "examine": "assets/examine/glasses-square.png",
+        "sit": "assets/sit/glasses-square.png",
+        "celebrate": "assets/celebrate/glasses-square.png",
+        "dress": "assets/dress/glasses-square.png"
+      },
+      "rearPair": null,
+      "isRear": false,
+      "pair": null,
+      "status": "review-candidate",
+      "notes": [
+        "Four directional source silhouettes fitted to seven action atlases. Not hand-redrawn for every pose."
+      ]
+    },
+    {
+      "id": "eyes-dot",
+      "slot": "eyes",
+      "label": "점 눈",
+      "files": {
+        "walk": "assets/walk/eyes-dot.png",
+        "greet": "assets/greet/eyes-dot.png",
+        "drink": "assets/drink/eyes-dot.png",
+        "examine": "assets/examine/eyes-dot.png",
+        "sit": "assets/sit/eyes-dot.png",
+        "celebrate": "assets/celebrate/eyes-dot.png",
+        "dress": "assets/dress/eyes-dot.png"
+      },
+      "paletteFiles": {
+        "green": {
+          "walk": "assets/walk/eyes-dot-green.png",
+          "greet": "assets/greet/eyes-dot-green.png",
+          "drink": "assets/drink/eyes-dot-green.png",
+          "examine": "assets/examine/eyes-dot-green.png",
+          "sit": "assets/sit/eyes-dot-green.png",
+          "celebrate": "assets/celebrate/eyes-dot-green.png",
+          "dress": "assets/dress/eyes-dot-green.png"
+        },
+        "blue": {
+          "walk": "assets/walk/eyes-dot-blue.png",
+          "greet": "assets/greet/eyes-dot-blue.png",
+          "drink": "assets/drink/eyes-dot-blue.png",
+          "examine": "assets/examine/eyes-dot-blue.png",
+          "sit": "assets/sit/eyes-dot-blue.png",
+          "celebrate": "assets/celebrate/eyes-dot-blue.png",
+          "dress": "assets/dress/eyes-dot-blue.png"
+        }
+      },
+      "status": "review-candidate",
+      "notes": [
+        "Rear-facing eyes intentionally hidden. Eye cover patches erase underlying eyes."
+      ]
+    },
+    {
+      "id": "eyes-sleepy",
+      "slot": "eyes",
+      "label": "졸린 눈",
+      "files": {
+        "walk": "assets/walk/eyes-sleepy.png",
+        "greet": "assets/greet/eyes-sleepy.png",
+        "drink": "assets/drink/eyes-sleepy.png",
+        "examine": "assets/examine/eyes-sleepy.png",
+        "sit": "assets/sit/eyes-sleepy.png",
+        "celebrate": "assets/celebrate/eyes-sleepy.png",
+        "dress": "assets/dress/eyes-sleepy.png"
+      },
+      "paletteFiles": {
+        "green": {
+          "walk": "assets/walk/eyes-sleepy-green.png",
+          "greet": "assets/greet/eyes-sleepy-green.png",
+          "drink": "assets/drink/eyes-sleepy-green.png",
+          "examine": "assets/examine/eyes-sleepy-green.png",
+          "sit": "assets/sit/eyes-sleepy-green.png",
+          "celebrate": "assets/celebrate/eyes-sleepy-green.png",
+          "dress": "assets/dress/eyes-sleepy-green.png"
+        },
+        "blue": {
+          "walk": "assets/walk/eyes-sleepy-blue.png",
+          "greet": "assets/greet/eyes-sleepy-blue.png",
+          "drink": "assets/drink/eyes-sleepy-blue.png",
+          "examine": "assets/examine/eyes-sleepy-blue.png",
+          "sit": "assets/sit/eyes-sleepy-blue.png",
+          "celebrate": "assets/celebrate/eyes-sleepy-blue.png",
+          "dress": "assets/dress/eyes-sleepy-blue.png"
+        }
+      },
+      "status": "review-candidate",
+      "notes": [
+        "Rear-facing eyes intentionally hidden. Eye cover patches erase underlying eyes."
+      ]
+    },
+    {
+      "id": "eyes-smile",
+      "slot": "eyes",
+      "label": "웃는 눈",
+      "files": {
+        "walk": "assets/walk/eyes-smile.png",
+        "greet": "assets/greet/eyes-smile.png",
+        "drink": "assets/drink/eyes-smile.png",
+        "examine": "assets/examine/eyes-smile.png",
+        "sit": "assets/sit/eyes-smile.png",
+        "celebrate": "assets/celebrate/eyes-smile.png",
+        "dress": "assets/dress/eyes-smile.png"
+      },
+      "paletteFiles": {
+        "green": {
+          "walk": "assets/walk/eyes-smile-green.png",
+          "greet": "assets/greet/eyes-smile-green.png",
+          "drink": "assets/drink/eyes-smile-green.png",
+          "examine": "assets/examine/eyes-smile-green.png",
+          "sit": "assets/sit/eyes-smile-green.png",
+          "celebrate": "assets/celebrate/eyes-smile-green.png",
+          "dress": "assets/dress/eyes-smile-green.png"
+        },
+        "blue": {
+          "walk": "assets/walk/eyes-smile-blue.png",
+          "greet": "assets/greet/eyes-smile-blue.png",
+          "drink": "assets/drink/eyes-smile-blue.png",
+          "examine": "assets/examine/eyes-smile-blue.png",
+          "sit": "assets/sit/eyes-smile-blue.png",
+          "celebrate": "assets/celebrate/eyes-smile-blue.png",
+          "dress": "assets/dress/eyes-smile-blue.png"
+        }
+      },
+      "status": "review-candidate",
+      "notes": [
+        "Rear-facing eyes intentionally hidden. Eye cover patches erase underlying eyes."
+      ]
+    }
+  ],
+  "base": {
+    "walk": "assets/walk/base.png",
+    "greet": "assets/greet/base.png",
+    "drink": "assets/drink/base.png",
+    "examine": "assets/examine/base.png",
+    "sit": "assets/sit/base.png",
+    "celebrate": "assets/celebrate/base.png",
+    "dress": "assets/dress/base.png"
+  },
+  "handsMask": {
+    "walk": "assets/walk/hands-mask.png",
+    "greet": "assets/greet/hands-mask.png",
+    "drink": "assets/drink/hands-mask.png",
+    "examine": "assets/examine/hands-mask.png",
+    "sit": "assets/sit/hands-mask.png",
+    "celebrate": "assets/celebrate/hands-mask.png",
+    "dress": "assets/dress/hands-mask.png"
+  },
+  "eyeCover": {
+    "base": {
+      "walk": "assets/walk/eye-cover-base.png",
+      "greet": "assets/greet/eye-cover-base.png",
+      "drink": "assets/drink/eye-cover-base.png",
+      "examine": "assets/examine/eye-cover-base.png",
+      "sit": "assets/sit/eye-cover-base.png",
+      "celebrate": "assets/celebrate/eye-cover-base.png",
+      "dress": "assets/dress/eye-cover-base.png"
+    },
+    "skin-warm": {
+      "walk": "assets/walk/eye-cover-skin-warm.png",
+      "greet": "assets/greet/eye-cover-skin-warm.png",
+      "drink": "assets/drink/eye-cover-skin-warm.png",
+      "examine": "assets/examine/eye-cover-skin-warm.png",
+      "sit": "assets/sit/eye-cover-skin-warm.png",
+      "celebrate": "assets/celebrate/eye-cover-skin-warm.png",
+      "dress": "assets/dress/eye-cover-skin-warm.png"
+    },
+    "skin-deep": {
+      "walk": "assets/walk/eye-cover-skin-deep.png",
+      "greet": "assets/greet/eye-cover-skin-deep.png",
+      "drink": "assets/drink/eye-cover-skin-deep.png",
+      "examine": "assets/examine/eye-cover-skin-deep.png",
+      "sit": "assets/sit/eye-cover-skin-deep.png",
+      "celebrate": "assets/celebrate/eye-cover-skin-deep.png",
+      "dress": "assets/dress/eye-cover-skin-deep.png"
+    }
+  },
+  "lensColors": [
+    "charcoal",
+    "green",
+    "blue"
+  ],
+  "layerOrder": [
+    "hairRear",
+    "base",
+    "skin",
+    "eyes",
+    "bottom",
+    "shoes",
+    "top",
+    "body",
+    "hair",
+    "hat",
+    "glasses",
+    "hand"
+  ],
+  "warnings": [
+    "All requested named silhouettes are represented; final production QA is not complete.",
+    "Accessory/clothing transforms are deterministic fitting, not frame-by-frame drawn articulation.",
+    "Tops with long sleeves and seated skirt silhouette need pose-specific redraw; see QA reports."
+  ]
+}

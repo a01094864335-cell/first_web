@@ -1,0 +1,116 @@
+[
+  {
+    "id": "hair-curly-bob",
+    "slot": "hair",
+    "sheet": "shortstyles",
+    "row": 0,
+    "rows": 3,
+    "widthScale": 1.14,
+    "path": "source/hair_head/shortstyles.png",
+    "cols": 4
+  },
+  {
+    "id": "hair-pixie",
+    "slot": "hair",
+    "sheet": "shortstyles",
+    "row": 1,
+    "rows": 3,
+    "widthScale": 1.02,
+    "path": "source/hair_head/shortstyles.png",
+    "cols": 4
+  },
+  {
+    "id": "hair-pigtails",
+    "slot": "hair",
+    "sheet": "shortstyles",
+    "row": 2,
+    "rows": 3,
+    "widthScale": 1.42,
+    "path": "source/hair_head/shortstyles.png",
+    "cols": 4
+  },
+  {
+    "id": "hair-long-straight-rear",
+    "slot": "hair",
+    "sheet": "longstyles",
+    "row": 0,
+    "rows": 4,
+    "rear": true,
+    "pair": "hair-long-straight",
+    "heightScale": 1.5,
+    "widthScale": 1.08,
+    "path": "source/hair_head/longstyles.png",
+    "cols": 4
+  },
+  {
+    "id": "hair-long-straight",
+    "slot": "hair",
+    "sheet": "longstyles",
+    "row": 1,
+    "rows": 4,
+    "emptyDirections": [
+      "back"
+    ],
+    "rearPair": "hair-long-straight-rear",
+    "widthScale": 1.04,
+    "path": "source/hair_head/longstyles.png",
+    "cols": 4
+  },
+  {
+    "id": "hair-braid-rear",
+    "slot": "hair",
+    "sheet": "longstyles",
+    "row": 2,
+    "rows": 4,
+    "rear": true,
+    "pair": "hair-braid",
+    "heightScale": 1.5,
+    "widthScale": 1.04,
+    "path": "source/hair_head/longstyles.png",
+    "cols": 4
+  },
+  {
+    "id": "hair-braid",
+    "slot": "hair",
+    "sheet": "longstyles",
+    "row": 3,
+    "rows": 4,
+    "emptyDirections": [
+      "back"
+    ],
+    "rearPair": "hair-braid-rear",
+    "widthScale": 1.02,
+    "path": "source/hair_head/longstyles.png",
+    "cols": 4
+  },
+  {
+    "id": "hat-beanie",
+    "slot": "hat",
+    "sheet": "gear",
+    "row": 0,
+    "rows": 3,
+    "widthScale": 1.1,
+    "path": "source/hair_head/gear.png",
+    "cols": 4
+  },
+  {
+    "id": "hat-beret",
+    "slot": "hat",
+    "sheet": "gear",
+    "row": 1,
+    "rows": 3,
+    "widthScale": 1.14,
+    "path": "source/hair_head/gear.png",
+    "cols": 4
+  },
+  {
+    "id": "glasses-square",
+    "slot": "glasses",
+    "sheet": "gear",
+    "row": 2,
+    "rows": 3,
+    "widthScale": 0.85,
+    "path": "source/hair_head/gear.png",
+    "cols": 4
+  }
+]

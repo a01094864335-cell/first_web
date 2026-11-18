@@ -1,0 +1,58 @@
+[
+  {
+    "id": "shoes-sneakers",
+    "slot": "shoes",
+    "path": "source/accessories/shoes-source.png",
+    "row": 0,
+    "rows": 3,
+    "cols": 4
+  },
+  {
+    "id": "shoes-loafers",
+    "slot": "shoes",
+    "path": "source/accessories/shoes-source.png",
+    "row": 1,
+    "rows": 3,
+    "cols": 4
+  },
+  {
+    "id": "shoes-boots",
+    "slot": "shoes",
+    "path": "source/accessories/shoes-source.png",
+    "row": 2,
+    "rows": 3,
+    "cols": 4
+  },
+  {
+    "id": "body-mini-bag",
+    "slot": "body",
+    "path": "source/accessories/accessories-source.png",
+    "row": 0,
+    "rows": 4,
+    "cols": 4
+  },
+  {
+    "id": "body-headphones",
+    "slot": "body",
+    "path": "source/accessories/accessories-source.png",
+    "row": 1,
+    "rows": 4,
+    "cols": 4
+  },
+  {
+    "id": "hand-takeout-cup",
+    "slot": "hand",
+    "path": "source/accessories/accessories-source.png",
+    "row": 2,
+    "rows": 4,
+    "cols": 4
+  },
+  {
+    "id": "hand-book",
+    "slot": "hand",
+    "path": "source/accessories/accessories-source.png",
+    "row": 3,
+    "rows": 4,
+    "cols": 4
+  }
+]
