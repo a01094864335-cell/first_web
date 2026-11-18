@@ -1,0 +1,82 @@
+[
+  {
+    "file": "base-options.png",
+    "size_bytes": 1059244,
+    "width": 2172,
+    "height": 724,
+    "frames": 1,
+    "sha256": "32118800020b40ddde8fa65168bb712cc54f9636f58e5ec1c739bd96c8bf6d41"
+  },
+  {
+    "file": "motions/01-walk-aligned.gif",
+    "size_bytes": 849605,
+    "width": 960,
+    "height": 950,
+    "frames": 4,
+    "sha256": "1e2ae9a5fe6b21e4a8e9fef1612bb91028e3f30ea5842472994fd4b6546b9204"
+  },
+  {
+    "file": "motions/02-idle-aligned.gif",
+    "size_bytes": 855369,
+    "width": 960,
+    "height": 950,
+    "frames": 4,
+    "sha256": "96138004b235a430454f3ba93c9d5250ec78f839959921135923d84e5a165fec"
+  },
+  {
+    "file": "motions/03-wave-aligned.gif",
+    "size_bytes": 880082,
+    "width": 960,
+    "height": 950,
+    "frames": 4,
+    "sha256": "4b76c25fb45c5aba3dc84a43dc107bf5f7219511eda3d9fcd40f39b6490b9948"
+  },
+  {
+    "file": "motions/04-drink-aligned.gif",
+    "size_bytes": 868655,
+    "width": 960,
+    "height": 950,
+    "frames": 4,
+    "sha256": "8d143a86c360379b1a925b6775d4e4ec209f54fa9b0c4a96b86b9a98495fe469"
+  },
+  {
+    "file": "motions/05-inspect-aligned.gif",
+    "size_bytes": 930774,
+    "width": 960,
+    "height": 950,
+    "frames": 4,
+    "sha256": "0acfa393660bc6fefffba8d3fa1bfad617bfdd47482bbea483a951894f8a978b"
+  },
+  {
+    "file": "motions/06-sit-aligned.gif",
+    "size_bytes": 893642,
+    "width": 960,
+    "height": 950,
+    "frames": 4,
+    "sha256": "420e2f16097cf71136bdbc9f87b3b214da7adc6975732a94fdfb1a41e3cb568e"
+  },
+  {
+    "file": "motions/07-happy-aligned.gif",
+    "size_bytes": 850482,
+    "width": 960,
+    "height": 950,
+    "frames": 4,
+    "sha256": "a231fe8ed60dba4c546cba232117d44cbda88ce00e172a73a416c03a0efc0810"
+  },
+  {
+    "file": "motions/08-dress-up-aligned.gif",
+    "size_bytes": 897172,
+    "width": 960,
+    "height": 950,
+    "frames": 4,
+    "sha256": "d2461002222b9cf8bf9a7b3e08396661e47bb1390efdea141465e25a546a7f82"
+  },
+  {
+    "file": "variants-12.png",
+    "size_bytes": 1368322,
+    "width": 1182,
+    "height": 1330,
+    "frames": 1,
+    "sha256": "1a00c9cf62747248f1da54042c47bbe44e5cbffb111f5f483e7ac231e93e79c9"
+  }
+]
