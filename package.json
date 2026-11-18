@@ -1,0 +1,11 @@
+{
+  "name": "cafe-quest-development",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:client": "node scripts/test-client.cjs",
+    "test:demo": "node scripts/test-demo.cjs",
+    "test:dom": "node scripts/test-ui.cjs"
+  },
+  "devDependencies": {"jsdom": "31.0.1"}
+}
