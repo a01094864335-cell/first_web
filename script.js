@@ -21,21 +21,104 @@ const notify = (text) => {
   clearTimeout(notify.timer);
   notify.timer = setTimeout(() => toastEl.classList.remove("show"), 4500);
 };
+const retryStorageKey = "cafe-quest:pending-requests:v1";
+let retryStorageAvailable = true;
+const uncertainRequests = new Map();
+try {
+  const stored = JSON.parse(sessionStorage.getItem(retryStorageKey) || "[]");
+  if (!Array.isArray(stored)) throw Error("invalid retry metadata");
+  for (const row of stored) {
+    if (
+      Array.isArray(row) &&
+      row.length === 2 &&
+      typeof row[0] === "string" &&
+      typeof row[1] === "string" &&
+      row[1].length <= 128
+    )
+      uncertainRequests.set(row[0], row[1]);
+  }
+} catch {
+  retryStorageAvailable = false;
+}
+function persistRetryMetadata() {
+  try {
+    if (uncertainRequests.size)
+      sessionStorage.setItem(
+        retryStorageKey,
+        JSON.stringify([...uncertainRequests]),
+      );
+    else sessionStorage.removeItem(retryStorageKey);
+    retryStorageAvailable = true;
+  } catch {
+    retryStorageAvailable = false;
+  }
+}
+function unresolvedMessage(message) {
+  return (
+    message +
+    (retryStorageAvailable
+      ? ""
+      : " 재시도 정보를 보관할 수 없어요. 결과를 확인할 때까지 이 페이지를 새로고침하거나 닫지 마세요.")
+  );
+}
 async function api(path, data) {
-  const res = await fetch("/api/" + path, {
-    method: data === undefined ? "GET" : "POST",
-    headers:
-      data === undefined
-        ? {}
-        : {
-            "Content-Type": "application/json",
-            "Idempotency-Key": crypto.randomUUID(),
-          },
-    body: data === undefined ? undefined : JSON.stringify(data),
-  });
-  const result = await res.json();
-  if (!res.ok) throw Error(result.error || "요청을 완료하지 못했어요.");
-  return result;
+  const signature = JSON.stringify([
+    state?.user?.id || "anonymous",
+    path,
+    data,
+  ]);
+  const key =
+    data === undefined
+      ? null
+      : uncertainRequests.get(signature) || crypto.randomUUID();
+  if (key) {
+    uncertainRequests.set(signature, key);
+    persistRetryMetadata();
+  }
+  for (let attempt = 0; attempt < 2; attempt++) {
+    let res, result;
+    try {
+      res = await fetch("/api/" + path, {
+        method: data === undefined ? "GET" : "POST",
+        headers:
+          data === undefined
+            ? {}
+            : { "Content-Type": "application/json", "Idempotency-Key": key },
+        body: data === undefined ? undefined : JSON.stringify(data),
+        signal: AbortSignal.timeout(15000),
+      });
+      result = await res.json();
+    } catch (e) {
+      if (attempt === 0) {
+        if (data !== undefined)
+          notify(
+            "응답을 확인하지 못했어요. 같은 요청으로 결과를 다시 확인 중이에요.",
+          );
+        continue;
+      }
+      offline = true;
+      throw Error(
+        data === undefined
+          ? "연결할 수 없어요. 잠시 후 다시 확인해주세요."
+          : unresolvedMessage(
+              "처리 결과가 아직 확인되지 않았어요. 다시 누르면 같은 요청으로 확인해요.",
+            ),
+      );
+    }
+    if (res.status >= 500) {
+      if (attempt === 0) continue;
+      throw Error(
+        unresolvedMessage(
+          "서버의 처리 결과를 확인하지 못했어요. 같은 요청으로 다시 확인해주세요.",
+        ),
+      );
+    }
+    uncertainRequests.delete(signature);
+    if (path === "logout" && res.ok) uncertainRequests.clear();
+    persistRetryMetadata();
+    if (!res.ok) throw Error(result.error || "요청을 완료하지 못했어요.");
+    return result;
+  }
 }
 async function refresh(render = true) {
   try {
@@ -56,7 +139,14 @@ async function act(path, data, success) {
   busy = true;
   try {
     const result = await api(path, data);
-    await refresh();
+    try {
+      await refresh();
+    } catch {
+      notify(
+        "처리는 완료됐지만 최신 화면을 불러오지 못했어요. 다시 연결해주세요.",
+      );
+      return result;
+    }
     if (success) notify(success);
     return result;
   } catch (e) {
@@ -69,11 +159,20 @@ const isStore = () => state?.session?.mode === "store";
 const icons = { hat: "🧢", cup: "☕", accessory: "🌼", prop: "📖" };
 function person(u, s, self = false) {
   const equipped = u.appearance?.equipped || [];
-  const outfits = {item6:'#dfbf62',item7:'#789b66',item8:'#709cb3',item9:'#c57c77'};
-  const color = outfits[equipped.find(i=>outfits[i])] || (/^#[0-9a-f]{6}$/i.test(u.appearance?.color) ? u.appearance.color : '#a777be');
-  const hat = equipped.find(i=>['item0','item1','item2'].includes(i));
-  const prop = equipped.find(i=>['item3','item4','item5'].includes(i));
-  const props = {item3:'📖',item4:'☕',item5:'🌼'};
+  const outfits = {
+    item6: "#dfbf62",
+    item7: "#789b66",
+    item8: "#709cb3",
+    item9: "#c57c77",
+  };
+  const color =
+    outfits[equipped.find((i) => outfits[i])] ||
+    (/^#[0-9a-f]{6}$/i.test(u.appearance?.color)
+      ? u.appearance.color
+      : "#a777be");
+  const hat = equipped.find((i) => ["item0", "item1", "item2"].includes(i));
+  const prop = equipped.find((i) => ["item3", "item4", "item5"].includes(i));
+  const props = { item3: "📖", item4: "☕", item5: "🌼" };
   return `<div class="person ${self ? "self" : ""} ${s.mode === "remote" ? "remote" : ""}" style="left:${(Number(s.x) || 0.55) * 100}%;top:${(Number(s.y) || 0.66) * 100}%;--shirt:${color};z-index:${Math.round((Number(s.y) || 0.66) * 100)}" ${self ? 'id="player"' : ""} aria-label="${esc(u.nickname)}${s.mode === "remote" ? " 원격" : ""}"><i class="head"></i><i class="body"></i><i class="feet"></i>${s.mode === "remote" ? '<span class="tag">원격</span>' : ""}${hat ? `<span class="hat ${hat}" aria-label="모자"></span>` : ""}${prop ? `<span class="prop">${props[prop]}</span>` : ""}</div>`;
 }
 function nav() {
@@ -115,7 +214,7 @@ function questsView() {
       .map((q) => {
         const ready = ["complete", "completed", "claimable"].includes(q.status),
           claimed = ["claimed", "rewarded"].includes(q.status);
-        return `<article class="card"><div class="row"><h3>${esc(q.title)}</h3><span class="status">◉ ${q.reward}</span></div><p>${esc(q.description)}</p><div class="actions"><span class="muted">${esc({ available: "시작 전", active: "진행 중", started: "진행 중", pending: "직원 승인 대기", complete: "완료", completed: "완료", claimed: "수령 완료", rejected: "승인 거절" }[q.status] || q.status)}</span>${claimed ? "" : ready ? `<button class="primary" data-quest="${esc(q.id)}" data-qaction="claim">보상 받기</button>` : q.status === "pending" ? "" : `<button data-quest="${esc(q.id)}" data-qaction="${q.status === "available" ? "start" : "progress"}" ${!isStore() ? "disabled" : ""}>${q.status === "available" ? "시작하기" : q.kind === "purchase" ? "직원 확인 요청" : q.kind === "mood" ? "기분 선택" : "확인하기"}</button>`}</div></article>`;
+        return `<article class="card"><div class="row"><h3>${esc(q.title)}</h3><span class="status">◉ ${q.reward}</span></div><p>${esc(q.description)}</p>${q.note ? `<p class="notice">${esc(q.note)}</p>` : ""}<div class="actions"><span class="muted">${esc({ available: "시작 전", active: "진행 중", started: "진행 중", pending: "직원 승인 대기", complete: "완료", completed: "완료", claimed: "수령 완료", rejected: "승인 거절", unavailable: "참여 중단" }[q.status] || q.status)}</span>${claimed ? "" : ready ? `<button class="primary" data-quest="${esc(q.id)}" data-qaction="claim">보상 받기</button>` : q.status === "pending" ? "" : q.status === "unavailable" || q.available === false ? `<button disabled>참여할 수 없어요</button>` : q.kind === "cumulative" ? `<span class="muted">방문하면 자동으로 기록돼요</span>` : `<button data-quest="${esc(q.id)}" data-qaction="${q.status === "available" ? "start" : "progress"}" ${!isStore() ? "disabled" : ""}>${q.status === "available" ? "시작하기" : q.kind === "purchase" ? "직원 확인 요청" : q.kind === "mood" ? "기분 선택" : "확인하기"}</button>`}</div></article>`;
       })
       .join("") || '<p class="empty">등록된 퀘스트가 없어요.</p>'
   }</section>`;
@@ -172,9 +271,266 @@ function profile() {
   );
 }
 function stamps() {
+  const linked = !!state.user.linked;
   modal(
     "내 스탬프",
-    `<h3>${state.user.stamps}개</h3><div class="stamp-grid">${Array.from({ length: 10 }, (_, i) => `<span class="${i < state.user.stamps ? "filled" : ""}">${i < state.user.stamps ? "☕" : "·"}</span>`).join("")}</div><p>유료 음료 한 잔당 1개. 10개로 원하는 음료 한 잔을 교환해요.</p><p class="muted">웹 코인과 스탬프는 별개예요. 적립에는 카카오 계정 연결과 직원 확인이 필요해요.</p><div class="stack"><button data-action="account">${state.user.linked ? "연결 계정 확인" : "카카오 연결 안내"}</button><button disabled>무료 음료 사용 · 연결 준비 중</button><button disabled>코인 전환 · 비율 확정 후 제공</button></div>`,
+    `<h3>${state.user.stamps}개</h3><div class="stamp-grid">${Array.from({ length: 10 }, (_, i) => `<span class="${i < state.user.stamps ? "filled" : ""}">${i < state.user.stamps ? "☕" : "·"}</span>`).join("")}</div><p>유료 음료 한 잔당 1개. 10개로 원하는 음료 한 잔을 교환해요.</p><p class="muted">웹 코인과 별개의 잔액이에요. 적립에는 카카오 계정 연결과 직원 확인이 필요해요.</p><div class="stack"><button data-action="ledger-stamps">스탬프 내역</button><button data-action="account">${linked ? "연결 계정 확인" : "카카오 연결 안내"}</button><button data-action="redeem" ${!linked || !isStore() || state.user.stamps < 10 ? "disabled" : ""}>무료 음료 사용 · 10개</button>${!isStore() ? "<small>무료 음료는 매장 모드에서만 사용할 수 있어요.</small>" : ""}<button disabled>코인 전환 · 비율 확정 후 제공</button></div>`,
+  );
+}
+function account() {
+  modal(
+    "계정과 데이터",
+    `<p>${state.user.linked ? "카카오에 연결된 계정이에요." : "현재 게스트 계정이에요."}</p><form id="nickname"><label>닉네임<input name="nickname" required maxlength="16" value="${esc(state.user.nickname)}"></label><button type="submit">닉네임 저장</button></form><p class="muted">진행도는 서버에 저장돼요. 미연결 게스트는 브라우저 데이터 삭제·기기 변경·로그아웃 시 복구가 제한돼요.</p><div class="stack"><button data-action="blocks">차단한 손님 관리</button>${["staff", "admin"].includes(state.user.role) ? '<button data-action="staff">운영자 대시보드</button>' : ""}<button disabled>카카오 연결 · 운영 설정 필요</button><button disabled>탈퇴 · 데이터 처리 정책 검토 중</button><button data-action="logout">로그아웃</button></div>`,
+  );
+}
+function ledger(currency = "coins") {
+  modal(
+    currency === "coins" ? "코인 내역" : "스탬프 내역",
+    `<div class="tabs"><button data-action="ledger" class="${currency === "coins" ? "active" : ""}">코인</button><button data-action="ledger-stamps" class="${currency === "stamps" ? "active" : ""}">스탬프</button></div><p class="muted">${currency === "coins" ? "꾸미기에 사용하는 웹 코인이에요. 스탬프·음료·현금으로 역전환할 수 없어요." : "실물 음료에 사용하는 적립 내역이에요. 사용 실수는 직원에게 거래 기록 확인을 요청해주세요."}</p>${
+      (state.ledger || [])
+        .filter((l) => l.currency === currency)
+        .map(
+          (l) =>
+            `<div class="ledger-row row"><span>${esc(l.reason || l.type)}<br><small>${esc(l.created ? new Date(l.created * 1000).toLocaleString("ko-KR") : "")}</small></span><strong>${l.amount > 0 ? "+" : ""}${esc(l.amount)}</strong></div>`,
+        )
+        .join("") || '<p class="empty">아직 거래가 없어요.</p>'
+    }`,
+  );
+}
+async function blocks() {
+  try {
+    const list = await api("blocks");
+    modal(
+      "차단한 손님",
+      `<p class="muted">차단을 해제하면 서로의 공개 손님 카드를 다시 볼 수 있어요.</p>${list.map((g) => `<div class="ledger-row row"><span>${esc(g.nickname)}</span><button data-unblock="${esc(g.id)}">차단 해제</button></div>`).join("") || '<p class="empty">차단한 손님이 없어요.</p>'}`,
+    );
+  } catch (e) {
+    notify(e.message);
+  }
+}
+let staffData = null,
+  pendingOperation = null;
+const operationNames = {
+  content: "콘텐츠 버전 저장",
+  business: "영업 참여 상태 변경",
+  grant: "스탬프 적립",
+  approve: "구매 퀘스트 확인",
+  reverse: "적립 취소",
+  restore: "무료 음료 사용 복원",
+  "coin-adjust": "코인 조정",
+  end: "매장 참여 종료",
+  hide: "프로필 숨김",
+  unhide: "프로필 제한 해제",
+  resolve: "신고 처리",
+};
+async function staff() {
+  try {
+    staffData = await api("staff/dashboard");
+    const d = staffData,
+      admin = state.user.role === "admin";
+    modal(
+      "운영자 대시보드",
+      `<p class="muted">서버에서 직원 권한을 확인해요. 모든 변경에는 담당자·사유·시각이 기록돼요.</p><div class="actions"><button data-op="grant">스탬프 적립 / 종이 카드 이전</button>${admin ? ["coin-adjust", "restore", "end", "hide", "unhide", "business"].map((op) => `<button data-op="${op}">${operationNames[op]}</button>`).join("") : ""}</div>${admin ? contentPanel(d.content) : ""}<h3 class="section-title">구매 승인 대기 · ${(d.pending || []).length}</h3>${(d.pending || []).map((r, i) => `<article class="card"><h3>${esc(r.nickname)}</h3><p>${esc(r.qid)} · ${esc(r.cycle)} · ${esc(r.reward)} 코인</p><button data-op="approve" data-index="${i}">승인 / 거절</button></article>`).join("") || '<p class="muted">대기 건이 없어요.</p>'}<h3 class="section-title">최근 적립</h3>${(d.recentGrants || []).map((r, i) => `<div class="ledger-row"><p>${esc(r.reason)} · ${esc(r.amount)}개</p><small>손님 ${esc(r.uid)}<br>거래 ${esc(r.id)}</small><div class="actions"><button data-op="reverse" data-index="${i}">적립 취소</button></div></div>`).join("") || '<p class="muted">적립 기록이 없어요.</p>'}${admin ? `<h3 class="section-title">신고</h3>${(d.reports || []).map((r, i) => `<div class="ledger-row"><p>${esc(r.reason)}</p><small>대상 ${esc(r.target)}</small><div class="actions"><button data-op="resolve" data-index="${i}">처리하기</button></div></div>`).join("") || '<p class="muted">신고가 없어요.</p>'}<h3 class="section-title">감사 기록</h3>${(d.audit || []).map((r) => `<div class="ledger-row"><strong>${esc(r.action)}</strong><p>${esc(r.reason)}</p><small>대상 ${esc(r.target)} · ${esc(new Date(r.created * 1000).toLocaleString("ko-KR"))}</small></div>`).join("") || '<p class="muted">기록이 없어요.</p>'}` : ""}`,
+    );
+  } catch (e) {
+    notify(e.message);
+  }
+}
+function contentPanel(content) {
+  const section = (kind, label, rows) =>
+    `<h3 class="section-title">${label}</h3><button data-content-kind="${kind}" data-content-index="new">새로 만들기</button>${(
+      rows || []
+    )
+      .map((r, i) => {
+        const body = r.body || r;
+        const editable =
+          kind === "item" || !["visit", "cumulative"].includes(body.kind);
+        return `<div class="ledger-row row"><span>${esc(body.name || body.title || r.id)}<br><small>${r.enabled === false ? "중단" : "활성"} · 버전 ${esc(r.version || 1)}</small></span>${editable ? `<button data-content-kind="${kind}" data-content-index="${i}">편집 / 예약</button>` : "<small>자동 운영 퀘스트</small>"}</div>`;
+      })
+      .join("")}`;
+  return `<details class="content-controls"><summary>콘텐츠 관리 · 아이템 / 퀘스트</summary><p class="muted">편집할 때마다 새 버전을 만들어요. 이미 접수한 퀘스트의 조건·보상은 이전 버전을 유지해요.</p>${section("item", "상점 아이템", content?.items)}${section("quest", "운영 퀘스트", content?.quests)}</details>`;
+}
+function contentForm(kind, index) {
+  if (state.user.role !== "admin" || !["item", "quest"].includes(kind)) return;
+  const r =
+    index === "new"
+      ? {}
+      : (staffData.content?.[kind === "item" ? "items" : "quests"] || [])[
+          Number(index)
+        ];
+  if (!r) return;
+  const body = r.body || r;
+  if (kind === "quest" && ["visit", "cumulative"].includes(body.kind)) return;
+  const localDate = (value) => {
+    if (value == null) return "";
+    const date = new Date(Number(value) * 1000);
+    return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+      .toISOString()
+      .slice(0, 16);
+  };
+  const field = (name, label, value = "", type = "text", extra = "") =>
+    `<label>${label}<input name="${name}" type="${type}" value="${esc(value)}" required ${extra}></label>`;
+  const select = (name, label, options, value) =>
+    `<label>${label}<select name="${name}">${options.map(([v, label]) => `<option value="${v}" ${v === value ? "selected" : ""}>${label}</option>`).join("")}</select></label>`;
+  modal(
+    kind === "item" ? "상점 아이템 편집" : "퀘스트 편집",
+    `<form id="content" data-kind="${kind}">${field("id", "고유 ID", r.id || "", "text", index === "new" ? 'maxlength="80"' : "readonly")}${
+      kind === "item"
+        ? field("name", "아이템 이름", body.name || "") +
+          field(
+            "price",
+            "가격 · 코인",
+            body.price ?? 0,
+            "number",
+            'min="0" max="100000" step="1"',
+          ) +
+          select(
+            "slot",
+            "착용 부위",
+            [
+              ["hat", "모자"],
+              ["prop", "소품"],
+              ["outfit", "옷"],
+            ],
+            body.slot || "prop",
+          )
+        : field("title", "퀘스트 제목", body.title || "") +
+          field("description", "조건 설명", body.description || "") +
+          field(
+            "reward",
+            "보상 · 코인",
+            body.reward ?? 0,
+            "number",
+            'min="0" max="100000" step="1"',
+          ) +
+          select(
+            "quest-kind",
+            "진행 방식",
+            [
+              ["explore", "화분 탐색"],
+              ["mood", "기분 선택"],
+              ["purchase", "직원 구매 승인"],
+            ],
+            body.kind || "explore",
+          )
+    }<label><input name="enabled" type="checkbox" ${r.enabled !== false ? "checked" : ""}>신규 판매 / 참여 허용</label><label>시작 (비우면 제한 없음)<input name="starts" type="datetime-local" value="${localDate(r.starts)}"></label><label>종료 (비우면 제한 없음)<input name="ends" type="datetime-local" value="${localDate(r.ends)}"></label><p class="muted">시간은 현재 기기의 시간대(${esc(Intl.DateTimeFormat().resolvedOptions().timeZone)})로 입력해요. 기존 구매 가격과 이미 접수한 퀘스트 보상은 변경하지 않아요.</p><label>변경 사유<input name="reason" required maxlength="300"></label><button class="primary" type="submit">새 버전 내용 확인</button></form>`,
+  );
+}
+function operationForm(op, index) {
+  if (!["staff", "admin"].includes(state.user.role) || !operationNames[op])
+    return;
+  const input = (name, label, value = "", type = "text", extra = "") =>
+    `<label>${label}<input name="${name}" value="${esc(value)}" type="${type}" required ${extra}></label>`;
+  let body = "";
+  if (op === "business")
+    body =
+      '<label>영업 참여 상태<select name="closed" required><option value="">선택해주세요</option><option value="true">영업 종료 / 참여 중단</option><option value="false">영업 재개 / 참여 허용</option></select></label><p class="notice">종료하면 모든 매장 참여 세션이 끝나고 모든 공개가 숨겨져요. 재개해도 이전 세션·공개는 자동 복구되지 않아요.</p>';
+  if (op === "grant")
+    body =
+      input("uid", "손님 계정 식별자") +
+      input(
+        "amount",
+        "유료 음료 수량 / 이전 스탬프 수량",
+        1,
+        "number",
+        'min="1" max="100" step="1"',
+      ) +
+      input("source_ref", "주문 항목 또는 종이 카드 이전 고유 번호") +
+      '<p class="muted">무료 음료에는 적립하지 마세요. 종이 카드 이전은 원본을 회수하거나 이전 완료 표시해주세요.</p>';
+  if (op === "approve") {
+    const r = staffData.pending[index];
+    if (!r) return;
+    body = `<p>${esc(r.nickname)} · ${esc(r.qid)} · ${esc(r.cycle)}</p><input type="hidden" name="uid" value="${esc(r.uid)}"><input type="hidden" name="qid" value="${esc(r.qid)}"><input type="hidden" name="cycle" value="${esc(r.cycle)}"><label>처리<select name="approve"><option value="true">구매 확인 · 승인</option><option value="false">거절</option></select></label><label>주문 항목 고유 번호 (승인 시 필수)<input name="order_ref" maxlength="100"></label>`;
+  }
+  if (op === "reverse") {
+    const r = staffData.recentGrants[index];
+    if (!r) return;
+    body =
+      `<p>원래 적립 ${esc(r.amount)}개 · ${esc(r.reason)}</p>` +
+      input("original_id", "원거래 번호", r.id) +
+      input(
+        "amount",
+        "취소할 수량",
+        1,
+        "number",
+        `min="1" max="${Number(r.amount)}" step="1"`,
+      ) +
+      '<p class="muted">이미 사용한 잔액으로 취소할 수 없으면 자동 차감하지 않고 관리자 확인이 필요해요.</p>';
+  }
+  if (op === "restore")
+    body =
+      input("original_id", "무료 음료 사용 원거래 번호") +
+      input(
+        "amount",
+        "복원할 스탬프 수량",
+        10,
+        "number",
+        'min="1" max="10" step="1"',
+      );
+  if (op === "coin-adjust")
+    body =
+      input("uid", "손님 계정 식별자") +
+      input(
+        "amount",
+        "코인 조정량 (차감은 음수)",
+        1,
+        "number",
+        'min="-100000" max="100000" step="1"',
+      );
+  if (["end", "hide", "unhide"].includes(op))
+    body =
+      input("uid", "대상 손님 계정 식별자") +
+      `<p class="muted">${op === "end" ? "매장 참여와 공개를 종료해요." : op === "hide" ? "공개를 숨기고 재공개를 제한해요." : "다시 공개를 선택할 수 있게 제한을 해제해요. 자동 공개되지 않아요."}</p>`;
+  if (op === "resolve") {
+    const r = staffData.reports[index];
+    if (!r) return;
+    body = `<p>${esc(r.reason)}</p><input type="hidden" name="report_id" value="${esc(r.id)}"><label>처리 결과<select name="outcome"><option value="reviewed">확인 완료</option><option value="hidden">대상 프로필 숨김</option><option value="dismissed">조치 없이 종결</option></select></label>`;
+  }
+  modal(
+    operationNames[op],
+    `<form id="operation" data-op="${op}">${body}<label>처리 사유<input name="reason" required maxlength="300" placeholder="손님 안내 및 확인한 내용을 남겨주세요"></label><button class="primary" type="submit">내용 확인</button></form>`,
+  );
+}
+function confirmOperation(op, data) {
+  pendingOperation = { op, data };
+  const labels = {
+    kind: "콘텐츠 종류",
+    id: "고유 ID",
+    body: "새 버전 내용",
+    enabled: "신규 참여 허용",
+    starts: "시작",
+    ends: "종료",
+    closed: "영업 참여 종료",
+    uid: "손님 식별자",
+    amount: "수량",
+    source_ref: "주문/이전 번호",
+    original_id: "원거래",
+    qid: "퀘스트",
+    cycle: "회차",
+    approve: "결정",
+    order_ref: "주문 항목",
+    reason: "사유",
+    report_id: "신고",
+    outcome: "처리 결과",
+  };
+  modal(
+    operationNames[op] + " 확인",
+    `<p>아래 내용을 확인한 뒤 확정해주세요. 서버 원장과 감사 기록에 남아요.</p><dl class="operation-summary">${Object.entries(
+      data,
+    )
+      .map(
+        ([k, v]) =>
+          `<dt>${labels[k] || esc(k)}</dt><dd>${esc(k === "approve" ? (v ? "승인" : "거절") : k === "closed" ? (v ? "영업 종료 · 모든 참여 종료 및 공개 숨김" : "영업 재개 · 이전 참여 자동 복구 없음") : typeof v === "object" && v !== null ? JSON.stringify(v, null, 2) : v === null ? "제한 없음" : ["starts", "ends"].includes(k) ? new Date(v * 1000).toLocaleString("ko-KR") : typeof v === "boolean" ? (v ? "허용" : "중단") : v)}</dd>`,
+      )
+      .join(
+        "",
+      )}</dl><div class="actions"><button data-action="staff">취소</button><button class="primary" data-action="confirm-operation">확정</button></div>`,
+  );
+}
+function receipt(r) {
+  modal(
+    "무료 음료 사용 완료",
+    `<div class="receipt-mark" aria-hidden="true">☕</div><h3>스탬프 ${Math.abs(r.amount || 10)}개 사용</h3><p>직원에게 이 화면을 보여주세요.</p><p class="muted">사용 시각: ${esc(new Date(r.created * 1000).toLocaleString("ko-KR"))}<br>거래 번호: <code>${esc(r.id)}</code></p><p class="muted">움직이는 표시는 진위를 보장하지 않아요. 필요한 경우 직원이 서버 거래 기록을 확인해요. 손님이 직접 취소할 수 없어요.</p><button data-action="stamps">스탬프로 돌아가기</button>`,
   );
 }
 function guests() {
@@ -201,6 +557,19 @@ app.addEventListener("keydown", (e) => {
 async function handle(e) {
   const b = e.target.closest("button");
   if (b) {
+    if (b.dataset.contentKind) {
+      contentForm(b.dataset.contentKind, b.dataset.contentIndex);
+      return;
+    }
+    if (b.dataset.op) {
+      operationForm(b.dataset.op, Number(b.dataset.index));
+      return;
+    }
+    if (b.dataset.unblock) {
+      if (await act("unblock", { id: b.dataset.unblock }, "차단을 해제했어요."))
+        await blocks();
+      return;
+    }
     if (b.dataset.page) {
       page = b.dataset.page;
       draw();
@@ -322,6 +691,10 @@ async function handle(e) {
         notify("탐색 퀘스트를 확인해주세요.");
         return;
       }
+      if (q.available === false || q.status === "unavailable") {
+        notify("지금은 이 퀘스트에 참여할 수 없어요.");
+        return;
+      }
       if (!isStore()) {
         notify("매장 QR로 참여하면 탐색할 수 있어요.");
         return;
@@ -338,16 +711,41 @@ async function handle(e) {
           : "화분을 살펴봤어요.",
       );
     }
-    if (action === "account")
+    if (action === "confirm-operation" && pendingOperation) {
+      const { op, data } = pendingOperation;
+      const r = await act("staff/" + op, data, "처리를 완료했어요.");
+      if (r) {
+        pendingOperation = null;
+        await staff();
+      }
+    }
+    if (action === "account") account();
+    if (action === "ledger") ledger();
+    if (action === "ledger-stamps") ledger("stamps");
+    if (action === "blocks") await blocks();
+    if (action === "staff") await staff();
+    if (action === "logout")
       modal(
-        "계정과 데이터",
-        `<p>${state.user.linked ? "카카오에 연결된 계정이에요." : "현재 게스트 계정이에요."}</p><p class="muted">이 브라우저에서 서버에 저장된 진행도를 이어갈 수 있어요. 미연결 게스트는 브라우저 데이터 삭제나 기기 변경 시 복구가 제한돼요.</p><p>카카오 로그인·계정 병합과 탈퇴 기능은 운영 설정이 완료된 뒤 제공돼요. 지금 연결된 것처럼 처리하지 않아요.</p><button disabled>카카오 연결 · 준비 중</button>`,
+        "로그아웃할까요?",
+        `<p>${state.user.linked ? "다시 로그인하면 연결 계정의 진행도를 이어갈 수 있어요." : "게스트는 로그아웃하면 이 캐릭터와 진행도에 다시 접근하지 못할 수 있어요. 카카오 연결이 준비되기 전에는 로그아웃하지 않는 것을 권장해요."}</p><div class="actions"><button data-action="close">유지하기</button><button data-action="confirm-logout">위험을 이해했어요 · 로그아웃</button></div>`,
       );
-    if (action === "ledger")
+    if (action === "confirm-logout") {
+      if (await act("logout", {}, "로그아웃했어요.")) {
+        sheet.close();
+        page = "cafe";
+        draw();
+      }
+    }
+    if (action === "redeem")
       modal(
-        "코인 내역",
-        `<p>꾸미기에 사용하는 웹 코인이에요. 스탬프·음료·현금으로 바꿀 수 없어요.</p>${(state.ledger || []).filter(l=>l.currency==="coins").map((l) => `<div class="ledger-row row"><span>${esc(l.reason || l.type)}<br><small>${esc(l.created ? new Date(l.created*1000).toLocaleString("ko-KR") : "")}</small></span><strong>${esc(l.amount)}</strong></div>`).join("") || '<p class="empty">아직 거래가 없어요.</p>'}`,
+        "직원에게 보여주며 사용해주세요",
+        `<p>스탬프 10개를 차감하고 원하는 음료 한 잔을 사용해요.</p><p>차감 후 ${state.user.stamps - 10}개가 남아요. 직접 취소·복원할 수 없으니 직원과 함께 확인해주세요.</p><div class="actions"><button data-action="close">취소</button><button class="primary" data-action="confirm-redeem">10개 차감하고 사용</button></div>`,
       );
+    if (action === "confirm-redeem") {
+      const r = await act("stamps/redeem", {});
+      if (r?.receipt) receipt(r.receipt);
+      else if (r) notify("사용 결과의 거래 내역을 확인해주세요.");
+    }
     return;
   }
   if (e.target.closest("#map")) {
@@ -359,6 +757,73 @@ sheet.addEventListener("submit", async (e) => {
   e.preventDefault();
   const f = e.target,
     d = new FormData(f);
+  if (f.id === "content") {
+    const kind = f.dataset.kind,
+      starts = d.get("starts")
+        ? new Date(d.get("starts")).getTime() / 1000
+        : null,
+      ends = d.get("ends") ? new Date(d.get("ends")).getTime() / 1000 : null;
+    if (
+      (starts !== null && !Number.isFinite(starts)) ||
+      (ends !== null && !Number.isFinite(ends)) ||
+      (starts !== null && ends !== null && ends <= starts)
+    ) {
+      notify("종료 시간은 시작 시간보다 뒤여야 해요.");
+      return;
+    }
+    const body =
+      kind === "item"
+        ? {
+            name: d.get("name"),
+            price: Number(d.get("price")),
+            slot: d.get("slot"),
+          }
+        : {
+            title: d.get("title"),
+            description: d.get("description"),
+            reward: Number(d.get("reward")),
+            kind: d.get("quest-kind"),
+          };
+    confirmOperation("content", {
+      kind,
+      id: d.get("id"),
+      body,
+      enabled: d.has("enabled"),
+      starts,
+      ends,
+      reason: d.get("reason"),
+    });
+  }
+  if (f.id === "operation") {
+    const data = Object.fromEntries(d.entries());
+    if ("closed" in data) data.closed = data.closed === "true";
+    if ("amount" in data) data.amount = Number(data.amount);
+    if ("approve" in data) {
+      data.approve = data.approve === "true";
+      if (data.approve && !data.order_ref.trim()) {
+        notify("승인할 주문 항목 고유 번호를 입력해주세요.");
+        return;
+      }
+    }
+    if (
+      "amount" in data &&
+      (!Number.isInteger(data.amount) || data.amount === 0)
+    ) {
+      notify("0이 아닌 정수 수량을 입력해주세요.");
+      return;
+    }
+    confirmOperation(f.dataset.op, data);
+  }
+  if (f.id === "nickname") {
+    if (
+      await act(
+        "profile",
+        { nickname: d.get("nickname") },
+        "닉네임을 저장했어요.",
+      )
+    )
+      account();
+  }
   if (f.id === "onboard") {
     const r = await act("guest", {
       nickname: d.get("nickname"),
@@ -402,7 +867,7 @@ async function checkEntry() {
     entryPending = false;
     const checkedIn = await act(
       "checkin",
-      {entry:entryCode},
+      { entry: entryCode },
       "매장 모드로 참여했어요. 공개는 직접 선택해주세요.",
     );
     history.replaceState(null, "", location.pathname);

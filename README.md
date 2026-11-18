@@ -31,10 +31,10 @@ Guest progress and transactions live in SQLite `data/cafe.sqlite3`, not localSto
 The PRD demands full connected functionality; this implementation does **not** claim that goal is complete.
 
 - Kakao OAuth, existing-account guest merge/recovery, staff allowlist setup, logout/deletion and final policy text remain to be implemented and integration-tested. No fake authentication path exists.
-- Stamp redemption server rule is implemented but unavailable to guests. Real staff QR scanning, paper transfer UI, reversal/adjustment workflow and live receipt validation remain unfinished.
+- Stamp redemption server rule is implemented but unavailable to guests. Real staff QR scanning, paper-card handling and live receipt validation remain unfinished; audited reversal/adjustment API and forms are now implemented.
 - Conversion stays disabled until the user decides the real ratio; no assumed real benefit is issued.
-- Staff content/version/season scheduling, moderation console, business closing schedule, cumulative quest, linked-order deduplication and analytics remain unfinished.
-- Polling refresh is not a load-tested production realtime service. Offline transaction recovery UX, per-connection foreground tracking, rate limiting, hardened deployment, backups, retention/deletion and restore drills remain launch work.
+- Automatic business-hours scheduling and analytics remain unfinished; content versions/schedules, basic moderation console, cumulative quests and linked-order deduplication are now implemented.
+- Polling refresh is not a load-tested production realtime service. Durable offline recovery across browser restart, per-connection foreground tracking, hardened deployment and retention/deletion remain launch work. Basic retry handling, request limits and consistent backup utility are implemented.
 - Pixel assets are first-pass prototypes, not a guaranteed exact pixel-grid match. Bench has faint edge glow. Seats do not reserve real café places.
 
 Do not treat the café QR as proof of physical location or purchase. No GPS is collected. Cash, POS or real beverage redemption has not been connected.
@@ -42,3 +42,17 @@ Do not treat the café QR as proof of physical location or purchase. No GPS is c
 ## Checks
 
 `tests/test_server.py` covers server rules, race claims, balances, privacy, expiry and denied operations. Browser flow checks and their actual outcomes belong in `docs/IMPLEMENTATION.md`. No production credentials or runtime DB should be committed.
+
+## Second implementation checkpoint
+
+Additional server-backed features now available:
+- Nickname changes, blocked-user management, explicit guest logout with recovery warning.
+- Separate stamp/coin histories and idempotent redemption receipt replay.
+- Authenticated staff/admin operations: grants keyed by source reference, own-grant reversals, admin bounded redemption restoration and coin adjustments, unique-order purchase approval, profile restrictions and report resolution, audit dashboard.
+- Versioned item/quest content with scheduled availability and snapshot rewards for accepted quests; monthly three-distinct-day QR participation reward.
+- Administrator closing/reopening participation; closing ends active store sessions and hides profiles.
+- Request limits, security response headers, local consistent SQLite backup utility.
+
+These operator and stamp operations have automated tests with isolated synthetic accounts. They are **not available to real operators until Kakao and the operator allowlist are integrated**. No production role assignment shortcut exists. Conversion remains disabled.
+
+Backup: `python scripts/backup.py /secure/local/path/cafe-backup.sqlite3` creates a new backup with an integrity check, refuses existing destinations and public paths. No automatic deletion or retention policy is assumed. Never commit or publicly share real database backups.

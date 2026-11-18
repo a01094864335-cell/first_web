@@ -32,6 +32,21 @@ class HTTPTest(unittest.TestCase):
   self.assertEqual(self.call('/api/buy',{'id':'item3'},'same-request')[0],409)
   self.assertEqual(self.call('/api/buy',{'id':'item3'})[0],400)
   self.assertEqual(self.call('/api/buy',{'id':'item3'},'purchase')[1]['user']['coins'],0)
+ def test_redemption_replay_receipt(self):
+  _,initial=self.call('/api/guest',{'nickname':'receipt'})
+  uid=initial['user']['id']
+  with s.transaction() as c:c.execute('UPDATE users SET linked=1,stamps=20 WHERE id=?',(uid,))
+  self.call('/api/checkin',{'entry':'cafe'})
+  _,first=self.call('/api/stamps/redeem',{},'redeem-once')
+  _,again=self.call('/api/stamps/redeem',{},'redeem-once')
+  self.assertEqual(first['receipt'],again['receipt']);self.assertEqual(again['user']['stamps'],10)
+ def test_logout_cookie_and_server_revoked(self):
+  self.call('/api/guest',{'nickname':'logout'})
+  self.assertEqual(self.call('/api/logout',{})[0],200)
+  self.assertIsNone(self.call('/api/state')[1]['user'])
+ def test_staff_dashboard_denied(self):
+  self.call('/api/guest',{'nickname':'visitor'})
+  self.assertEqual(self.call('/api/staff/dashboard')[0],403)
  def test_origin(self):self.assertEqual(self.call('/api/guest',{'nickname':'x'},origin='https://evil.example')[0],403)
  def test_restore(self):
   a=self.call('/api/guest',{'nickname':'restore'})[1];b=self.call('/api/state')[1];self.assertEqual(a['user']['id'],b['user']['id'])
