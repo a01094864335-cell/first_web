@@ -114,6 +114,7 @@ def act(c,uid,path,data):
  if path=='/api/checkin':
   closed=c.execute("SELECT value FROM settings WHERE key='closed'").fetchone()
   if closed and closed['value']=='1':raise APIError('현재 카페 참여가 종료되었어요',409)
+  # Static paper QR is a reusable participation link, never location/purchase evidence.
   if data.get('entry')!=os.environ.get('CAFE_ENTRY_CODE','cafe'):raise APIError('매장 QR 링크로 다시 참여해주세요',403)
   c.execute("UPDATE sessions SET mode='store',expires=?,visible=0,activity='',drink='',active=? WHERE uid=?",(now+5400,now,uid))
   c.execute("INSERT OR IGNORE INTO quests(uid,qid,cycle,status,reward) VALUES(?,'visit',?,'complete',20)",(uid,day()))
@@ -158,7 +159,7 @@ def act(c,uid,path,data):
    c.execute("UPDATE quests SET status='claimed' WHERE uid=? AND qid=? AND cycle=?",(uid,q[0],row['cycle']));change(c,uid,'coins',row['reward'],q[1])
   else:
    store()
-   if q[4] in ('visit','cumulative'):raise APIError('방문 기록으로 자동 진행되는 퀘스트예요')
+   if q[4] in ('visit','cumulative'):raise APIError('QR 참여 기록으로 자동 진행되는 퀘스트예요')
    current=catalogue.existing(c,uid,qid,cycle) or definition
    if not definition['enabled'] or not catalogue.available(current):raise APIError('지금은 참여할 수 없는 퀘스트예요',409)
    snapshot=catalogue.snapshot(c,uid,definition,cycle)

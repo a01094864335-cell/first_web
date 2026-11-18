@@ -8,7 +8,7 @@ The approved simplified café concept takes precedence over PRD's older green-lo
 
 ## Verification
 
-- `python -m unittest discover -s tests -v`: 53 tests pass (second checkpoint).
+- `python -m unittest discover -s tests -v`: 56 tests pass (including static-QR boundary regression checks).
 - `node --check script.js`: passes.
 - Python compilation: passes.
 - Includes concurrent reward claims (20 calls, one credit), transaction-key replay (10 HTTP retries, one credit), purchase balances, expiry, remote restrictions, mutual block and privacy projection.
@@ -40,3 +40,7 @@ Remaining: real Kakao OAuth and one-time guest merge, account deletion/retention
 
 
 Second-checkpoint independent review found and fixed: content JSON/boolean presentation, accepted quest type/date snapshots, displayed-vs-claimed reward cycle, protected automatic quest IDs, plus resumed-request keys and paused-progress UI. Python regression coverage includes these server cases. Browser QA is still not a pass.
+
+
+### Static paper QR boundary
+The fixed QR URL can intentionally be saved/shared and reused outside the café. The entry value selects a participation mode; it is not secret authentication, GPS evidence, a rotating token, or proof of purchase. Check-in and quests issue digital coins only. Stamp grants still require a separately authenticated, allowlisted staff actor and a linked customer plus an audited source reference. Three regression checks explicitly preserve these distinctions.

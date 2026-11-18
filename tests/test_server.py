@@ -72,4 +72,20 @@ class CafeTest(unittest.TestCase):
   self.act('/api/checkin',{'entry':'cafe'});self.act('/api/privacy',{'visible':True})
   with s.transaction() as c:
    c.execute('UPDATE sessions SET active=1 WHERE uid="a"');self.assertTrue(s.state(c,'a')['session']['visible'])
+ def test_static_qr_reuse_without_location_evidence(self):
+  first=self.act('/api/checkin',{'entry':'cafe'})
+  self.assertEqual(first['session']['mode'],'store')
+  self.act('/api/checkout')
+  second=self.act('/api/checkin',{'entry':'cafe'})
+  self.assertEqual(second['session']['mode'],'store')
+  # Neither call submits GPS, a rotating challenge, or purchase proof.
+ def test_qr_and_quest_never_grant_stamps(self):
+  with s.transaction() as c:c.execute("UPDATE users SET linked=1 WHERE id='a'")
+  self.act('/api/checkin',{'entry':'cafe'})
+  result=self.act('/api/quest',{'id':'visit','action':'claim'})
+  self.assertGreater(result['user']['coins'],0);self.assertEqual(result['user']['stamps'],0)
+ def test_linked_store_customer_cannot_grant_stamps(self):
+  with s.transaction() as c:c.execute("UPDATE users SET linked=1 WHERE id='a'")
+  self.act('/api/checkin',{'entry':'cafe'})
+  with self.assertRaises(s.APIError):self.act('/api/staff/grant',{'uid':'a','amount':1,'source_ref':'order','reason':'purchase'})
 if __name__=='__main__':unittest.main()
