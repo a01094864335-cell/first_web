@@ -7,6 +7,8 @@ node scripts/test-client.cjs
 node scripts/test-demo.cjs
 node tests/test_avatar_demo.cjs
 node tests/test_avatar_runtime.mjs
+node tests/test_map_scene.mjs
+node tests/test_map_demo.mjs
 node scripts/test-ui.cjs
 node avatar02/test-viewer.mjs
 python avatar02/tools/validate_assets.py --expected-items 101

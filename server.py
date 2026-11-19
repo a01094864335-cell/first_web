@@ -2,6 +2,7 @@
 import hashlib, json, os, secrets, sqlite3, time, math
 import catalogue
 import avatar_catalogue
+import map_geometry
 import operations
 import threading
 from contextlib import contextmanager
@@ -27,13 +28,10 @@ DB=os.environ.get('CAFE_DB',str(ROOT/'data/cafe.sqlite3'))
 ITEMS=[(f'item{i}',name,price,slot) for i,(name,price,slot) in enumerate([
  ('라벤더 모자',30,'hat'),('민트 모자',30,'hat'),('베이지 베레모',40,'hat'),('책 한 권',20,'prop'),('머그컵',20,'prop'),('작은 꽃',25,'prop'),('노란 셔츠',30,'outfit'),('초록 셔츠',30,'outfit'),('푸른 셔츠',30,'outfit'),('분홍 셔츠',30,'outfit')])]
 QUESTS=[('visit','오늘의 카페 참여','QR로 참여한 영업일마다 한 번',20,'visit'),('plant','새 화분 찾기','카페의 화분을 찾아 눌러보세요',15,'explore'),('mood','오늘의 기분','오늘의 기분을 골라주세요. 공개되지 않아요',10,'mood'),('menu','추천 메뉴 맛보기','직원의 구매 확인을 기다려주세요',25,'purchase')]
-# Normalized room coordinates. Coordinates are shared with browser pathfinding.
-OBSTACLES=[(.04,.13,.28,.52),(.06,.76,.12,.16),(.06,.88,.48,.07),(.70,.30,.16,.09),(.70,.56,.16,.09),(.18,.77,.12,.07),(.18,.88,.12,.07),(.35,.88,.12,.07),(.52,.88,.12,.07)]
 
 def day(now=None):
  return (datetime.fromtimestamp(now or time.time(),timezone(timedelta(hours=9)))-timedelta(hours=4)).strftime('%Y-%m-%d')
-def blocked(x,y):
- return not (.03<=x<=.97 and .08<=y<=.96) or any(a-.015<=x<=a+w+.015 and b-.015<=y<=b+h+.015 for a,b,w,h in OBSTACLES)
+def blocked(x,y):return map_geometry.blocked(x,y)
 def init_db():
  Path(DB).parent.mkdir(parents=True,exist_ok=True)
  with sqlite3.connect(DB) as c:
@@ -69,6 +67,8 @@ def change(c,uid,currency,amount,reason,related=None):
 
 def normalize(c,uid):
  s=c.execute('SELECT * FROM sessions WHERE uid=?',(uid,)).fetchone(); now=time.time()
+ p=map_geometry.normalize_position(dict(s))
+ if (s['x'],s['y'])!=(p['x'],p['y']):c.execute('UPDATE sessions SET x=?,y=? WHERE uid=?',(p['x'],p['y'],uid))
  if not operations.can_publish(c,uid):c.execute('UPDATE sessions SET visible=0 WHERE uid=?',(uid,))
  if s['mode']=='store' and s['expires']<=now:
   c.execute("UPDATE sessions SET mode='remote',visible=0,drink='',activity='' WHERE uid=?",(uid,))
@@ -95,12 +95,12 @@ def state(c,uid):
  guests=[]
  for row in c.execute('SELECT u.id,u.nickname,u.appearance,s.* FROM users u JOIN sessions s ON s.uid=u.id WHERE u.id!=? AND s.visible=1',(uid,)).fetchall():
   normalize(c,row['id'])
-  ss=c.execute('SELECT visible FROM sessions WHERE uid=?',(row['id'],)).fetchone()
+  ss=c.execute('SELECT * FROM sessions WHERE uid=?',(row['id'],)).fetchone()
   if not ss['visible'] or c.execute('SELECT 1 FROM blocks WHERE (uid=? AND target=?) OR (uid=? AND target=?)',(uid,row['id'],row['id'],uid)).fetchone():continue
   appearance=avatar_catalogue.client_appearance(json.loads(row['appearance']));appearance['equipped']=[r['item'] for r in c.execute('SELECT item FROM inventory WHERE uid=? AND equipped=1',(row['id'],))]
-  guests.append({k:row[k] for k in ('id','nickname','mode','x','y','activity','drink')}|{'appearance':appearance})
+  guests.append({k:row[k] for k in ('id','nickname','mode','x','y','activity','drink')}|{'appearance':appearance,'x':ss['x'],'y':ss['y']})
  ledger=[dict(r) for r in c.execute('SELECT id,currency,amount,reason,created FROM ledger WHERE uid=? ORDER BY created DESC LIMIT 100',(uid,))]
- return {'user':u,'session':s,'quests':qs,'items':items,'guests':guests,'ledger':ledger,'config':{'conversionEnabled':False,'kakaoEnabled':False,'obstacles':OBSTACLES,'prototype':True}}
+ return {'user':u,'session':s,'quests':qs,'items':items,'guests':guests,'ledger':ledger,'config':{'conversionEnabled':False,'kakaoEnabled':False,'obstacles':map_geometry.obstacles(),'mapVersion':map_geometry.layout()['version'],'bounds':map_geometry.layout()['bounds'],'spawn':map_geometry.layout()['spawn'],'prototype':True}}
 
 def act(c,uid,path,data):
  normalize(c,uid);s=c.execute('SELECT * FROM sessions WHERE uid=?',(uid,)).fetchone();u=c.execute('SELECT * FROM users WHERE id=?',(uid,)).fetchone();now=time.time()
@@ -135,19 +135,10 @@ def act(c,uid,path,data):
   try:x,y=float(data['x']),float(data['y'])
   except (KeyError,ValueError,TypeError):raise APIError('올바른 위치가 아니에요')
   if not math.isfinite(x+y) or blocked(x,y):raise APIError('가구나 벽이 있는 곳은 이동할 수 없어요')
-  # Grid path is computed server-side, never a straight teleport through furniture.
-  scale=100; start=(round(s['x']*scale),round(s['y']*scale)); goal=(round(x*scale),round(y*scale))
-  queue=deque([start]); parents={start:None}
-  while queue and goal not in parents:
-   cur=queue.popleft()
-   for dx,dy in ((1,0),(-1,0),(0,1),(0,-1)):
-    nxt=(cur[0]+dx,cur[1]+dy)
-    if nxt not in parents and not blocked(nxt[0]/scale,nxt[1]/scale):parents[nxt]=cur;queue.append(nxt)
-  if goal not in parents:raise APIError('이곳으로 가는 길을 찾을 수 없어요')
-  route=[];cur=goal
-  while cur is not None:route.append({'x':cur[0]/scale,'y':cur[1]/scale});cur=parents[cur]
-  route.reverse()
-  c.execute('UPDATE sessions SET x=?,y=? WHERE uid=?',(goal[0]/scale,goal[1]/scale,uid))
+  try:route=map_geometry.route(dict(s),{'x':x,'y':y})
+  except ValueError as e:raise APIError(str(e))
+  end=route[-1]
+  c.execute('UPDATE sessions SET x=?,y=? WHERE uid=?',(end['x'],end['y'],uid))
   result=state(c,uid);result['path']=route;return result
  elif path=='/api/quest':
   definition=catalogue.version(c,'quest',data.get('id'))
@@ -307,7 +298,8 @@ class Handler(SimpleHTTPRequestHandler):
        try:appearance['avatar02']=avatar_catalogue.validate(data['appearance']['avatar02'])
        except ValueError as e:raise APIError(str(e))
       c.execute('INSERT INTO users(id,token,nickname,appearance) VALUES(?,?,?,?)',(uid,hashlib.sha256(token.encode()).hexdigest(),nickname,json.dumps(appearance)))
-      c.execute('INSERT INTO sessions(uid,active) VALUES(?,?)',(uid,time.time()));result=state(c,uid)
+      spawn=map_geometry.layout()['spawn']
+      c.execute('INSERT INTO sessions(uid,active,x,y) VALUES(?,?,?,?)',(uid,time.time(),spawn['x'],spawn['y']));result=state(c,uid)
       secure='; Secure' if os.environ.get('CAFE_SECURE_COOKIE')=='1' else ''
       cookie=f'cafe_session={token}; HttpOnly; SameSite=Lax; Path=/; Max-Age=31536000{secure}'
     else:
