@@ -118,6 +118,12 @@ All below images were actually opened in this pass.
 - `catalogue-10.png`: `3e25a8c84a7a4daac1fe94a40b5bc5ec5dbb8c7c6ffab1998993690baf7d6d4c`
 - `catalogue-11.png`: `1eb8a3e0cfe8c89b0fa7dadb41388d36f40ef7c6e09bf8cd34b6584eff280e63`
 - `catalogue-12.png`: `32bb076162f2ea572747cf4521b64765172a8d0e37e6113731b64085ec6503f5`
-- `catalogue-13.png`: `5a56b893b904e08a0c2df30020601cb7b055c22d243a64de5c36b2c42aca84a6`
+- `catalogue-13.png`: `0b984032e87dfaffde3bb526584c4924abfe90d9695303ce15136c6061993bdc`
 - `catalogue-14.png`: `210d7530eaec622d2f27a243bbaa3b7f1af3723ec99a3852ba65d89cdeaed44e`
 - `catalogue-15.png`: `9bcfde13c01b965c7c19ae1aec2ae648dd2cd2b2eb215a231bcd1e0e78e61343`
+
+## Final freeze recheck and supplemental outfit sample
+
+After the gear agent corrected opaque `glasses-hexagon` lens fill, the final catalogue 13 image was reopened. Eye pixels are now visible through the lens; the prior filled-lens rendition is superseded. All catalogue hash entries below reflect final freeze.
+
+Also opened `outfits-walk.png`, `outfits-greet.png`, `outfits-sit.png`, `outfits-celebrate.png`, each frame 1: 4 composed outfits × 4 directions × 4 key poses = **64 supplemental sampled poses**. The second outfit's hexagon glasses now retain visible eye detail. This does not certify every outfit animation frame or other combinations. `four-outfits.gif` metadata was checked: 800×880, 16 frames, 300 ms/frame, loop 0. Full timed playback was not independently inspected.
