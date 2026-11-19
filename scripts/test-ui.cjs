@@ -23,9 +23,11 @@ const delay = (ms) => new Promise((r) => setTimeout(r, ms));
   const manifest = JSON.parse(
     fs.readFileSync(path.join(root, "avatar02/manifest.json"), "utf8"),
   );
+  w.__avatarDiagnosticState={images:10,failed:[],registered:3};
   w.__avatarRuntime = {
     loadAvatarCatalogue: async () => manifest,
     retryAvatarImages: () => {},
+    avatarDiagnostics:()=>w.__avatarDiagnosticState,
     normalizeAvatar: (value = {}) => ({
       selection: value.selection || {},
       lens: value.lens || "charcoal",
@@ -69,11 +71,17 @@ const delay = (ms) => new Promise((r) => setTimeout(r, ms));
       .replace("export async function demoApi", "async function demoApi") +
       "\nwindow.__demoApi=demoApi;",
   );
-  const originalDemoApi=w.__demoApi;
-  w.__demoApi=async(...args)=>{
-    if(args[0]==='state'&&w.__rejectNextState){w.__rejectNextState=false;throw Error('simulated refresh failure after confirmed save');}
-    const result=await originalDemoApi(...args);
-    if(args[0]==='avatar'&&w.__testRefreshFailure){w.__rejectNextState=true;w.__testRefreshFailure=false;}
+  const originalDemoApi = w.__demoApi;
+  w.__demoApi = async (...args) => {
+    if (args[0] === "state" && w.__rejectNextState) {
+      w.__rejectNextState = false;
+      throw Error("simulated refresh failure after confirmed save");
+    }
+    const result = await originalDemoApi(...args);
+    if (args[0] === "avatar" && w.__testRefreshFailure) {
+      w.__rejectNextState = true;
+      w.__testRefreshFailure = false;
+    }
     return result;
   };
   w.__qrcode = (
@@ -87,7 +95,7 @@ const delay = (ms) => new Promise((r) => setTimeout(r, ms));
     .readFileSync(path.join(root, "script.js"), "utf8")
     .replace(
       /import\s*\{[\s\S]*?\}\s*from\s*['"]\.\/avatar-runtime\.js['"];?/,
-      "const {loadAvatarCatalogue,attachAvatar,setAvatarMotion,directionBetween,normalizeAvatar,retryAvatarImages}=window.__avatarRuntime;",
+      "const {loadAvatarCatalogue,attachAvatar,setAvatarMotion,directionBetween,normalizeAvatar,retryAvatarImages,avatarDiagnostics}=window.__avatarRuntime;",
     )
     .replace('(await import("./demo-api.js")).demoApi', "window.__demoApi")
     .replace(
@@ -123,6 +131,18 @@ const delay = (ms) => new Promise((r) => setTimeout(r, ms));
   await click('[data-qaction="claim"]');
   assert.match(get(".coin").textContent, /20/);
   await click('[data-page="character"]');
+  assert.equal(get('#avatar-render-info').open,false,'Developer diagnostics initially collapsed');
+  get('#avatar-render-info').open=true;
+  assert.equal(get('[data-avatar-stat="images"]').textContent,'10');
+  assert.match(get('#avatar-render-stats').textContent,/실제 브라우저 메모리 측정값이 아니/);
+  w.__avatarDiagnosticState={images:20,failed:['assets/test-failure.png'],registered:4};
+  await click('[data-action="avatar-diagnostics-refresh"]');
+  assert.equal(get('#avatar-render-info').open,true,'Diagnostics refresh preserves details open state');
+  assert.equal(get('[data-avatar-stat="images"]').textContent,'20');
+  assert.equal(get('[data-avatar-stat="failed"]').textContent,'1');
+  assert.equal(get('[data-avatar-stat="registered"]').textContent,'4');
+  assert.equal(get('[data-avatar-stat="bitmap-estimate"]').textContent,'7.81 MiB');
+
   await click('[data-tab="shop"]');
   await click('[data-item="item3"]');
   await click('[data-buy="item3"]');
@@ -137,21 +157,94 @@ const delay = (ms) => new Promise((r) => setTimeout(r, ms));
   };
   change('[data-avatar-slot="hair"]', "hair-pigtails");
   change('[data-avatar-slot="hat"]', "hat-beret");
+  const search = (value) => {
+    const input = get("#avatar-search");
+    input.value = value;
+    input.dispatchEvent(new w.Event("input", { bubbles: true }));
+    return input;
+  };
+  let searchInput = search("머그");
+  searchInput.focus();
+  assert.ok(
+    get('[data-avatar-slot="hand"] option[value="hand-mug"]'),
+    "Localized search finds actual mug part",
+  );
+  assert.equal(
+    get('[data-avatar-slot="hair"]').value,
+    "hair-pigtails",
+    "Current selection stays pinned outside search results",
+  );
+  assert.match(
+    get('[data-avatar-slot="hair"] option:checked').textContent,
+    /현재 선택/,
+  );
+  searchInput = search("존재하지않는파츠123");
+  searchInput.focus();
+  assert.match(get("#avatar-search-status").textContent, /검색 결과가 없어요/);
+  assert.equal(
+    get('[data-avatar-slot="hair"]').value,
+    "hair-pigtails",
+    "No results never clears worn part",
+  );
+  for (const fn of heartbeatCallbacks) await fn();
+  assert.equal(
+    get("#avatar-search"),
+    searchInput,
+    "Search input identity survives heartbeat",
+  );
+  assert.equal(
+    w.document.activeElement,
+    searchInput,
+    "Search focus survives heartbeat",
+  );
+  assert.equal(get("#avatar-search").value, "존재하지않는파츠123");
+  await click('[data-action="avatar-search-clear"]');
+  assert.match(
+    get("#avatar-search-status").textContent,
+    new RegExp("전체 " + manifest.items.length + "종"),
+  );
+  await click('[data-avatar-filter="hat"]');
+  assert.equal(
+    get('[data-avatar-filter="hat"]').getAttribute("aria-pressed"),
+    "true",
+  );
+  assert.equal(
+    w.document.querySelector('[data-avatar-slot="hair"]'),
+    null,
+    "Slot filter shows only requested category",
+  );
+  assert.equal(
+    JSON.parse(get("#avatar-preview").dataset.avatarState).selection.hair,
+    "hair-pigtails",
+    "Hidden slot retains preview state",
+  );
+  await click('[data-action="avatar-search-clear"]');
+  assert.equal(get('[data-avatar-slot="hair"]').value, "hair-pigtails");
+
   change('[data-avatar-control="lens"]', "blue");
   change('[data-avatar-control="motion"]', "drink");
   change('[data-avatar-control="direction"]', "back");
   assert.equal(get("#avatar-preview").dataset.avatarMotion, "drink");
   assert.equal(get("#avatar-preview").dataset.avatarDirection, "back");
-  const focusedSelect=get('[data-avatar-slot="hair"]');focusedSelect.focus();
+  const focusedSelect = get('[data-avatar-slot="hair"]');
+  focusedSelect.focus();
   for (const fn of heartbeatCallbacks) await fn();
-  assert.equal(get('[data-avatar-slot="hair"]'),focusedSelect,'Wardrobe DOM identity survives heartbeat');
-  assert.equal(w.document.activeElement,focusedSelect,'Focused selector survives heartbeat');
+  assert.equal(
+    get('[data-avatar-slot="hair"]'),
+    focusedSelect,
+    "Wardrobe DOM identity survives heartbeat",
+  );
+  assert.equal(
+    w.document.activeElement,
+    focusedSelect,
+    "Focused selector survives heartbeat",
+  );
   assert.equal(
     get('[data-avatar-slot="hair"]').value,
     "hair-pigtails",
     "Unsaved draft persists through heartbeat",
   );
-  w.__testRefreshFailure=true;
+  w.__testRefreshFailure = true;
   await click('[data-action="avatar-save"]');
   const saved = (await w.__demoApi("state")).user.appearance.avatar02;
   assert.equal(saved.selection.hair, "hair-pigtails");
@@ -169,10 +262,27 @@ const delay = (ms) => new Promise((r) => setTimeout(r, ms));
     "greet",
     "Map action persists across DOM refresh",
   );
-  const map=get('#map');map.getBoundingClientRect=()=>({left:0,top:0,width:100,height:100});
-  map.dispatchEvent(new w.MouseEvent('click',{bubbles:true,clientX:55,clientY:70}));await delay(900);
-  assert.equal(get('#player canvas').dataset.avatarMotion,'idle','Walk returns to basic pose');
-  assert.equal(get('#player canvas').dataset.avatarDirection,'right','Walk follows horizontal direction');
+  const map = get("#map");
+  map.getBoundingClientRect = () => ({
+    left: 0,
+    top: 0,
+    width: 100,
+    height: 100,
+  });
+  map.dispatchEvent(
+    new w.MouseEvent("click", { bubbles: true, clientX: 55, clientY: 70 }),
+  );
+  await delay(900);
+  assert.equal(
+    get("#player canvas").dataset.avatarMotion,
+    "idle",
+    "Walk returns to basic pose",
+  );
+  assert.equal(
+    get("#player canvas").dataset.avatarDirection,
+    "right",
+    "Walk follows horizontal direction",
+  );
   await click('[data-page="character"]');
   assert.equal(get('[data-avatar-slot="hair"]').value, "hair-pigtails");
   await click('[data-action="account"]');

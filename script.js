@@ -5,6 +5,7 @@ import {
   directionBetween,
   normalizeAvatar,
   retryAvatarImages,
+  avatarDiagnostics,
 } from "./avatar-runtime.js";
 const app = document.querySelector("#app"),
   sheet = document.querySelector("#sheet"),
@@ -22,6 +23,8 @@ let avatarManifest = null,
   mapPose = "idle",
   mapDirection = "front";
 const avatarPositions = new Map();
+let avatarSearchQuery = "",
+  avatarSlotFilter = "all";
 const motionLabels = {
   idle: "기본 자세",
   walk: "걷기",
@@ -84,7 +87,7 @@ const avatarItemLabels = {
   "hand-camera": "소형 카메라",
   "eyes-dot": "점 눈",
   "eyes-sleepy": "졸린 눈",
-  "eyes-smile": "웃는 눈"
+  "eyes-smile": "웃는 눈",
 };
 const slotLabels = {
   skin: "피부",
@@ -329,12 +332,77 @@ function mountAvatars() {
       timelineKey: "wardrobe-preview",
     });
 }
+function avatarPartLabel(item) {
+  return avatarItemLabels[item.id] || item.label || item.id;
+}
+function avatarPartSearch() {
+  const query = avatarSearchQuery.trim().toLocaleLowerCase("ko-KR");
+  const slots = [...new Set(avatarManifest.items.map((i) => i.slot))];
+  const matching = avatarManifest.items.filter(
+    (i) =>
+      (avatarSlotFilter === "all" || i.slot === avatarSlotFilter) &&
+      (!query ||
+        [avatarPartLabel(i), i.id, slotLabels[i.slot] || i.slot]
+          .join(" ")
+          .toLocaleLowerCase("ko-KR")
+          .includes(query)),
+  );
+  return { query, slots, matching };
+}
+function avatarPartOptions() {
+  const { query, slots, matching } = avatarPartSearch();
+  return slots
+    .filter((slot) => avatarSlotFilter === "all" || slot === avatarSlotFilter)
+    .map((slot) => {
+      const results = matching.filter((i) => i.slot === slot),
+        selected = avatarManifest.items.find(
+          (i) => i.slot === slot && i.id === avatarDraft.selection[slot],
+        );
+      if (query && !results.length && !selected && avatarSlotFilter === "all")
+        return "";
+      const pinned =
+        selected && !results.some((i) => i.id === selected.id)
+          ? selected
+          : null;
+      return `<label class="avatar-part-group">${slotLabels[slot] || esc(slot)} <small>${results.length}종${pinned ? " · 현재 선택 별도 유지" : ""}</small><select data-avatar-slot="${slot}" aria-label="${esc(slotLabels[slot] || slot)} 파츠 선택"><option value="">기본 / 없음</option>${pinned ? `<option value="${esc(pinned.id)}" selected>${esc(avatarPartLabel(pinned))} · 현재 선택</option>` : ""}${results.map((i) => `<option value="${esc(i.id)}" ${avatarDraft.selection[slot] === i.id ? "selected" : ""}>${esc(avatarPartLabel(i))}</option>`).join("")}</select></label>`;
+    })
+    .join("");
+}
+function avatarSearchStatus() {
+  const { query, matching } = avatarPartSearch();
+  return matching.length
+    ? `${matching.length}종 표시 / 전체 ${avatarManifest.items.length}종${query ? " · 검색해도 시착 중인 파츠는 유지돼요." : ""}`
+    : "검색 결과가 없어요. 다른 검색어나 부위를 선택해주세요. 시착 중인 파츠는 그대로 유지돼요.";
+}
+function updateAvatarSearch() {
+  const results = document.querySelector("#avatar-parts-results");
+  if (!results) return;
+  results.innerHTML = avatarPartOptions();
+  document.querySelector("#avatar-search-status").textContent =
+    avatarSearchStatus();
+  document.querySelectorAll("[data-avatar-filter]").forEach((b) => {
+    const active = b.dataset.avatarFilter === avatarSlotFilter;
+    b.setAttribute("aria-pressed", String(active));
+    b.classList.toggle("active", active);
+  });
+}
+function avatarDiagnosticsMarkup() {
+  const info = avatarDiagnostics();
+  const [cw,ch] = avatarManifest?.cell || [80,80];
+  const rows = avatarManifest?.directions?.length || 4;
+  const columns = Math.max(1,...Object.values(avatarManifest?.motions || {}).map(m=>Math.max(...m.frames)+1));
+  const width=cw*columns,height=ch*rows;
+  const estimateMiB=info.images*width*height*4/1048576;
+  return `<dl class="avatar-render-stats"><dt>이미지 캐시 항목</dt><dd data-avatar-stat="images">${info.images}</dd><dt>실패 이미지</dt><dd data-avatar-stat="failed">${info.failed.length}</dd><dt>등록된 캔버스</dt><dd data-avatar-stat="registered">${info.registered}</dd><dt>비트맵 이론 추정</dt><dd data-avatar-stat="bitmap-estimate">${estimateMiB.toFixed(2)} MiB</dd></dl><p class="muted">추정식: 캐시 항목 수 × ${width} × ${height} × RGBA 4바이트. 로딩 중·실패 항목도 포함해 모두 디코딩한다고 가정한 값이에요. 실제 브라우저 메모리 측정값이 아니며, 합성 프레임 캐시·GPU·브라우저 부가 메모리는 제외해요.</p><p class="muted">조회 시각: <time>${esc(new Date().toLocaleTimeString('ko-KR'))}</time> · 새로고침은 정보만 읽으며 캐시 정책을 바꾸지 않아요.</p>${info.failed.length?`<details><summary>실패한 애셋 경로</summary><ul>${info.failed.map(path=>`<li><code>${esc(path)}</code></li>`).join('')}</ul></details>`:''}`;
+}
 function avatarEditor() {
   if (!avatarManifest)
     return `<p class="notice">${esc(avatarLoadError || "파츠 목록을 읽고 있어요.")}</p>${avatarLoadError ? '<button data-action="avatar-retry">캐릭터 다시 불러오기</button>' : ""}`;
   if (avatarDraftUser !== state.user.id || !avatarDraft) {
     avatarDraft = avatarFor(state.user);
     avatarDraftUser = state.user.id;
+    avatarSearchQuery = "";
+    avatarSlotFilter = "all";
   }
   const slots = [...new Set(avatarManifest.items.map((i) => i.slot))];
   return `<section class="avatar-editor"><div class="avatar-preview-stage"><canvas id="avatar-preview" class="avatar-canvas" width="80" height="80" aria-label="선택한 파츠를 합성한 캐릭터 미리보기"></canvas><span class="avatar-fallback">불러오는 중</span></div><p class="notice">${avatarManifest.items.length}종 파츠 무료 시착 · 개발 체험용이며 실제 경제 정책이 아니에요.</p><p class="muted">방향·모션은 미리보기용이에요. 기본 자세는 정지 프레임이며 게임 효과를 만들지 않아요.</p><div class="avatar-select-grid"><label>방향<select data-avatar-control="direction">${[
@@ -358,20 +426,7 @@ function avatarEditor() {
     )
     .join(
       "",
-    )}</select></label><label>렌즈 색<select data-avatar-control="lens">${avatarManifest.lensColors.map((v) => `<option value="${v}" ${avatarDraft.lens === v ? "selected" : ""}>${{ charcoal: "차콜", green: "초록", blue: "파랑" }[v] || v}</option>`).join("")}</select></label></div><div class="avatar-select-grid">${slots
-    .map(
-      (slot) =>
-        `<label>${slotLabels[slot] || esc(slot)}<select data-avatar-slot="${slot}"><option value="">기본 / 없음</option>${avatarManifest.items
-          .filter((i) => i.slot === slot)
-          .map(
-            (i) =>
-              `<option value="${esc(i.id)}" ${avatarDraft.selection[slot] === i.id ? "selected" : ""}>${esc(avatarItemLabels[i.id] || i.label || i.id)}</option>`,
-          )
-          .join("")}</select></label>`,
-    )
-    .join(
-      "",
-    )}</div><p class="muted">모자와 머리는 조합 전용 레이어를 사용해요. 파츠 선택 후 네 방향과 동작을 확인해보세요.</p><div class="actions"><button data-action="avatar-reset">기본으로 시착</button><button data-action="avatar-retry">애셋 다시 불러오기</button><button class="primary" data-action="avatar-save">파츠 저장 · 맵에 적용</button></div></section>`;
+    )}</select></label><label>렌즈 색<select data-avatar-control="lens">${avatarManifest.lensColors.map((v) => `<option value="${v}" ${avatarDraft.lens === v ? "selected" : ""}>${{ charcoal: "차콜", green: "초록", blue: "파랑" }[v] || v}</option>`).join("")}</select></label></div><section class="avatar-parts-browser" aria-label="파츠 찾아보기"><div class="avatar-search-row"><label for="avatar-search">파츠 검색<input id="avatar-search" type="search" value="${esc(avatarSearchQuery)}" placeholder="머리, 안경, 셔츠 이름으로 찾기" autocomplete="off" spellcheck="false"></label><button data-action="avatar-search-clear">검색 초기화</button></div><div class="avatar-slot-filters" role="group" aria-label="파츠 부위 필터">${["all", ...slots].map((slot) => `<button type="button" data-avatar-filter="${slot}" aria-pressed="${avatarSlotFilter === slot}" class="${avatarSlotFilter === slot ? "active" : ""}">${slot === "all" ? "전체" : slotLabels[slot] || esc(slot)}</button>`).join("")}</div><p id="avatar-search-status" class="muted" role="status" aria-live="polite">${avatarSearchStatus()}</p><div id="avatar-parts-results" class="avatar-select-grid">${avatarPartOptions()}</div></section><p class="muted">모자와 머리는 조합 전용 레이어를 사용해요. 파츠 선택 후 네 방향과 동작을 확인해보세요.</p><div class="actions"><button data-action="avatar-reset">기본으로 시착</button><button data-action="avatar-retry">애셋 다시 불러오기</button><button class="primary" data-action="avatar-save">파츠 저장 · 맵에 적용</button></div><details id="avatar-render-info" class="avatar-render-info"><summary>개발 렌더링 정보</summary><div id="avatar-render-stats">${avatarDiagnosticsMarkup()}</div><button data-action="avatar-diagnostics-refresh">렌더링 정보 새로고침</button></details></section>`;
 }
 function nav() {
   return `<nav class="bottom-nav" aria-label="주 메뉴">${[
@@ -810,11 +865,25 @@ function guests() {
     `<p class="muted">맵에 공개 참여 중인 손님이에요. 실제 매장 인원이나 좌석 현황과 다를 수 있어요.</p>${(state.guests || []).map((g) => `<article class="card"><h3>${esc(g.nickname)} ${g.mode === "remote" ? "· 원격" : ""}</h3><p>${esc(g.activity || "")} ${esc(g.drink || "")}</p><div class="actions"><button data-guest="${esc(g.id)}" data-gaction="block">차단</button><button data-guest="${esc(g.id)}" data-gaction="report">신고</button></div></article>`).join("") || '<p class="empty">지금은 공개한 다른 손님이 없어요.<br>혼자서도 편안히 둘러보세요.</p>'}`,
   );
 }
+app.addEventListener("input", (e) => {
+  if (e.target.id === "avatar-search") {
+    avatarSearchQuery = e.target.value;
+    updateAvatarSearch();
+  }
+});
 app.addEventListener("change", (e) => {
   const el = e.target;
   if (el.dataset.avatarSlot) {
     avatarDraft.selection[el.dataset.avatarSlot] = el.value;
     if (!el.value) delete avatarDraft.selection[el.dataset.avatarSlot];
+    if (avatarSearchQuery.trim()) {
+      const slot = el.dataset.avatarSlot;
+      updateAvatarSearch();
+      const next =
+        document.querySelector(`[data-avatar-slot="${slot}"]`) ||
+        document.querySelector("#avatar-search");
+      next?.focus();
+    }
   } else if (el.dataset.avatarControl === "lens") avatarDraft.lens = el.value;
   else if (el.dataset.avatarControl === "motion")
     avatarPreviewMotion = el.value;
@@ -845,6 +914,11 @@ app.addEventListener("keydown", (e) => {
 async function handle(e) {
   const b = e.target.closest("button");
   if (b) {
+    if (b.dataset.avatarFilter) {
+      avatarSlotFilter = b.dataset.avatarFilter;
+      updateAvatarSearch();
+      return;
+    }
     if (b.dataset.mapMotion) {
       mapPose = b.dataset.mapMotion;
       sheet.close();
@@ -976,6 +1050,19 @@ async function handle(e) {
       return;
     }
     const action = b.dataset.action;
+    if(action==='avatar-diagnostics-refresh'){const target=document.querySelector('#avatar-render-stats');if(target)target.innerHTML=avatarDiagnosticsMarkup();return;}
+    if (action === "avatar-search-clear") {
+      avatarSearchQuery = "";
+      avatarSlotFilter = "all";
+      const input = document.querySelector("#avatar-search");
+      if (input) {
+        input.value = "";
+        updateAvatarSearch();
+        input.focus();
+      }
+      return;
+    }
+
     if (action === "avatar-retry") {
       startAvatarLoading();
       return;

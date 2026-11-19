@@ -72,7 +72,7 @@
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.AvatarViewer = API;
   if (typeof document === 'undefined') return;
-  // Game runtime reuses compositing helpers without booting the standalone viewer UI.
+  // Game adapter uses helpers without the standalone preview UI.
   if (root.AVATAR_VIEWER_NO_BOOT) return;
 
   async function boot() {

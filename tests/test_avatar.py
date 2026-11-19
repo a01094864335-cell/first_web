@@ -17,7 +17,7 @@ class AvatarTest(unittest.TestCase):
     act=test_server.CafeTest.act
 
     def test_all_manifest_parts_free_tryon(self):
-        self.assertEqual(len(avatars.manifest()['items']),51)
+        self.assertEqual(len(avatars.manifest()['items']),101)
         for item in avatars.manifest()['items']:
             payload={'selection':{item['slot']:item['id']},'lens':'blue'}
             result=self.act('/api/avatar',payload)
@@ -25,6 +25,14 @@ class AvatarTest(unittest.TestCase):
             self.assertEqual(result['user']['coins'],0)
             self.assertEqual(result['user']['stamps'],0)
             self.assertFalse(any(i['owned'] for i in result['items']))
+
+    def test_existing_51_saved_ids_keep_their_slots(self):
+        legacy=json.loads((Path(__file__).parent/'avatar-legacy51.json').read_text())
+        current={item['id']:item['slot'] for item in avatars.manifest()['items']}
+        for ident,slot in legacy.items():
+            self.assertEqual(current.get(ident),slot)
+            result=self.act('/api/avatar',{'selection':{slot:ident},'lens':'green'})
+            self.assertEqual(result['user']['appearance']['avatar02']['selection'],{slot:ident})
 
     def test_invalid_slot_item_lens_rejected_atomically(self):
         valid={'selection':{'hair':'hair-short','eyes':'eyes-dot'},'lens':'green'}

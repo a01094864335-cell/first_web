@@ -1,0 +1,182 @@
+[
+  {
+    "id": "top-sailor",
+    "label": "세일러 블라우스",
+    "slot": "top",
+    "path": "source/expansion50_clothes/top-sailor.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  },
+  {
+    "id": "top-henley",
+    "label": "헨리넥",
+    "slot": "top",
+    "path": "source/expansion50_clothes/top-henley.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  },
+  {
+    "id": "top-polo",
+    "label": "폴로",
+    "slot": "top",
+    "path": "source/expansion50_clothes/top-polo.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  },
+  {
+    "id": "top-double-breasted",
+    "label": "더블브레스트 코트",
+    "slot": "top",
+    "path": "source/expansion50_clothes/top-double-breasted.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  },
+  {
+    "id": "top-duffle",
+    "label": "더플 코트",
+    "slot": "top",
+    "path": "source/expansion50_clothes/top-duffle.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  },
+  {
+    "id": "top-denim-jacket",
+    "label": "트러커 재킷",
+    "slot": "top",
+    "path": "source/expansion50_clothes/top-denim-jacket.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  },
+  {
+    "id": "top-kimono-wrap",
+    "label": "랩 재킷",
+    "slot": "top",
+    "path": "source/expansion50_clothes/top-kimono-wrap.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  },
+  {
+    "id": "top-puffer",
+    "label": "퀼팅 패딩",
+    "slot": "top",
+    "path": "source/expansion50_clothes/top-puffer.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  },
+  {
+    "id": "top-capelet",
+    "label": "케이프",
+    "slot": "top",
+    "path": "source/expansion50_clothes/top-capelet.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  },
+  {
+    "id": "top-apron",
+    "label": "앞치마 셔츠",
+    "slot": "top",
+    "path": "source/expansion50_clothes/top-apron.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  },
+  {
+    "id": "bottom-shorts-scallop",
+    "label": "스캘럽 반바지",
+    "slot": "bottom",
+    "path": "source/expansion50_clothes/bottom-shorts-scallop.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  },
+  {
+    "id": "bottom-shorts-athletic",
+    "label": "트랙 반바지",
+    "slot": "bottom",
+    "path": "source/expansion50_clothes/bottom-shorts-athletic.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  },
+  {
+    "id": "bottom-trousers-patchwork",
+    "label": "패치워크 바지",
+    "slot": "bottom",
+    "path": "source/expansion50_clothes/bottom-trousers-patchwork.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  },
+  {
+    "id": "bottom-trousers-pinstripe",
+    "label": "턱 슬랙스",
+    "slot": "bottom",
+    "path": "source/expansion50_clothes/bottom-trousers-pinstripe.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  },
+  {
+    "id": "bottom-trousers-cuffed",
+    "label": "롤업 데님",
+    "slot": "bottom",
+    "path": "source/expansion50_clothes/bottom-trousers-cuffed.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  },
+  {
+    "id": "bottom-skirt-wrap",
+    "label": "랩 스커트",
+    "slot": "bottom",
+    "path": "source/expansion50_clothes/bottom-skirt-wrap.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  },
+  {
+    "id": "bottom-skirt-tiered",
+    "label": "티어드 스커트",
+    "slot": "bottom",
+    "path": "source/expansion50_clothes/bottom-skirt-tiered.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  },
+  {
+    "id": "bottom-skirt-button",
+    "label": "단추 A라인",
+    "slot": "bottom",
+    "path": "source/expansion50_clothes/bottom-skirt-button.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_clothes"
+  }
+]

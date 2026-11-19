@@ -13,6 +13,12 @@ from fit_mini_bag import fit_mini_bag
 from fit_tote import fit_tote
 from fit_expansion_clothes import fit_new_clothes
 from fit_new_hair import fit_new_hair,NEW_HAIR_IDS
+# Fifty-item expansion modules are isolated to keep legacy atlas output stable.
+from fit_expansion50_head import fit_expansion50_head
+from fit_expansion50_clothes import fit_expansion50_clothes
+from fit_expansion50_gear import fit_expansion50_gear
+EXPANSION50_FITTERS={'expansion50_head':fit_expansion50_head,
+ 'expansion50_clothes':fit_expansion50_clothes,'expansion50_gear':fit_expansion50_gear}
 from fit_clothes import fit_top, fit_skirt
 from fit_tees import fit_tee
 ROOT=pathlib.Path(__file__).resolve().parents[1]
@@ -144,10 +150,14 @@ for spec in sources:
   for r in range(4):
    z0=crop(spec['path'],r,spec['row'],spec['rows'])
    if slot=='glasses' and r==2:continue
-   if slot=='glasses' and r in [1,3]:z0=z0.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
+   if slot=='glasses' and r in [1,3] and not spec.get('noProfileFlip'):z0=z0.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
    if ['front','right','back','left'][r] in spec.get('emptyDirections',[]):continue
    for c in range(4):
     mm=meta[ac,r,c];cx=mm['cx'];ht=mm['headtop'];hb=mm['headbottom'];bottom=mm['bottom']
+    if spec.get('fit') in EXPANSION50_FITTERS:
+     hm=Image.open(V3/ac/'assets/hands-mask.png').convert('RGBA').crop((c*80,r*80,c*80+80,r*80+80))
+     fitted=EXPANSION50_FITTERS[spec['fit']](z0,mm['cell'],r,ac,c,id=id,handsmask=hm,meta=mm)
+     sheet.alpha_composite(fitted,(c*80,r*80));continue
     if spec.get('fit')=='new_clothes':
      fitted=fit_new_clothes(z0,mm['cell'],r,ac,c,id=id);sheet.alpha_composite(fitted,(c*80,r*80));continue
     if id in NEW_HAIR_IDS:
@@ -201,7 +211,7 @@ for item in [i for i in items if i['slot']=='hair']:
   ff={};rr={}
   for ac in ACTIONS:
    front=Image.open(ROOT/item['files'][ac]).convert('RGBA');rear=Image.open(ROOT/item['rearFiles'][ac]).convert('RGBA') if item.get('rearFiles') else None
-   fitted=fit_hat_hair_atlas(front,Image.open(ROOT/hat['files'][ac]).convert('RGBA'),rear)
+   fitted={'front':front,'rear':rear or Image.new('RGBA',(320,320))} if hat['id']=='hat-visor' else fit_hat_hair_atlas(front,Image.open(ROOT/hat['files'][ac]).convert('RGBA'),rear)
    ff[ac]=save(fitted['front'],ac,item['id']+'--'+hat['id']);rr[ac]=save(fitted['rear'],ac,item['id']+'--'+hat['id']+'-rear')
   item['hatVariants'][hat['id']]={'files':ff,'rearFiles':rr}
 # Pose-aware eye overlays and lens palettes.
@@ -222,5 +232,5 @@ for row,(id,label) in enumerate([('eyes-dot','점 눈'),('eyes-sleepy','졸린 �
 for item in items:
  if item['id']=='hand-book':item['notes'].append('Book stowed during drink; held/read-like pose during examine.')
 motions={a:{'source':a,'frames':[0,1,2,3],'durationMs':180 if a=='walk' else 400} for a in ACTIONS};motions={'idle':{'source':'walk','frames':[1],'durationMs':600},**motions}
-manifest={'version':'0.7-wardrobe-expansion','cell':[80,80],'pivot':[40,74],'directions':['front','right','back','left'],'motions':motions,'items':items,'base':base,'handsMask':hands,'gripMask':grips,'eyeCover':eyeCover,'lensColors':['charcoal','green','blue'],'layerOrder':['hairRear','base','skin','eyes','bottom','shoes','top','body','hair','hat','glasses','hand'],'warnings':['All requested named silhouettes are represented; final production QA is not complete.','Accessory/clothing transforms are deterministic fitting, not frame-by-frame drawn articulation.','Motion-specific sleeves, seated skirt, prop grip and hat-hair variants fitted; final game runtime validation still required.']}
+manifest={'version':'0.8-fifty-new-parts','cell':[80,80],'pivot':[40,74],'directions':['front','right','back','left'],'motions':motions,'items':items,'base':base,'handsMask':hands,'gripMask':grips,'eyeCover':eyeCover,'lensColors':['charcoal','green','blue'],'layerOrder':['hairRear','base','skin','eyes','bottom','shoes','top','body','hair','hat','glasses','hand'],'warnings':['All requested named silhouettes are represented; final production QA is not complete.','Accessory/clothing transforms are deterministic fitting, not frame-by-frame drawn articulation.','Motion-specific sleeves, seated skirt, prop grip and hat-hair variants fitted; final game runtime validation still required.']}
 (ROOT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2));print('ITEMS',len(items),[(s,len([i for i in items if i['slot']==s])) for s in sorted({i['slot'] for i in items})])
