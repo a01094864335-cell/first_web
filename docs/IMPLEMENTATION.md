@@ -52,3 +52,9 @@ The fixed QR URL can intentionally be saved/shared and reused outside the café.
 Mock coverage includes new/existing-account linkage and once-only merge, recovery, separate balances and QR identifier, sample conversion, redemption receipt, operator actions, content scheduling, expiry, deletion and reset. A local QR image encodes only the demo identifier. Real camera scanning is not implemented; the operator form uses the displayed identifier.
 
 Validation: existing 56 Python tests still pass; client retry and demo API suites pass; jsdom handler integration passes guest→QR→reward→purchase/equip→mock link→operator grant→redemption→sample conversion with zero live fetch calls. Browser rendering/real-device QC remains unverified due the previously recorded execution limitation.
+
+## Avatar integration checkpoint · 2026-11-19
+
+Replaced CSS placeholders with the real 51-part Avatar02 layer compositor on a separate review branch. Server and isolated mock selection persistence are implemented, with legacy data preserved. See AVATAR-INTEGRATION.md and REMAINING-WORK.md for the exact free-try-on boundary.
+
+Final automated suite: 65 Python tests; client retry; mock API; avatar mock contracts; adapter structural/double tests; extended DOM workflows; viewer helper tests; 1,015 atlas checks passed. Browser preview is now available through the supported Sites preview service. CUA verified onboarding, one outfit across wardrobe/map/reload, front walk and rear greet. Actual iOS/Android and exhaustive combinations remain untested. No main merge or public preview update.

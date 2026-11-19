@@ -15,6 +15,43 @@ const delay = (ms) => new Promise((r) => setTimeout(r, ms));
     },
   );
   const w = dom.window;
+  const heartbeatCallbacks = [];
+  w.setInterval = (fn) => {
+    heartbeatCallbacks.push(fn);
+    return 1;
+  };
+  const manifest = JSON.parse(
+    fs.readFileSync(path.join(root, "avatar02/manifest.json"), "utf8"),
+  );
+  w.__avatarRuntime = {
+    loadAvatarCatalogue: async () => manifest,
+    retryAvatarImages: () => {},
+    normalizeAvatar: (value = {}) => ({
+      selection: value.selection || {},
+      lens: value.lens || "charcoal",
+    }),
+    attachAvatar: (el, value, options) => {
+      if (el) {
+        el.dataset.avatarState = JSON.stringify(value);
+        el.dataset.avatarMotion = options.motion;
+        el.dataset.avatarDirection = options.direction;
+      }
+    },
+    setAvatarMotion: (el, motion, direction) => {
+      if (el) {
+        el.dataset.avatarMotion = motion;
+        el.dataset.avatarDirection = direction;
+      }
+    },
+    directionBetween: (a, b) =>
+      Math.abs(b.x - a.x) > Math.abs(b.y - a.y)
+        ? b.x > a.x
+          ? "right"
+          : "left"
+        : b.y > a.y
+          ? "front"
+          : "back",
+  };
   let networkCalls = 0;
   w.fetch = () => {
     networkCalls++;
@@ -32,6 +69,13 @@ const delay = (ms) => new Promise((r) => setTimeout(r, ms));
       .replace("export async function demoApi", "async function demoApi") +
       "\nwindow.__demoApi=demoApi;",
   );
+  const originalDemoApi=w.__demoApi;
+  w.__demoApi=async(...args)=>{
+    if(args[0]==='state'&&w.__rejectNextState){w.__rejectNextState=false;throw Error('simulated refresh failure after confirmed save');}
+    const result=await originalDemoApi(...args);
+    if(args[0]==='avatar'&&w.__testRefreshFailure){w.__rejectNextState=true;w.__testRefreshFailure=false;}
+    return result;
+  };
   w.__qrcode = (
     await import(
       require("node:url").pathToFileURL(
@@ -41,6 +85,10 @@ const delay = (ms) => new Promise((r) => setTimeout(r, ms));
   ).default;
   const source = fs
     .readFileSync(path.join(root, "script.js"), "utf8")
+    .replace(
+      /import\s*\{[\s\S]*?\}\s*from\s*['"]\.\/avatar-runtime\.js['"];?/,
+      "const {loadAvatarCatalogue,attachAvatar,setAvatarMotion,directionBetween,normalizeAvatar,retryAvatarImages}=window.__avatarRuntime;",
+    )
     .replace('(await import("./demo-api.js")).demoApi', "window.__demoApi")
     .replace(
       'await import("./public/assets/vendor/qrcode.mjs")',
@@ -79,7 +127,54 @@ const delay = (ms) => new Promise((r) => setTimeout(r, ms));
   await click('[data-item="item3"]');
   await click('[data-buy="item3"]');
   await click('[data-item="item3"]');
-  assert.ok(get(".wardrobe-preview .prop"));
+  assert.ok(
+    (await w.__demoApi("state")).items.find((i) => i.id === "item3").equipped,
+  );
+  const change = (selector, value) => {
+    const el = get(selector);
+    el.value = value;
+    el.dispatchEvent(new w.Event("change", { bubbles: true }));
+  };
+  change('[data-avatar-slot="hair"]', "hair-pigtails");
+  change('[data-avatar-slot="hat"]', "hat-beret");
+  change('[data-avatar-control="lens"]', "blue");
+  change('[data-avatar-control="motion"]', "drink");
+  change('[data-avatar-control="direction"]', "back");
+  assert.equal(get("#avatar-preview").dataset.avatarMotion, "drink");
+  assert.equal(get("#avatar-preview").dataset.avatarDirection, "back");
+  const focusedSelect=get('[data-avatar-slot="hair"]');focusedSelect.focus();
+  for (const fn of heartbeatCallbacks) await fn();
+  assert.equal(get('[data-avatar-slot="hair"]'),focusedSelect,'Wardrobe DOM identity survives heartbeat');
+  assert.equal(w.document.activeElement,focusedSelect,'Focused selector survives heartbeat');
+  assert.equal(
+    get('[data-avatar-slot="hair"]').value,
+    "hair-pigtails",
+    "Unsaved draft persists through heartbeat",
+  );
+  w.__testRefreshFailure=true;
+  await click('[data-action="avatar-save"]');
+  const saved = (await w.__demoApi("state")).user.appearance.avatar02;
+  assert.equal(saved.selection.hair, "hair-pigtails");
+  assert.equal(saved.lens, "blue");
+  await click('[data-page="cafe"]');
+  assert.deepEqual(
+    JSON.parse(get("#player canvas").dataset.avatarState),
+    JSON.parse(JSON.stringify(saved)),
+  );
+  await click('[data-action="avatar-actions"]');
+  await click('[data-map-motion="greet"]');
+  for (let n = 0; n < 2; n++) for (const fn of heartbeatCallbacks) await fn();
+  assert.equal(
+    get("#player canvas").dataset.avatarMotion,
+    "greet",
+    "Map action persists across DOM refresh",
+  );
+  const map=get('#map');map.getBoundingClientRect=()=>({left:0,top:0,width:100,height:100});
+  map.dispatchEvent(new w.MouseEvent('click',{bubbles:true,clientX:55,clientY:70}));await delay(900);
+  assert.equal(get('#player canvas').dataset.avatarMotion,'idle','Walk returns to basic pose');
+  assert.equal(get('#player canvas').dataset.avatarDirection,'right','Walk follows horizontal direction');
+  await click('[data-page="character"]');
+  assert.equal(get('[data-avatar-slot="hair"]').value, "hair-pigtails");
   await click('[data-action="account"]');
   await click('[data-demo-kakao="new"]');
   await click('[data-page="cafe"]');
@@ -122,7 +217,7 @@ const delay = (ms) => new Promise((r) => setTimeout(r, ms));
   assert.equal(networkCalls, 0);
   dom.window.close();
   console.log(
-    "PASS demo DOM onboarding, QR mode, reward, purchase/equip, mock linking, code screen, operator grant, redemption and example conversion; zero network calls",
+    "PASS demo DOM flows + avatar save despite refresh failure, map/wardrobe parity, heartbeat draft/focus preservation, pose persistence, walk direction/idle; zero network calls (renderer mocked)",
   );
 })().catch((e) => {
   console.error(e);

@@ -1,6 +1,7 @@
 """Cafe Quest development server. Standard-library only, SQLite authoritative state."""
 import hashlib, json, os, secrets, sqlite3, time, math
 import catalogue
+import avatar_catalogue
 import operations
 import threading
 from contextlib import contextmanager
@@ -77,7 +78,7 @@ def normalize(c,uid):
 def state(c,uid):
  if not uid:return {'user':None,'config':{'kakaoEnabled':False,'conversionEnabled':False}}
  normalize(c,uid)
- u=dict(c.execute('SELECT id,nickname,appearance,coins,stamps,linked,role FROM users WHERE id=?',(uid,)).fetchone());u['appearance']=json.loads(u['appearance'])
+ u=dict(c.execute('SELECT id,nickname,appearance,coins,stamps,linked,role FROM users WHERE id=?',(uid,)).fetchone());u['appearance']=avatar_catalogue.client_appearance(json.loads(u['appearance']))
  s=dict(c.execute('SELECT * FROM sessions WHERE uid=?',(uid,)).fetchone());s['expiresAt']=int(s.pop('expires')*1000);s.pop('uid');s.pop('active')
  qs=[]
  for definition in catalogue.latest(c,'quest'):
@@ -96,7 +97,7 @@ def state(c,uid):
   normalize(c,row['id'])
   ss=c.execute('SELECT visible FROM sessions WHERE uid=?',(row['id'],)).fetchone()
   if not ss['visible'] or c.execute('SELECT 1 FROM blocks WHERE (uid=? AND target=?) OR (uid=? AND target=?)',(uid,row['id'],row['id'],uid)).fetchone():continue
-  appearance=json.loads(row['appearance']);appearance['equipped']=[r['item'] for r in c.execute('SELECT item FROM inventory WHERE uid=? AND equipped=1',(row['id'],))]
+  appearance=avatar_catalogue.client_appearance(json.loads(row['appearance']));appearance['equipped']=[r['item'] for r in c.execute('SELECT item FROM inventory WHERE uid=? AND equipped=1',(row['id'],))]
   guests.append({k:row[k] for k in ('id','nickname','mode','x','y','activity','drink')}|{'appearance':appearance})
  ledger=[dict(r) for r in c.execute('SELECT id,currency,amount,reason,created FROM ledger WHERE uid=? ORDER BY created DESC LIMIT 100',(uid,))]
  return {'user':u,'session':s,'quests':qs,'items':items,'guests':guests,'ledger':ledger,'config':{'conversionEnabled':False,'kakaoEnabled':False,'obstacles':OBSTACLES,'prototype':True}}
@@ -197,6 +198,11 @@ def act(c,uid,path,data):
    if not reason:raise APIError('신고 사유를 적어주세요')
    c.execute('INSERT INTO reports VALUES(?,?,?,?,?)',(secrets.token_hex(12),uid,target,reason,now))
  elif path=='/api/unblock':c.execute('DELETE FROM blocks WHERE uid=? AND target=?',(uid,data.get('id')))
+ elif path=='/api/avatar':
+  try:avatar=avatar_catalogue.validate(data)
+  except ValueError as e:raise APIError(str(e))
+  appearance=json.loads(u['appearance']);appearance['avatar02']=avatar
+  c.execute('UPDATE users SET appearance=? WHERE id=?',(json.dumps(appearance,ensure_ascii=False),uid))
  elif path=='/api/profile':
   name=str(data.get('nickname','')).strip()
   if not 1<=len(name)<=16:raise APIError('닉네임은 1~16글자로 입력해주세요')
@@ -260,14 +266,21 @@ class Handler(SimpleHTTPRequestHandler):
     if path=='/api/blocks' and uid:
      self.send_json([dict(r) for r in c.execute('SELECT u.id,u.nickname FROM blocks b JOIN users u ON u.id=b.target WHERE b.uid=?',(uid,))]);return
    self.send_json({'error':'연결되지 않은 기능이에요'},404);return
-  allowed={'/':'index.html','/index.html':'index.html','/style.css':'style.css','/script.js':'script.js','/demo-api.js':'demo-api.js'}
-  if path in allowed:self.path='/'+allowed[path]
-  elif not path.startswith('/public/assets/') or '..' in path or not (ROOT/path.lstrip('/')).resolve().is_relative_to((ROOT/'public/assets').resolve()):self.send_error(404);return
+  if not self.static_allowed(path):self.send_error(404);return
+  self.path='/index.html' if path=='/' else path
   return super().do_GET()
+ def static_allowed(self,path):
+  if path in ('/','/index.html','/style.css','/script.js','/demo-api.js','/avatar-runtime.js'):return True
+  if path.startswith('/avatar02/'):
+   return avatar_catalogue.static_allowed(path)
+  actual=(ROOT/path.lstrip('/')).resolve()
+  return path.startswith('/public/assets/') and '..' not in path and actual.is_relative_to((ROOT/'public/assets').resolve()) and actual.is_file()
+ def translate_path(self,path):
+  return str(ROOT/urlsplit(path).path.lstrip('/'))
  def do_HEAD(self):
   path=unquote(urlsplit(self.path).path)
-  if path not in ('/','/index.html','/style.css','/script.js','/demo-api.js') and (not path.startswith('/public/assets/') or '..' in path or not (ROOT/path.lstrip('/')).resolve().is_relative_to((ROOT/'public/assets').resolve())):
-   self.send_error(404);return
+  if not self.static_allowed(path):self.send_error(404);return
+  self.path='/index.html' if path=='/' else path
   super().do_HEAD()
  def do_POST(self):
   if not rate_allowed(self.client_address[0]):self.send_json({'error':'잠시 후 다시 시도해주세요'},429);return
@@ -289,6 +302,10 @@ class Handler(SimpleHTTPRequestHandler):
       if not 1<=len(nickname)<=16:raise APIError('닉네임은 1~16글자로 입력해주세요')
       uid=secrets.token_hex(12);token=secrets.token_urlsafe(32)
       appearance={'color':str(data.get('appearance',{}).get('color','#a58acb'))[:12]} if isinstance(data.get('appearance',{}),dict) else {'color':'#a58acb'}
+      appearance['avatar02']=avatar_catalogue.default_avatar()
+      if isinstance(data.get('appearance'),dict) and 'avatar02' in data['appearance']:
+       try:appearance['avatar02']=avatar_catalogue.validate(data['appearance']['avatar02'])
+       except ValueError as e:raise APIError(str(e))
       c.execute('INSERT INTO users(id,token,nickname,appearance) VALUES(?,?,?,?)',(uid,hashlib.sha256(token.encode()).hexdigest(),nickname,json.dumps(appearance)))
       c.execute('INSERT INTO sessions(uid,active) VALUES(?,?)',(uid,time.time()));result=state(c,uid)
       secure='; Secure' if os.environ.get('CAFE_SECURE_COOKIE')=='1' else ''
@@ -314,5 +331,11 @@ class Handler(SimpleHTTPRequestHandler):
   except (ValueError,TypeError,KeyError):self.send_json({'error':'잘못된 입력이에요'},400)
   except Exception:self.send_json({'error':'요청 처리 중 문제가 생겼어요. 상태를 다시 확인해주세요'},500)
 if __name__=='__main__':
- init_db();os.chdir(ROOT);print('Cafe Quest: http://127.0.0.1:'+os.environ.get('PORT','8000'),flush=True)
- ThreadingHTTPServer((os.environ.get('HOST','127.0.0.1'),int(os.environ.get('PORT','8000'))),Handler).serve_forever()
+ import argparse
+ parser=argparse.ArgumentParser(description='Cafe Quest development server (not production hosting)')
+ parser.add_argument('--host',default=os.environ.get('HOST','127.0.0.1'))
+ parser.add_argument('--port',type=int,default=int(os.environ.get('PORT','8000')))
+ parser.add_argument('--strictPort',action='store_true',help='Compatibility option; this server always requires the requested port')
+ args=parser.parse_args()
+ init_db();os.chdir(ROOT);print(f'Cafe Quest: http://{args.host}:{args.port}',flush=True)
+ ThreadingHTTPServer((args.host,args.port),Handler).serve_forever()

@@ -1,0 +1,90 @@
+[
+  {
+    "id": "top-tee-plain",
+    "slot": "top",
+    "path": "source/clothes/tops-a.png",
+    "row": 0,
+    "rows": 4,
+    "cols": 4
+  },
+  {
+    "id": "top-tee-striped",
+    "slot": "top",
+    "path": "source/clothes/tops-a.png",
+    "row": 1,
+    "rows": 4,
+    "cols": 4
+  },
+  {
+    "id": "top-shirt-blue",
+    "slot": "top",
+    "path": "source/clothes/tops-a.png",
+    "row": 2,
+    "rows": 4,
+    "cols": 4
+  },
+  {
+    "id": "top-cardigan-rust",
+    "slot": "top",
+    "path": "source/clothes/tops-a.png",
+    "row": 3,
+    "rows": 4,
+    "cols": 4
+  },
+  {
+    "id": "top-hoodie-lavender",
+    "slot": "top",
+    "path": "source/clothes/tops-b.png",
+    "row": 0,
+    "rows": 3,
+    "cols": 4
+  },
+  {
+    "id": "top-vest-moss",
+    "slot": "top",
+    "path": "source/clothes/tops-b.png",
+    "row": 1,
+    "rows": 3,
+    "cols": 4
+  },
+  {
+    "id": "top-overall-denim",
+    "slot": "top",
+    "path": "source/clothes/tops-b.png",
+    "row": 2,
+    "rows": 3,
+    "cols": 4
+  },
+  {
+    "id": "bottom-shorts-charcoal",
+    "slot": "bottom",
+    "path": "source/clothes/bottoms.png",
+    "row": 0,
+    "rows": 4,
+    "cols": 4
+  },
+  {
+    "id": "bottom-trousers-navy",
+    "slot": "bottom",
+    "path": "source/clothes/bottoms.png",
+    "row": 1,
+    "rows": 4,
+    "cols": 4
+  },
+  {
+    "id": "bottom-skirt-coral",
+    "slot": "bottom",
+    "path": "source/clothes/bottoms.png",
+    "row": 2,
+    "rows": 4,
+    "cols": 4
+  },
+  {
+    "id": "bottom-overall-denim",
+    "slot": "bottom",
+    "path": "source/clothes/bottoms.png",
+    "row": 3,
+    "rows": 4,
+    "cols": 4
+  }
+]

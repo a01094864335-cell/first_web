@@ -1,9 +1,102 @@
+import {
+  loadAvatarCatalogue,
+  attachAvatar,
+  setAvatarMotion,
+  directionBetween,
+  normalizeAvatar,
+  retryAvatarImages,
+} from "./avatar-runtime.js";
 const app = document.querySelector("#app"),
   sheet = document.querySelector("#sheet"),
   toastEl = document.querySelector("#toast");
 const demoRuntime = {
   enabled: new URLSearchParams(location.search).get("demo") === "1",
   api: null,
+};
+let avatarManifest = null,
+  avatarLoadError = "",
+  avatarDraft = null,
+  avatarDraftUser = null,
+  avatarPreviewMotion = "idle",
+  avatarPreviewDirection = "front",
+  mapPose = "idle",
+  mapDirection = "front";
+const avatarPositions = new Map();
+const motionLabels = {
+  idle: "기본 자세",
+  walk: "걷기",
+  greet: "인사",
+  drink: "음료 마시기",
+  examine: "살펴보기",
+  sit: "앉기",
+  celebrate: "기뻐하기",
+  dress: "꾸미기",
+};
+// Display-only Korean labels; keep catalogue IDs and original manifest unchanged.
+const avatarItemLabels = {
+  "skin-warm": "따뜻한 피부 톤",
+  "skin-deep": "깊은 피부 톤",
+  "hair-short": "짧은 머리",
+  "top-plain": "기본 무지 티",
+  "top-vest": "기본 조끼",
+  "bottom-shorts": "기본 반바지",
+  "hat-baseball": "야구모자",
+  "glasses-round": "동그란 안경",
+  "body-crossbody": "크로스백",
+  "hand-mug": "머그컵",
+  "shoes-sneakers": "운동화",
+  "shoes-loafers": "로퍼",
+  "shoes-boots": "부츠",
+  "body-mini-bag": "미니백",
+  "body-headphones": "헤드폰",
+  "hand-takeout-cup": "테이크아웃 컵",
+  "hand-book": "책",
+  "top-raglan": "래글런 티",
+  "top-turtleneck": "터틀넥 니트",
+  "top-bomber": "봄버 재킷",
+  "bottom-skirt-pleated": "플리츠 스커트",
+  "bottom-trousers-cargo": "카고 바지",
+  "hair-curly-bob": "곱슬 단발",
+  "hair-pixie": "픽시컷",
+  "hair-pigtails": "양갈래 머리",
+  "hair-long-straight": "긴 생머리",
+  "hair-braid": "땋은 머리",
+  "hat-beanie": "비니",
+  "hat-beret": "베레모",
+  "glasses-square": "네모 안경",
+  "hair-buzz": "버즈컷",
+  "hair-afro": "짧은 아프로",
+  "hair-high-bun": "높은 번 머리",
+  "hair-side-ponytail": "옆 포니테일",
+  "top-tee-plain": "무지 반팔 티",
+  "top-tee-striped": "줄무늬 반팔 티",
+  "top-shirt-blue": "파란 셔츠",
+  "top-cardigan-rust": "적갈색 카디건",
+  "top-hoodie-lavender": "라벤더 후드티",
+  "top-vest-moss": "이끼색 조끼",
+  "top-overall-denim": "데님 멜빵 상의",
+  "bottom-shorts-charcoal": "차콜 반바지",
+  "bottom-trousers-navy": "네이비 바지",
+  "bottom-skirt-coral": "코랄 스커트",
+  "bottom-overall-denim": "데님 멜빵 하의",
+  "hat-bucket": "버킷햇",
+  "body-tote": "캔버스 토트백",
+  "hand-camera": "소형 카메라",
+  "eyes-dot": "점 눈",
+  "eyes-sleepy": "졸린 눈",
+  "eyes-smile": "웃는 눈"
+};
+const slotLabels = {
+  skin: "피부",
+  eyes: "눈",
+  hair: "머리",
+  top: "상의",
+  bottom: "하의",
+  shoes: "신발",
+  body: "가방·헤드폰",
+  hat: "모자",
+  glasses: "안경",
+  hand: "손 소품",
 };
 const inDemo = () => demoRuntime.enabled && state?.config?.demo === true;
 let state = null,
@@ -177,23 +270,108 @@ async function act(path, data, success) {
 }
 const isStore = () => state?.session?.mode === "store";
 const icons = { hat: "🧢", cup: "☕", accessory: "🌼", prop: "📖" };
+function avatarFor(user) {
+  if (user.appearance?.avatar02)
+    return normalizeAvatar(user.appearance.avatar02);
+  // Legacy visuals only: approximate equivalents, never changes ownership or price.
+  const selection = {},
+    mapping = {
+      item0: ["hat", "hat-baseball"],
+      item1: ["hat", "hat-beanie"],
+      item2: ["hat", "hat-beret"],
+      item3: ["hand", "hand-book"],
+      item4: ["hand", "hand-mug"],
+      item5: ["body", "body-tote"],
+      item6: ["top", "top-plain"],
+      item7: ["top", "top-vest-moss"],
+      item8: ["top", "top-shirt-blue"],
+      item9: ["top", "top-cardigan-rust"],
+    };
+  for (const id of user.appearance?.equipped || []) {
+    const pair = mapping[id];
+    if (pair) selection[pair[0]] = pair[1];
+  }
+  return normalizeAvatar({ selection, lens: "charcoal" });
+}
 function person(u, s, self = false) {
-  const equipped = u.appearance?.equipped || [];
-  const outfits = {
-    item6: "#dfbf62",
-    item7: "#789b66",
-    item8: "#709cb3",
-    item9: "#c57c77",
-  };
-  const color =
-    outfits[equipped.find((i) => outfits[i])] ||
-    (/^#[0-9a-f]{6}$/i.test(u.appearance?.color)
-      ? u.appearance.color
-      : "#a777be");
-  const hat = equipped.find((i) => ["item0", "item1", "item2"].includes(i));
-  const prop = equipped.find((i) => ["item3", "item4", "item5"].includes(i));
-  const props = { item3: "📖", item4: "☕", item5: "🌼" };
-  return `<div class="person ${self ? "self" : ""} ${s.mode === "remote" ? "remote" : ""}" style="left:${(Number(s.x) || 0.55) * 100}%;top:${(Number(s.y) || 0.66) * 100}%;--shirt:${color};z-index:${Math.round((Number(s.y) || 0.66) * 100)}" ${self ? 'id="player"' : ""} aria-label="${esc(u.nickname)}${s.mode === "remote" ? " 원격" : ""}"><i class="head"></i><i class="body"></i><i class="feet"></i>${s.mode === "remote" ? '<span class="tag">원격</span>' : ""}${hat ? `<span class="hat ${hat}" aria-label="모자"></span>` : ""}${prop ? `<span class="prop">${props[prop]}</span>` : ""}</div>`;
+  return `<div class="person avatar-person ${self ? "self" : ""} ${s.mode === "remote" ? "remote" : ""}" style="left:${(Number(s.x) || 0.55) * 100}%;top:${(Number(s.y) || 0.66) * 100}%;z-index:${Math.round((Number(s.y) || 0.66) * 100)}" ${self ? 'id="player"' : ""} role="img" aria-label="${esc(u.nickname)}${s.mode === "remote" ? " 원격" : ""}"><canvas class="avatar-canvas" data-avatar-owner="${esc(u.id)}" aria-hidden="true"></canvas><span class="avatar-fallback">${avatarLoadError ? "애셋 오류" : "불러오는 중"}</span>${s.mode === "remote" ? '<span class="tag">원격</span>' : ""}</div>`;
+}
+function mountAvatars() {
+  if (!avatarManifest) return;
+  const users = [state.user, ...(state.guests || [])].filter(Boolean);
+  app.querySelectorAll("canvas[data-avatar-owner]").forEach((canvas) => {
+    const u = users.find((u) => u.id === canvas.dataset.avatarOwner);
+    if (!u) return;
+    const self = u.id === state.user.id,
+      s = self ? state.session : u.session || u;
+    const previous = avatarPositions.get(u.id);
+    let direction = self ? mapDirection : previous?.direction || "front";
+    let motion = self ? mapPose : "idle";
+    if (!self && previous && (previous.x !== s.x || previous.y !== s.y)) {
+      direction = directionBetween(previous, s);
+      motion = "walk";
+      setTimeout(() => {
+        if (canvas.isConnected) setAvatarMotion(canvas, "idle", direction);
+      }, 650);
+    }
+    avatarPositions.set(u.id, { x: s.x, y: s.y, direction });
+    attachAvatar(canvas, avatarFor(u), {
+      motion,
+      direction,
+      timelineKey: "user:" + u.id,
+    });
+  });
+  const preview = document.querySelector("#avatar-preview");
+  if (preview)
+    attachAvatar(preview, avatarDraft, {
+      motion: avatarPreviewMotion,
+      direction: avatarPreviewDirection,
+      timelineKey: "wardrobe-preview",
+    });
+}
+function avatarEditor() {
+  if (!avatarManifest)
+    return `<p class="notice">${esc(avatarLoadError || "파츠 목록을 읽고 있어요.")}</p>${avatarLoadError ? '<button data-action="avatar-retry">캐릭터 다시 불러오기</button>' : ""}`;
+  if (avatarDraftUser !== state.user.id || !avatarDraft) {
+    avatarDraft = avatarFor(state.user);
+    avatarDraftUser = state.user.id;
+  }
+  const slots = [...new Set(avatarManifest.items.map((i) => i.slot))];
+  return `<section class="avatar-editor"><div class="avatar-preview-stage"><canvas id="avatar-preview" class="avatar-canvas" width="80" height="80" aria-label="선택한 파츠를 합성한 캐릭터 미리보기"></canvas><span class="avatar-fallback">불러오는 중</span></div><p class="notice">${avatarManifest.items.length}종 파츠 무료 시착 · 개발 체험용이며 실제 경제 정책이 아니에요.</p><p class="muted">방향·모션은 미리보기용이에요. 기본 자세는 정지 프레임이며 게임 효과를 만들지 않아요.</p><div class="avatar-select-grid"><label>방향<select data-avatar-control="direction">${[
+    ["front", "앞"],
+    ["right", "오른쪽"],
+    ["back", "뒤"],
+    ["left", "왼쪽"],
+  ]
+    .map(
+      ([v, t]) =>
+        `<option value="${v}" ${avatarPreviewDirection === v ? "selected" : ""}>${t}</option>`,
+    )
+    .join(
+      "",
+    )}</select></label><label>동작<select data-avatar-control="motion">${Object.keys(
+    avatarManifest.motions,
+  )
+    .map(
+      (v) =>
+        `<option value="${v}" ${avatarPreviewMotion === v ? "selected" : ""}>${motionLabels[v] || v}</option>`,
+    )
+    .join(
+      "",
+    )}</select></label><label>렌즈 색<select data-avatar-control="lens">${avatarManifest.lensColors.map((v) => `<option value="${v}" ${avatarDraft.lens === v ? "selected" : ""}>${{ charcoal: "차콜", green: "초록", blue: "파랑" }[v] || v}</option>`).join("")}</select></label></div><div class="avatar-select-grid">${slots
+    .map(
+      (slot) =>
+        `<label>${slotLabels[slot] || esc(slot)}<select data-avatar-slot="${slot}"><option value="">기본 / 없음</option>${avatarManifest.items
+          .filter((i) => i.slot === slot)
+          .map(
+            (i) =>
+              `<option value="${esc(i.id)}" ${avatarDraft.selection[slot] === i.id ? "selected" : ""}>${esc(avatarItemLabels[i.id] || i.label || i.id)}</option>`,
+          )
+          .join("")}</select></label>`,
+    )
+    .join(
+      "",
+    )}</div><p class="muted">모자와 머리는 조합 전용 레이어를 사용해요. 파츠 선택 후 네 방향과 동작을 확인해보세요.</p><div class="actions"><button data-action="avatar-reset">기본으로 시착</button><button data-action="avatar-retry">애셋 다시 불러오기</button><button class="primary" data-action="avatar-save">파츠 저장 · 맵에 적용</button></div></section>`;
 }
 function nav() {
   return `<nav class="bottom-nav" aria-label="주 메뉴">${[
@@ -226,7 +404,7 @@ function mapView() {
     .map(([x, y]) => furnishing("round-table", x, y, 15))
     .join(
       "",
-    )}${furnishing("plant", 85, 21, 15)}${furnishing("coffee-machine", 24, 35, 12)}<button class="plant-action" data-action="plant" aria-label="퀘스트 오브젝트: 새 화분 살펴보기">♧</button>${guests.map((g) => person(g, g.session || g)).join("")}${person(state.user, state.session, true)}</div></div><button class="quest-strip" data-page="quests">♧ 오늘의 작은 발견 · 퀘스트 보기 ›</button>`;
+    )}${furnishing("plant", 85, 21, 15)}${furnishing("coffee-machine", 24, 35, 12)}<button class="plant-action" data-action="plant" aria-label="퀘스트 오브젝트: 새 화분 살펴보기">♧</button>${guests.map((g) => person(g, g.session || g)).join("")}${person(state.user, state.session, true)}</div></div><div class="map-avatar-actions"><button data-action="avatar-actions">캐릭터 동작</button></div><button class="quest-strip" data-page="quests">♧ 오늘의 작은 발견 · 퀘스트 보기 ›</button>`;
 }
 function questsView() {
   return `<section class="page"><h2>오늘의 작은 발견</h2><p class="muted page-intro">${isStore() ? "천천히 둘러보고 나만의 취향을 찾아보세요." : "원격에서는 미리보기만 가능해요. 매장 QR로 참여하면 진행할 수 있어요."}</p>${
@@ -243,7 +421,7 @@ function characterView() {
   const items = (state.items || []).filter(
     (i) => wardrobeTab === "shop" || i.owned,
   );
-  return `<section class="page"><h2>${esc(state.user.nickname)}의 옷장</h2><p class="muted">내 취향대로, 천천히 모아가요.</p><div class="wardrobe-preview">${person(state.user, { mode: "store", x: 0.5, y: 0.5 }, true)}</div><div class="actions"><button data-action="privacy">공개 설정</button><button data-action="account">계정 · 복구 안내</button><button data-action="character-concepts">캐릭터 시안·동작 미리보기</button></div><div class="tabs"><button data-tab="closet" class="${wardrobeTab === "closet" ? "active" : ""}">내 아이템</button><button data-tab="shop" class="${wardrobeTab === "shop" ? "active" : ""}">꾸미기 상점</button></div><div class="grid">${items.map((i) => `<article class="card"><div class="item-icon">${icons[i.slot] || "✦"}</div><h3>${esc(i.name)}</h3><p class="muted">${i.owned ? "보유 중" : "◉ " + i.price}</p><div class="actions"><button data-item="${esc(i.id)}" data-iaction="${i.owned ? "equip" : "buy"}">${i.owned ? (i.equipped ? "해제" : "착용") : "구매"}</button></div></article>`).join("")}</div>${!items.length ? '<p class="empty">아직 모은 아이템이 없어요.<br>퀘스트로 코인을 모아 상점을 구경해보세요.</p>' : ""}</section>`;
+  return `<section class="page"><h2>${esc(state.user.nickname)}의 옷장</h2><p class="muted">실제 파츠를 겹쳐 만든 캐릭터를 골라보세요.</p>${avatarEditor()}<div class="actions"><button data-action="privacy">공개 설정</button><button data-action="account">계정 · 복구 안내</button><button data-action="character-concepts">이전 캐릭터 시안 보기</button></div><details class="legacy-inventory"><summary>이전 아이템 보관함 · 새 파츠 시착과 별개</summary><p class="muted">기존 코인·구매·보유 기록은 유지돼요. 새 파츠 저장 후에는 아래 착용 선택이 새 캐릭터 외형을 바꾸지 않아요. 새 파츠를 저장하지 않은 캐릭터만 비슷한 기존 아이템으로 표시해요.</p><div class="tabs"><button data-tab="closet" class="${wardrobeTab === "closet" ? "active" : ""}">내 아이템</button><button data-tab="shop" class="${wardrobeTab === "shop" ? "active" : ""}">이전 상점</button></div><div class="grid">${items.map((i) => `<article class="card"><div class="item-icon">${icons[i.slot] || "✦"}</div><h3>${esc(i.name)}</h3><p class="muted">${i.owned ? "보유 중" : "◉ " + i.price}</p><div class="actions"><button data-item="${esc(i.id)}" data-iaction="${i.owned ? "equip" : "buy"}">${i.owned ? (i.equipped ? "해제" : "착용") : "구매"}</button></div></article>`).join("")}</div>${!items.length ? '<p class="empty">아직 모은 아이템이 없어요.</p>' : ""}</details></section>`;
 }
 function draw() {
   app.removeAttribute("aria-busy");
@@ -259,6 +437,9 @@ function draw() {
   const remaining = new Date(state.session.expiresAt).getTime() - Date.now();
   app.innerHTML =
     header() +
+    (avatarLoadError
+      ? `<div class="notice">캐릭터 애셋 연결을 확인해주세요. <button data-action="avatar-retry">다시 불러오기</button></div>`
+      : "") +
     (offline
       ? '<div class="notice connection">연결이 끊겼어요. 최신 상태를 다시 확인해주세요.</div>'
       : "") +
@@ -271,6 +452,7 @@ function draw() {
         ? questsView()
         : characterView()) +
     nav();
+  mountAvatars();
 }
 function modal(title, body) {
   sheet.innerHTML = `<div class="sheet-header"><h2 id="sheet-title">${esc(title)}</h2><button data-action="close" aria-label="닫기">×</button></div><div class="sheet-content">${demoRuntime.enabled ? '<p class="demo-notice">데모 · 실제 계정/스탬프와 무관</p>' : ""}${body}</div>`;
@@ -324,7 +506,7 @@ function characterConcepts(motion = "sheet") {
     : "/public/assets/concepts/variants-12.png";
   modal(
     "캐릭터 시안·동작 미리보기",
-    `<p class="notice">승인된 디자인 시안 · 현재 맵 캐릭터는 개발용 표시</p><p class="muted">개별 게임 스프라이트가 아닌 12종 컨셉 모음이에요. 현재 맵에 이 이미지가 그대로 적용된 상태는 아니에요.</p><div class="actions"><button data-concept-motion="sheet">12종 캐릭터</button>${conceptMotions.map(([file, label]) => `<button data-concept-motion="${file}">${label}</button>`).join("")}</div><figure class="concept-preview"><img loading="lazy" src="${src}" alt="${selected ? selected[1] + " 12종 캐릭터 동작 시안" : "12종 캐릭터 스타일 시안"}"><figcaption>${selected ? selected[1] : "기본 스타일 12종"} · 선택한 이미지 하나만 불러와요.</figcaption></figure>`,
+    `<p class="notice">이전 디자인 시안 · 현재 맵은 02번 캐릭터의 실제 파츠 합성본을 사용해요</p><p class="muted">개별 게임 스프라이트가 아닌 12종 컨셉 모음이에요. 이 컨셉 모음 이미지 자체를 게임 스프라이트로 쓰지는 않아요.</p><div class="actions"><button data-concept-motion="sheet">12종 캐릭터</button>${conceptMotions.map(([file, label]) => `<button data-concept-motion="${file}">${label}</button>`).join("")}</div><figure class="concept-preview"><img loading="lazy" src="${src}" alt="${selected ? selected[1] + " 12종 캐릭터 동작 시안" : "12종 캐릭터 스타일 시안"}"><figcaption>${selected ? selected[1] : "기본 스타일 12종"} · 선택한 이미지 하나만 불러와요.</figcaption></figure>`,
   );
 }
 function demoControls() {
@@ -352,8 +534,9 @@ function demoControls() {
 async function demoStampCode() {
   try {
     const qr = await api("stamps/qr");
-    const { default: qrcode } =
-      await import("./public/assets/vendor/qrcode.mjs");
+    const { default: qrcode } = await import(
+      "./public/assets/vendor/qrcode.mjs"
+    );
     const code = qrcode(0, "M");
     code.addData(qr.payload);
     code.make();
@@ -627,6 +810,23 @@ function guests() {
     `<p class="muted">맵에 공개 참여 중인 손님이에요. 실제 매장 인원이나 좌석 현황과 다를 수 있어요.</p>${(state.guests || []).map((g) => `<article class="card"><h3>${esc(g.nickname)} ${g.mode === "remote" ? "· 원격" : ""}</h3><p>${esc(g.activity || "")} ${esc(g.drink || "")}</p><div class="actions"><button data-guest="${esc(g.id)}" data-gaction="block">차단</button><button data-guest="${esc(g.id)}" data-gaction="report">신고</button></div></article>`).join("") || '<p class="empty">지금은 공개한 다른 손님이 없어요.<br>혼자서도 편안히 둘러보세요.</p>'}`,
   );
 }
+app.addEventListener("change", (e) => {
+  const el = e.target;
+  if (el.dataset.avatarSlot) {
+    avatarDraft.selection[el.dataset.avatarSlot] = el.value;
+    if (!el.value) delete avatarDraft.selection[el.dataset.avatarSlot];
+  } else if (el.dataset.avatarControl === "lens") avatarDraft.lens = el.value;
+  else if (el.dataset.avatarControl === "motion")
+    avatarPreviewMotion = el.value;
+  else if (el.dataset.avatarControl === "direction")
+    avatarPreviewDirection = el.value;
+  else return;
+  attachAvatar(document.querySelector("#avatar-preview"), avatarDraft, {
+    motion: avatarPreviewMotion,
+    direction: avatarPreviewDirection,
+    timelineKey: "wardrobe-preview",
+  });
+});
 app.addEventListener("click", handle);
 sheet.addEventListener("click", handle);
 app.addEventListener("keydown", (e) => {
@@ -645,6 +845,16 @@ app.addEventListener("keydown", (e) => {
 async function handle(e) {
   const b = e.target.closest("button");
   if (b) {
+    if (b.dataset.mapMotion) {
+      mapPose = b.dataset.mapMotion;
+      sheet.close();
+      setAvatarMotion(
+        document.querySelector("#map #player canvas"),
+        mapPose,
+        mapDirection,
+      );
+      return;
+    }
     if (b.dataset.conceptMotion) {
       characterConcepts(b.dataset.conceptMotion);
       return;
@@ -766,6 +976,46 @@ async function handle(e) {
       return;
     }
     const action = b.dataset.action;
+    if (action === "avatar-retry") {
+      startAvatarLoading();
+      return;
+    }
+    if (action === "avatar-actions") {
+      modal(
+        "캐릭터 동작",
+        `<p class="muted">화면에서만 재생되는 모션이에요. 퀘스트·구매·상태를 바꾸지 않아요.</p><button data-action="avatar-retry">애셋 다시 불러오기</button><div class="actions">${Object.keys(
+          avatarManifest?.motions || {},
+        )
+          .map(
+            (v) =>
+              `<button data-map-motion="${v}">${motionLabels[v] || v}</button>`,
+          )
+          .join("")}</div>`,
+      );
+      return;
+    }
+    if (action === "avatar-reset") {
+      avatarDraft = { selection: {}, lens: "charcoal" };
+      draw();
+      return;
+    }
+    if (action === "avatar-save") {
+      const snapshot = {
+        selection: { ...avatarDraft.selection },
+        lens: avatarDraft.lens,
+      };
+      const r = await act("avatar", snapshot, "캐릭터 파츠를 저장했어요.");
+      if (r) {
+        if (r.user && state?.user?.id === r.user.id) state.user = r.user;
+        if (JSON.stringify(avatarDraft) === JSON.stringify(snapshot))
+          avatarDraft = normalizeAvatar(
+            r.user?.appearance?.avatar02 || snapshot,
+          );
+        draw();
+      }
+      return;
+    }
+
     if (action === "character-concepts") {
       characterConcepts();
       return;
@@ -1070,22 +1320,49 @@ async function walk(x, y) {
   try {
     const result = await api("move", { x, y });
     const player = document.querySelector("#map #player");
+    let lastPoint = { x: state.session.x, y: state.session.y };
     for (const pt of result.path || [{ x, y }]) {
       if (!player || !player.isConnected || page !== "cafe") break;
       const px = Array.isArray(pt) ? pt[0] : pt.x,
         py = Array.isArray(pt) ? pt[1] : pt.y;
+      mapDirection = directionBetween(lastPoint, { x: px, y: py });
+      mapPose = "walk";
+      setAvatarMotion(player.querySelector("canvas"), mapPose, mapDirection);
+      lastPoint = { x: px, y: py };
       player.style.left = px * 100 + "%";
       player.style.top = py * 100 + "%";
       player.style.zIndex = Math.round(py * 100);
       await new Promise((r) => setTimeout(r, 90));
     }
+    mapPose = "idle";
+    setAvatarMotion(player?.querySelector("canvas"), "idle", mapDirection);
     await refresh();
   } catch (e) {
     notify(e.message);
   } finally {
+    mapPose = "idle";
+    setAvatarMotion(
+      document.querySelector("#map #player canvas"),
+      "idle",
+      mapDirection,
+    );
     busy = false;
   }
 }
+function startAvatarLoading() {
+  retryAvatarImages();
+  avatarLoadError = "";
+  loadAvatarCatalogue()
+    .then((m) => {
+      avatarManifest = m;
+      if (state) draw();
+    })
+    .catch((e) => {
+      avatarLoadError = e.message;
+      if (state) draw();
+    });
+}
+startAvatarLoading();
 if (demoRuntime.enabled) {
   demoControls();
   try {
@@ -1102,7 +1379,7 @@ setInterval(async () => {
   if (!document.hidden && !busy) {
     try {
       await api("heartbeat", { foreground: true });
-      await refresh(!sheet.open);
+      await refresh(!sheet.open && page !== "character");
     } catch {}
   }
 }, 4000);
