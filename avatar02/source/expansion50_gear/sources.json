@@ -1,0 +1,166 @@
+[
+  {
+    "id": "shoes-high-tops",
+    "slot": "shoes",
+    "label": "하이탑",
+    "path": "source/expansion50_gear/shoes-high-tops.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_gear"
+  },
+  {
+    "id": "shoes-sandals",
+    "slot": "shoes",
+    "label": "스트랩 샌들",
+    "path": "source/expansion50_gear/shoes-sandals.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_gear"
+  },
+  {
+    "id": "shoes-rain-boots",
+    "slot": "shoes",
+    "label": "장화",
+    "path": "source/expansion50_gear/shoes-rain-boots.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_gear"
+  },
+  {
+    "id": "shoes-mary-jane",
+    "slot": "shoes",
+    "label": "메리제인",
+    "path": "source/expansion50_gear/shoes-mary-jane.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_gear"
+  },
+  {
+    "id": "shoes-clogs",
+    "slot": "shoes",
+    "label": "클로그",
+    "path": "source/expansion50_gear/shoes-clogs.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_gear"
+  },
+  {
+    "id": "glasses-cat-eye",
+    "slot": "glasses",
+    "label": "캣아이",
+    "path": "source/expansion50_gear/glasses-cat-eye.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_gear",
+    "noProfileFlip": true
+  },
+  {
+    "id": "glasses-aviator",
+    "slot": "glasses",
+    "label": "보잉",
+    "path": "source/expansion50_gear/glasses-aviator.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_gear",
+    "noProfileFlip": true
+  },
+  {
+    "id": "glasses-hexagon",
+    "slot": "glasses",
+    "label": "육각",
+    "path": "source/expansion50_gear/glasses-hexagon.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_gear",
+    "noProfileFlip": true
+  },
+  {
+    "id": "glasses-sport-wrap",
+    "slot": "glasses",
+    "label": "스포츠 고글",
+    "path": "source/expansion50_gear/glasses-sport-wrap.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_gear",
+    "noProfileFlip": true
+  },
+  {
+    "id": "body-backpack",
+    "slot": "body",
+    "label": "백팩",
+    "path": "source/expansion50_gear/body-backpack.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_gear"
+  },
+  {
+    "id": "body-satchel",
+    "slot": "body",
+    "label": "사첼",
+    "path": "source/expansion50_gear/body-satchel.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_gear"
+  },
+  {
+    "id": "body-waist-pouch",
+    "slot": "body",
+    "label": "힙색",
+    "path": "source/expansion50_gear/body-waist-pouch.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_gear"
+  },
+  {
+    "id": "body-scarf",
+    "slot": "body",
+    "label": "목도리",
+    "path": "source/expansion50_gear/body-scarf.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_gear"
+  },
+  {
+    "id": "hand-umbrella-folded",
+    "slot": "hand",
+    "label": "접은 우산",
+    "path": "source/expansion50_gear/hand-umbrella-folded.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_gear"
+  },
+  {
+    "id": "hand-flower-pot",
+    "slot": "hand",
+    "label": "작은 화분",
+    "path": "source/expansion50_gear/hand-flower-pot.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_gear"
+  },
+  {
+    "id": "hand-shopping-bag",
+    "slot": "hand",
+    "label": "종이 쇼핑백",
+    "path": "source/expansion50_gear/hand-shopping-bag.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "expansion50_gear"
+  }
+]
