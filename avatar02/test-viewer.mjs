@@ -98,6 +98,10 @@ class Element {
  getContext(){return Object.create(drawing);}
 }
 const html=readFileSync(path.join(dir,'preview.html'),'utf8');
+assert.match(html, /id="frameReadout"[^>]*aria-live="off"/);
+assert.match(html, /id="status"[^>]*role="status"[^>]*aria-live="polite"/);
+assert.ok(!html.includes('모자를 착용하면 헤어 앞/뒤 레이어를 모두 숨깁니다.'));
+assert.ok(html.includes('해당 조합 파일이 없을 때만 헤어를 숨깁니다.'));
 const elements=Object.fromEntries([...html.matchAll(/id="([^"]+)"/g)].map(m=>[m[1],new Element(m[1]==='stage'?'canvas':'div')]));
 const raf=[];
 const m=existsSync(manifestPath)?JSON.parse(readFileSync(manifestPath,'utf8')):fixture;
@@ -111,8 +115,21 @@ await new Promise(resolve=>setImmediate(resolve));
 raf.shift()(0);
 assert.ok(canvasCalls.length,'canvas draw calls made');
 assert.equal(elements.stage.width,960,'all four directions visible');
+const autoplayStatus=elements.status.textContent;
+const firstFrame=elements.frameReadout.textContent;
+raf.shift()(m.motions.walk.durationMs);
+assert.notEqual(elements.frameReadout.textContent,firstFrame,'visual frame readout advances');
+assert.equal(elements.status.textContent,autoplayStatus,'autoplay frames must not mutate live status');
 elements.pause.listeners.click();assert.equal(elements.pause.attributes['aria-pressed'],'true');
+raf.shift()(100);
+const pausedStatus=elements.status.textContent;
+assert.match(pausedStatus,/정지 \/ frame /);
 elements.step.listeners.click();raf.shift()(100);assert.match(elements.status.textContent,/정지/);
+assert.notEqual(elements.status.textContent,pausedStatus,'manual step announces selected frame');
+elements.pause.listeners.click();raf.shift()(100);
+assert.match(elements.status.textContent,/재생/);
+assert.ok(!elements.status.textContent.includes('frame'),'resuming removes frame from live status');
+elements.pause.listeners.click();raf.shift()(100);
 elements.direction.value='right';elements.direction.listeners.change();raf.shift()(200);assert.equal(elements.stage.width,240);
 const selectors=elements.parts.querySelectorAll('select');
 assert.equal(selectors.length,new Set(m.items.map(i=>i.slot)).size);

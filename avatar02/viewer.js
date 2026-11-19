@@ -164,7 +164,9 @@
           ctx.fillStyle='#493b2d';ctx.font='15px system-ui';ctx.fillText(dir+' · frame '+state.frame,index*240+22,240);
         });
         const loaded=[...imageCache.values()].filter(i=>i.complete&&i.naturalWidth).length;
-        const text=state.motion+' / '+(state.paused?'정지':'재생')+' / frame '+state.frame+' · 이미지 '+loaded+'/'+imageCache.size+' 로드 · manifest '+(manifest.version||'');
+        // Autoplay frame ticks stay readable without repeatedly announcing them.
+        $('frameReadout').textContent='frame '+state.frame;
+        const text=state.motion+' / '+(state.paused?'정지 / frame '+state.frame:'재생')+' · 이미지 '+loaded+'/'+imageCache.size+' 로드 · manifest '+(manifest.version||'');
         if(text!==lastStatus){status.textContent=text;lastStatus=text;}
         issues.textContent=failures.size?'읽지 못한 이미지: '+[...failures].join(', '):'';
       }
