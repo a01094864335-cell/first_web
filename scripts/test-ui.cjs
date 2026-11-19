@@ -65,9 +65,11 @@ const delay = (ms) => new Promise((r) => setTimeout(r, ms));
   w.HTMLDialogElement.prototype.close = function () {
     this.open = false;
   };
+  w.__mapGeometry = await import(require("node:url").pathToFileURL(path.join(root,"public/assets/cafe-map/map-geometry.js")));
   w.eval(
     fs
       .readFileSync(path.join(root, "demo-api.js"), "utf8")
+      .replace(/import \{([^}]+)\} from '.\/public\/assets\/cafe-map\/map-geometry.js';/, (_, names) => 'const {'+names.replace(/ as /g, ':')+'}=window.__mapGeometry;')
       .replace("export async function demoApi", "async function demoApi") +
       "\nwindow.__demoApi=demoApi;",
   );
@@ -91,8 +93,11 @@ const delay = (ms) => new Promise((r) => setTimeout(r, ms));
       ).href
     )
   ).default;
+  w.__mapScene = await import(require("node:url").pathToFileURL(path.join(root,"public/assets/cafe-map/map-scene.js")));
   const source = fs
     .readFileSync(path.join(root, "script.js"), "utf8")
+    .replace('import { loadMapLayout } from "./public/assets/cafe-map/map-geometry.js";', 'const {loadMapLayout}=window.__mapGeometry;')
+    .replace('import { renderMapScene, sceneDepth } from "./public/assets/cafe-map/map-scene.js";', 'const {renderMapScene,sceneDepth}=window.__mapScene;')
     .replace(
       /import\s*\{[\s\S]*?\}\s*from\s*['"]\.\/avatar-runtime\.js['"];?/,
       "const {loadAvatarCatalogue,attachAvatar,setAvatarMotion,directionBetween,normalizeAvatar,retryAvatarImages,avatarDiagnostics}=window.__avatarRuntime;",
@@ -269,10 +274,11 @@ const delay = (ms) => new Promise((r) => setTimeout(r, ms));
     width: 100,
     height: 100,
   });
+  const beforeWalk = await w.__demoApi("state");
   map.dispatchEvent(
-    new w.MouseEvent("click", { bubbles: true, clientX: 55, clientY: 70 }),
+    new w.MouseEvent("click", { bubbles: true, clientX: (beforeWalk.session.x + .02)*100, clientY: beforeWalk.session.y*100 }),
   );
-  await delay(900);
+  for(let attempt=0; attempt<50 && get("#player canvas").dataset.avatarMotion!=="idle"; attempt++) await delay(100);
   assert.equal(
     get("#player canvas").dataset.avatarMotion,
     "idle",

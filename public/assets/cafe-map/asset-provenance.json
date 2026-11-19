@@ -1,0 +1,408 @@
+{
+  "sprites/floor-tile-00c8ae58.webp": {
+    "source": "architecture/floor-tile.png",
+    "sourceSha256": "3b5cef760b4845a2d5eb627b33477addf6b8cfab26c844b8d94789db6cecc8b4",
+    "sourceRect": [
+      0,
+      0,
+      1254,
+      1254
+    ],
+    "outputSize": [
+      160,
+      160
+    ]
+  },
+  "sprites/sidewalk-tile-77140310.webp": {
+    "source": "architecture/sidewalk-tile.png",
+    "sourceSha256": "79a8450f38654a596c5238a4a1b5e52cdfdbf7a06565ad1eb8c686dc1d01a4d7",
+    "sourceRect": [
+      0,
+      0,
+      1254,
+      1254
+    ],
+    "outputSize": [
+      160,
+      160
+    ]
+  },
+  "sprites/rear-wall-4b735185.webp": {
+    "source": "architecture/rear-wall.png",
+    "sourceSha256": "46b8d8ab6777fdfb5d3adba74024dab546ee16ec1182b8d754337ebcbf3ba002",
+    "sourceRect": [
+      0,
+      0,
+      2172,
+      724
+    ],
+    "outputSize": [
+      720,
+      240
+    ]
+  },
+  "sprites/brick-vertical-31811b9f.webp": {
+    "source": "architecture/brick-vertical.png",
+    "sourceSha256": "805a601d2af47d07bec2be5a0676631b8a700575bf174cd8ebf9da51fa3af3ba",
+    "sourceRect": [
+      470,
+      16,
+      84,
+      1504
+    ],
+    "outputSize": [
+      69,
+      1230
+    ]
+  },
+  "sprites/brick-horizontal-3dc60b72.webp": {
+    "source": "architecture/brick-horizontal.png",
+    "sourceSha256": "b62053c2dd4788251201046ab67fc0b2825d4002e05975a65e5ead3a8fdfbcd9",
+    "sourceRect": [
+      66,
+      273,
+      2041,
+      169
+    ],
+    "outputSize": [
+      765,
+      63
+    ]
+  },
+  "sprites/side-wall-dc1cd4d5.webp": {
+    "source": "architecture/side-wall.png",
+    "sourceSha256": "c07d7a68c44c3e7944c7efc97445b8a51e4e0a982ab2c049fafd515635b4846f",
+    "sourceRect": [
+      336,
+      42,
+      52,
+      2088
+    ],
+    "outputSize": [
+      26,
+      1030
+    ]
+  },
+  "sprites/sunlight-rays-4ab6aa0f.webp": {
+    "source": "architecture/sunlight-rays.png",
+    "sourceSha256": "4640b9bc191a7294ba0dd87f0169b85abe778687572e79bf0566dd56ececfde3",
+    "sourceRect": [
+      0,
+      0,
+      1536,
+      1024
+    ],
+    "outputSize": [
+      525,
+      350
+    ]
+  },
+  "sprites/rear-door-53cf7198.webp": {
+    "source": "architecture/rear-door.png",
+    "sourceSha256": "5c92a92e4380a84412fd76e8a5af6713a548a93c2f5fd12f43447e57fc37a3c1",
+    "sourceRect": [
+      257,
+      241,
+      676,
+      837
+    ],
+    "outputSize": [
+      121,
+      150
+    ]
+  },
+  "sprites/wall-lamp-b501f658.webp": {
+    "source": "architecture/wall-lamp.png",
+    "sourceSha256": "dda0e8e825cd0bed61647a06d4dd300429264e20a19ede4a2d7f4dbdab15a6b4",
+    "sourceRect": [
+      502,
+      394,
+      302,
+      394
+    ],
+    "outputSize": [
+      46,
+      60
+    ]
+  },
+  "sprites/shelf-empty-24225029.webp": {
+    "source": "furniture/shelf-empty.png",
+    "sourceSha256": "5399f7e64b8da8789a24251fd6c2eff787a35ea0d79f66af9a01e16026400f05",
+    "sourceRect": [
+      230,
+      76,
+      194,
+      1963
+    ],
+    "outputSize": [
+      83,
+      840
+    ]
+  },
+  "sprites/bar-counter-5e670e9d.webp": {
+    "source": "furniture/bar-counter.png",
+    "sourceSha256": "dbce0566738b4db6fbe1c34a9e2debf694078b1d668d2f3580ceb5f9e9726999",
+    "sourceRect": [
+      230,
+      103,
+      264,
+      1940
+    ],
+    "outputSize": [
+      108,
+      794
+    ]
+  },
+  "sprites/bar-stool-abb553c7.webp": {
+    "source": "furniture/bar-stool.png",
+    "sourceSha256": "c3e04b234596ef2dca95d55e57765cc959a2265bc6ad483ce3f500b30705b5b2",
+    "sourceRect": [
+      353,
+      272,
+      479,
+      825
+    ],
+    "outputSize": [
+      50,
+      86
+    ]
+  },
+  "sprites/bench-vertical-abdcb4bc.webp": {
+    "source": "furniture/bench-vertical.png",
+    "sourceSha256": "8dcfc7f5ca61ac48ebcfb81491c619b242bafd4b2f11ddcd6fffe22f2336c87a",
+    "sourceRect": [
+      160,
+      106,
+      367,
+      1928
+    ],
+    "outputSize": [
+      65,
+      341
+    ]
+  },
+  "sprites/bench-horizontal-4a81a56f.webp": {
+    "source": "furniture/bench-horizontal.png",
+    "sourceSha256": "b91553b7d1690c22a151cb357d99fc2d32f393231e788128177b1d6394d5082a",
+    "sourceRect": [
+      99,
+      232,
+      1974,
+      272
+    ],
+    "outputSize": [
+      523,
+      72
+    ]
+  },
+  "sprites/round-table-21e319b2.webp": {
+    "source": "furniture/round-table.png",
+    "sourceSha256": "1ae95a067d11357c165fb97e4853725e5d8555d0097d15ba007189de01519498",
+    "sourceRect": [
+      294,
+      230,
+      719,
+      734
+    ],
+    "outputSize": [
+      100,
+      102
+    ]
+  },
+  "sprites/chair-25dd7080.webp": {
+    "source": "furniture/chair.png",
+    "sourceSha256": "cb3d191b57303b5742ea0a9ec3d2a3e8f82779d53a186edb29a73c876fc5db22",
+    "sourceRect": [
+      352,
+      341,
+      463,
+      656
+    ],
+    "outputSize": [
+      51,
+      72
+    ]
+  },
+  "sprites/plant-9a320939.webp": {
+    "source": "furniture/plant.png",
+    "sourceSha256": "769c483b934778e3f959d8cd1211ce3a1ca66c72fea56cf0216dae871109c913",
+    "sourceRect": [
+      398,
+      331,
+      501,
+      564
+    ],
+    "outputSize": [
+      88,
+      99
+    ]
+  },
+  "sprites/front-glass-window-1580a74b.webp": {
+    "source": "architecture/front-glass-window.png",
+    "sourceSha256": "b12e723f3146d55cf346368d4da5de71804554f0c3a8e26892bf870d2d3d3849",
+    "sourceRect": [
+      123,
+      145,
+      1926,
+      437
+    ],
+    "outputSize": [
+      560,
+      127
+    ]
+  },
+  "sprites/front-pillar-15fe9fbe.webp": {
+    "source": "architecture/front-pillar.png",
+    "sourceSha256": "166c1712c53c577dca8f63eda5fac3e62a4ce8431a7fcca776116a15f7115f7a",
+    "sourceRect": [
+      167,
+      187,
+      383,
+      1862
+    ],
+    "outputSize": [
+      43,
+      209
+    ]
+  },
+  "sprites/entry-door-e6ea4017.webp": {
+    "source": "architecture/entry-door.png",
+    "sourceSha256": "0fecaeb37021df6100d729e14059554651f3dcebcaa15bae5d8f03d126b3d84e",
+    "sourceRect": [
+      303,
+      212,
+      480,
+      1027
+    ],
+    "outputSize": [
+      135,
+      289
+    ]
+  },
+  "sprites/coffee-machine-5fd19472.webp": {
+    "source": "furniture/coffee-machine.png",
+    "sourceSha256": "e723949f4d799992762ea4def634306f0243dcdbc03942a4787c82d6e52aee3d",
+    "sourceRect": [
+      336,
+      195,
+      639,
+      838
+    ],
+    "outputSize": [
+      84,
+      110
+    ]
+  },
+  "sprites/cup-1b491abc.webp": {
+    "source": "props/cup.png",
+    "sourceSha256": "4f61c90c8439be4de5066aff4528d3f0e244aa146bef54101a70070b4caa3eab",
+    "sourceRect": [
+      397,
+      357,
+      554,
+      491
+    ],
+    "outputSize": [
+      33,
+      29
+    ]
+  },
+  "sprites/stacked-cups-0736acf0.webp": {
+    "source": "props/stacked-cups.png",
+    "sourceSha256": "e870ce2c0c950c0fb3faf067d03ebd07e846bbfe8ccf451d067a5244cc8da986",
+    "sourceRect": [
+      362,
+      358,
+      300,
+      824
+    ],
+    "outputSize": [
+      35,
+      96
+    ]
+  },
+  "sprites/grinder-8bea99ac.webp": {
+    "source": "props/grinder.png",
+    "sourceSha256": "eb3a3ed44d09021d2a315e82074b688d75bd18aae1c3415af009952a7b093328",
+    "sourceRect": [
+      301,
+      381,
+      388,
+      734
+    ],
+    "outputSize": [
+      45,
+      85
+    ]
+  },
+  "sprites/book-d2a659b6.webp": {
+    "source": "props/book.png",
+    "sourceSha256": "563eb0e1a4fd388985066489b7981706a4dd945be292e5fffe677aafa7428152",
+    "sourceRect": [
+      568,
+      347,
+      393,
+      349
+    ],
+    "outputSize": [
+      43,
+      38
+    ]
+  },
+  "sprites/desk-lamp-bdf49c4c.webp": {
+    "source": "props/desk-lamp.png",
+    "sourceSha256": "74a2b621b9e7880fe97a517b61641922a53075f2c7d294d22da7e0637ba01814",
+    "sourceRect": [
+      445,
+      336,
+      415,
+      529
+    ],
+    "outputSize": [
+      53,
+      68
+    ]
+  },
+  "sprites/pos-terminal-8faee720.webp": {
+    "source": "props/pos-terminal.png",
+    "sourceSha256": "c542d96078e9fa2dee7eec5633da3f60136c1dbc6718d7e5db13bec5d1e0ed40",
+    "sourceRect": [
+      403,
+      330,
+      466,
+      540
+    ],
+    "outputSize": [
+      60,
+      70
+    ]
+  },
+  "sprites/coffee-bag-2893338b.webp": {
+    "source": "props/coffee-bag.png",
+    "sourceSha256": "a397795162a5626481acc08f289ea4961d24050228efee70395a4cfa7bbae87a",
+    "sourceRect": [
+      422,
+      319,
+      448,
+      548
+    ],
+    "outputSize": [
+      20,
+      24
+    ]
+  },
+  "sprites/pastry-plate-e89e47f2.webp": {
+    "source": "props/pastry-plate.png",
+    "sourceSha256": "0417d8c077ad4f1002ccbeeb8eaa0b39752571a9f89036b33451e2180132721e",
+    "sourceRect": [
+      497,
+      310,
+      542,
+      401
+    ],
+    "outputSize": [
+      35,
+      26
+    ]
+  }
+}

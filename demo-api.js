@@ -1,3 +1,5 @@
+import {loadMapLayout, obstacles as mapObstacles, normalizePosition, route as mapRoute} from './public/assets/cafe-map/map-geometry.js';
+let mapLayout;
 /** Isolated browser-only demonstration. NEVER calls live APIs or authenticates anyone.
  * All balances, identities, receipts and the sample 1:50 conversion are fictitious.
  */
@@ -29,29 +31,6 @@ const time = (db) => Date.now() + (db.offset || 0);
 const day = (db) => new Date(time(db) + 5 * 3600000).toISOString().slice(0, 10); // KST 04:00
 const cycle = (db, q) =>
   q.kind === "cumulative" ? day(db).slice(0, 7) : day(db);
-const obstacles = [
-  [0.04, 0.13, 0.28, 0.52],
-  [0.06, 0.76, 0.12, 0.16],
-  [0.06, 0.88, 0.48, 0.07],
-  [0.7, 0.3, 0.16, 0.09],
-  [0.7, 0.56, 0.16, 0.09],
-  [0.18, 0.77, 0.12, 0.07],
-  [0.18, 0.88, 0.12, 0.07],
-  [0.35, 0.88, 0.12, 0.07],
-  [0.52, 0.88, 0.12, 0.07],
-];
-const blocked = (x, y) =>
-  x < 0.03 ||
-  x > 0.97 ||
-  y < 0.08 ||
-  y > 0.96 ||
-  obstacles.some(
-    ([a, b, w, h]) =>
-      x >= a - 0.015 &&
-      x <= a + w + 0.015 &&
-      y >= b - 0.015 &&
-      y <= b + h + 0.015,
-  );
 const config = {
   demo: true,
   prototype: true,
@@ -59,7 +38,7 @@ const config = {
   conversionEnabled: true,
   conversionRate: 50,
   conversionLabel: "데모 예시 비율 · 실제 운영과 무관",
-  obstacles,
+
 };
 function freshUser(
   uid,
@@ -85,8 +64,8 @@ function freshUser(
       mode: "remote",
       expiresAt: 0,
       visible: false,
-      x: 0.5,
-      y: 0.7,
+      x: mapLayout.spawn.x,
+      y: mapLayout.spawn.y,
       activity: "",
       drink: "",
       active: Date.now(),
@@ -253,6 +232,7 @@ function enabled(db, item) {
   );
 }
 function normalize(db, user) {
+  Object.assign(user.session, normalizePosition(mapLayout, user.session));
   const s = user.session,
     now = time(db);
   if (user.restricted) s.visible = false;
@@ -398,40 +378,7 @@ function target(db, uid) {
   if (!u) fail("손님을 찾을 수 없어요");
   return u;
 }
-function route(start, end) {
-  if (!Number.isFinite(end.x + end.y) || blocked(end.x, end.y))
-    fail("가구나 벽으로 이동할 수 없어요");
-  const a = [Math.round(start.x * 100), Math.round(start.y * 100)],
-    b = [Math.round(end.x * 100), Math.round(end.y * 100)];
-  const key = (p) => p.join(","),
-    queue = [a],
-    parents = new Map([[key(a), null]]);
-  let index = 0;
-  while (index < queue.length && !parents.has(key(b))) {
-    const p = queue[index++];
-    for (const [dx, dy] of [
-      [1, 0],
-      [-1, 0],
-      [0, 1],
-      [0, -1],
-    ]) {
-      const n = [p[0] + dx, p[1] + dy],
-        k = key(n);
-      if (!parents.has(k) && !blocked(n[0] / 100, n[1] / 100)) {
-        parents.set(k, p);
-        queue.push(n);
-      }
-    }
-  }
-  if (!parents.has(key(b))) fail("경로를 찾을 수 없어요");
-  const out = [];
-  let at = b;
-  while (at) {
-    out.push({ x: at[0] / 100, y: at[1] / 100 });
-    at = parents.get(key(at));
-  }
-  return out.reverse();
-}
+function route(start,end){return mapRoute(mapLayout,start,end);}
 function complete(db, u, qid) {
   const def = db.definitions.find((q) => q.id === qid),
     c = cycle(db, def);
@@ -1036,6 +983,8 @@ function run(path, data, key) {
   return copy(result);
 }
 export async function demoApi(path, data, key) {
+  mapLayout = await loadMapLayout();
+  Object.assign(config,{obstacles:mapObstacles(mapLayout),bounds:mapLayout.bounds,spawn:mapLayout.spawn,mapVersion:mapLayout.version});
   if (globalThis.navigator?.locks?.request)
     return navigator.locks.request(STORAGE_KEY, () => run(path, data, key));
   return run(path, data, key);

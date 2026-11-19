@@ -1,3 +1,5 @@
+import { loadMapLayout } from "./public/assets/cafe-map/map-geometry.js";
+import { renderMapScene, sceneDepth } from "./public/assets/cafe-map/map-scene.js";
 import {
   loadAvatarCatalogue,
   attachAvatar,
@@ -14,6 +16,8 @@ const demoRuntime = {
   enabled: new URLSearchParams(location.search).get("demo") === "1",
   api: null,
 };
+let mapLayout = null;
+let mapLoadError = "";
 let avatarManifest = null,
   avatarLoadError = "",
   avatarDraft = null,
@@ -297,7 +301,7 @@ function avatarFor(user) {
   return normalizeAvatar({ selection, lens: "charcoal" });
 }
 function person(u, s, self = false) {
-  return `<div class="person avatar-person ${self ? "self" : ""} ${s.mode === "remote" ? "remote" : ""}" style="left:${(Number(s.x) || 0.55) * 100}%;top:${(Number(s.y) || 0.66) * 100}%;z-index:${Math.round((Number(s.y) || 0.66) * 100)}" ${self ? 'id="player"' : ""} role="img" aria-label="${esc(u.nickname)}${s.mode === "remote" ? " 원격" : ""}"><canvas class="avatar-canvas" data-avatar-owner="${esc(u.id)}" aria-hidden="true"></canvas><span class="avatar-fallback">${avatarLoadError ? "애셋 오류" : "불러오는 중"}</span>${s.mode === "remote" ? '<span class="tag">원격</span>' : ""}</div>`;
+  return `<div class="person avatar-person ${self ? "self" : ""} ${s.mode === "remote" ? "remote" : ""}" style="left:${(Number(s.x) || 0.55) * 100}%;top:${(Number(s.y) || 0.66) * 100}%;z-index:${sceneDepth(Number(s.y) || 0.66)}" ${self ? 'id="player"' : ""} role="img" aria-label="${esc(u.nickname)}${s.mode === "remote" ? " 원격" : ""}"><canvas class="avatar-canvas" data-avatar-owner="${esc(u.id)}" aria-hidden="true"></canvas><span class="avatar-fallback">${avatarLoadError ? "애셋 오류" : "불러오는 중"}</span>${s.mode === "remote" ? '<span class="tag">원격</span>' : ""}</div>`;
 }
 function mountAvatars() {
   if (!avatarManifest) return;
@@ -429,37 +433,21 @@ function avatarEditor() {
     )}</select></label><label>렌즈 색<select data-avatar-control="lens">${avatarManifest.lensColors.map((v) => `<option value="${v}" ${avatarDraft.lens === v ? "selected" : ""}>${{ charcoal: "차콜", green: "초록", blue: "파랑" }[v] || v}</option>`).join("")}</select></label></div><section class="avatar-parts-browser" aria-label="파츠 찾아보기"><div class="avatar-search-row"><label for="avatar-search">파츠 검색<input id="avatar-search" type="search" value="${esc(avatarSearchQuery)}" placeholder="머리, 안경, 셔츠 이름으로 찾기" autocomplete="off" spellcheck="false"></label><button data-action="avatar-search-clear">검색 초기화</button></div><div class="avatar-slot-filters" role="group" aria-label="파츠 부위 필터">${["all", ...slots].map((slot) => `<button type="button" data-avatar-filter="${slot}" aria-pressed="${avatarSlotFilter === slot}" class="${avatarSlotFilter === slot ? "active" : ""}">${slot === "all" ? "전체" : slotLabels[slot] || esc(slot)}</button>`).join("")}</div><p id="avatar-search-status" class="muted" role="status" aria-live="polite">${avatarSearchStatus()}</p><div id="avatar-parts-results" class="avatar-select-grid">${avatarPartOptions()}</div></section><p class="muted">모자와 머리는 조합 전용 레이어를 사용해요. 파츠 선택 후 네 방향과 동작을 확인해보세요.</p><div class="actions"><button data-action="avatar-reset">기본으로 시착</button><button data-action="avatar-retry">애셋 다시 불러오기</button><button class="primary" data-action="avatar-save">파츠 저장 · 맵에 적용</button></div><details id="avatar-render-info" class="avatar-render-info"><summary>개발 렌더링 정보</summary><div id="avatar-render-stats">${avatarDiagnosticsMarkup()}</div><button data-action="avatar-diagnostics-refresh">렌더링 정보 새로고침</button></details></section>`;
 }
 function nav() {
-  return `<nav class="bottom-nav" aria-label="주 메뉴">${[
-    ["cafe", "⌂", "카페"],
-    ["quests", "♧", "퀘스트"],
-    ["character", "☺", "내 캐릭터"],
-  ]
-    .map(
-      ([id, icon, label]) =>
-        `<button data-page="${id}" class="${page === id ? "active" : ""}" ${page === id ? 'aria-current="page"' : ""}><span aria-hidden="true">${icon}</span>${label}</button>`,
-    )
-    .join("")}</nav>`;
+  const icons={cafe:'<path d="M5 11v10h14V11M3 10l2-7h14l2 7M3 10c0 4 5 4 5 0 0 4 4 4 4 0 0 4 4 4 4 0 0 4 5 4 5 0M10 21v-6h4v6"/>',quests:'<path d="M7 3h10v6a5 5 0 0 1-10 0V3Zm0 2H3v3c0 3 2 4 5 4m9-7h4v3c0 3-2 4-5 4M12 14v5m-5 2h10m-8-2h6"/>',character:'<path d="M7 4c3-2 7-2 10 0l3 5v5c0 9-16 9-16 0V9l3-5Z"/><path d="M8 11v2m8-2v2m-7 3c2 2 4 2 6 0"/>'};
+  return `<nav class="bottom-nav" aria-label="주 메뉴">${[['cafe','카페'],['quests','퀘스트'],['character','내 캐릭터']].map(([id,label])=>`<button data-page="${id}" class="${page===id?'active':''}" ${page===id?'aria-current="page"':''}><svg class="nav-symbol" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${icons[id]}</svg><span class="nav-label">${label}</span></button>`).join('')}</nav>`;
 }
 function header() {
-  return `<header><div><h1>THE CREDIT</h1><span class="mode">${isStore() ? "● 매장 모드" : "◌ 원격 모드"}</span></div><div class="header-actions"><button class="icon-button coin" data-action="ledger" aria-label="코인 내역">◉ ${state.user.coins}</button><button class="icon-button" data-action="profile" aria-label="내 프로필 및 설정">☺</button><button class="icon-button" data-action="hide" ${!state.session.visible ? "disabled" : ""}>숨기기</button></div></header>`;
+  return `<header class="game-header"><div class="brand-lockup"><h1>THE CREDIT</h1><span class="mode ${isStore()?'mode-store':'mode-remote'}"><span aria-hidden="true">${isStore()?'●':'◌'}</span> ${isStore()?'매장 모드':'원격 모드'}</span></div><div class="header-actions"><button class="icon-button coin" data-action="ledger" aria-label="코인 내역 · ${state.user.coins} 코인"><span class="coin-medal" aria-hidden="true">◉</span> ${state.user.coins}</button><button class="icon-button profile-button" data-action="profile" aria-label="내 프로필 및 설정"><span aria-hidden="true">☺</span></button><button class="icon-button hide-button" data-action="hide" ${!state.session.visible?'disabled':''}><span aria-hidden="true">◉</span> 숨기기</button></div></header>`;
 }
-function furnishing(name, x, y, w) {
-  return `<img class="furniture" src="/public/assets/${name}.webp" alt="" style="left:${x}%;top:${y}%;width:${w}%;z-index:${Math.round(y)}" draggable="false">`;
+function questStrip() {
+  const quest=(state.quests||[]).find(q=>q.kind==='explore'&&q.available!==false);
+  const completed=quest&&['complete','completed','claimable','claimed','rewarded'].includes(quest.status);
+  const detail=quest?(completed?'1/1':'0/1'):'';
+  return `<button class="quest-strip" data-page="quests"><span class="quest-leaf" aria-hidden="true">♧</span><span class="quest-strip-title">${esc(quest?.title||'퀘스트 둘러보기')}</span>${detail?`<span class="quest-progress">${detail}</span>`:''}<span aria-hidden="true">›</span></button>`;
 }
 function mapView() {
   const guests = state.guests || [];
-  return `<div class="toolbar"><button data-action="guests">맵 참여 중 ${guests.length + (state.session.visible ? 1 : 0)}명 ›</button><button data-action="stamps">▣ 내 스탬프 ${state.user.stamps}</button></div><div class="map-wrap"><div class="map" id="map" role="application" aria-label="카페 맵. 클릭하여 이동하거나 아래 퀘스트 메뉴를 이용하세요." tabindex="0"><img class="map-bg" src="/public/assets/background.webp" alt="긴 직사각형 카페, 왼쪽 바와 아래쪽 ㄴ자 벤치" draggable="false">${furnishing("wall-shelf", 10, 65, 10)}${furnishing("bar-counter", 24, 65, 17)}${[31, 41, 51, 61].map((y) => furnishing("bar-stool", 36, y, 7)).join("")}${furnishing("l-bench", 31, 95, 50)}${[
-    [78, 39],
-    [78, 65],
-    [24, 84],
-    [24, 95],
-    [41, 95],
-    [58, 95],
-  ]
-    .map(([x, y]) => furnishing("round-table", x, y, 15))
-    .join(
-      "",
-    )}${furnishing("plant", 85, 21, 15)}${furnishing("coffee-machine", 24, 35, 12)}<button class="plant-action" data-action="plant" aria-label="퀘스트 오브젝트: 새 화분 살펴보기">♧</button>${guests.map((g) => person(g, g.session || g)).join("")}${person(state.user, state.session, true)}</div></div><div class="map-avatar-actions"><button data-action="avatar-actions">캐릭터 동작</button></div><button class="quest-strip" data-page="quests">♧ 오늘의 작은 발견 · 퀘스트 보기 ›</button>`;
+  return `<div class="toolbar"><button class="guest-pill" data-action="guests"><span aria-hidden="true">♟</span> 맵 참여 중 ${guests.length + (state.session.visible ? 1 : 0)}명 <span aria-hidden="true">›</span></button><button class="stamp-pill" data-action="stamps"><span aria-hidden="true">▣</span> 내 스탬프 <strong>${state.user.stamps}/10</strong></button></div><div class="map-wrap"><div class="map" id="map" role="application" aria-label="카페 맵. 바닥을 눌러 이동하고 화분을 눌러 살펴보세요." tabindex="0">${mapLoadError ? `<p class="map-error" role="alert">맵 애셋을 불러오지 못했어요. <button data-action="map-retry">다시 시도</button></p>` : renderMapScene(mapLayout)}${mapLayout ? guests.map((g) => person(g, g.session || g)).join("") + person(state.user, state.session, true) : ""}</div></div><div class="map-avatar-actions"><button data-action="avatar-actions">캐릭터 동작</button></div>${questStrip()}`;
 }
 function questsView() {
   return `<section class="page"><h2>오늘의 작은 발견</h2><p class="muted page-intro">${isStore() ? "천천히 둘러보고 나만의 취향을 찾아보세요." : "원격에서는 미리보기만 가능해요. 매장 QR로 참여하면 진행할 수 있어요."}</p>${
@@ -896,6 +884,15 @@ app.addEventListener("change", (e) => {
     timelineKey: "wardrobe-preview",
   });
 });
+app.addEventListener("error", (event) => {
+  if (!event.target.matches?.("img[data-map-object]")) return;
+  const map = document.querySelector("#map");
+  if (!map || map.querySelector(".map-error")) return;
+  const warning = document.createElement("p");
+  warning.className = "map-error"; warning.setAttribute("role", "alert");
+  warning.innerHTML = '일부 맵 애셋을 불러오지 못했어요. <button data-action="map-retry">다시 시도</button>';
+  map.append(warning);
+}, true);
 app.addEventListener("click", handle);
 sheet.addEventListener("click", handle);
 app.addEventListener("keydown", (e) => {
@@ -1049,7 +1046,7 @@ async function handle(e) {
         );
       return;
     }
-    const action = b.dataset.action;
+    let action = b.dataset.action;
     if(action==='avatar-diagnostics-refresh'){const target=document.querySelector('#avatar-render-stats');if(target)target.innerHTML=avatarDiagnosticsMarkup();return;}
     if (action === "avatar-search-clear") {
       avatarSearchQuery = "";
@@ -1197,6 +1194,20 @@ async function handle(e) {
     if (action === "confirm-checkout") {
       await act("checkout", {}, "원격 모드로 전환했어요.");
       sheet.close();
+    }
+    if (action === "map-retry") { await startMapLoading(); return; }
+    if (action === "map-object") {
+      const object = mapLayout?.objects.find(o => o.id === e.target.closest("[data-map-target]")?.dataset.mapTarget);
+      if (!object?.interaction) return;
+      if (!(await walk(object.interaction.anchor.x, object.interaction.anchor.y))) return;
+      if (page !== "cafe") return;
+      setAvatarMotion(document.querySelector("#map #player canvas"), "examine", mapDirection);
+      if (object.interaction.action === "door") {
+        modal("카페 출입구", isStore() ? '<p>매장 참여를 종료하면 공개가 숨겨지고 원격 모드로 바뀌어요. 코인과 캐릭터는 그대로 남아요.</p><div class="actions"><button data-action="close">계속 머무르기</button><button data-action="confirm-checkout">참여 종료</button></div>' : '<p>원격으로 카페를 둘러보고 있어요. 매장 QR 링크로 참여하면 퀘스트를 진행할 수 있어요. 실제 위치를 인증하는 기능은 아니에요.</p><button data-action="close">계속 둘러보기</button>');
+        return;
+      }
+      if (object.interaction.action !== "plant") return;
+      action = "plant";
     }
     if (action === "plant") {
       const q = state.quests.find((q) => q.kind === "explore");
@@ -1402,7 +1413,7 @@ async function checkEntry() {
   }
 }
 async function walk(x, y) {
-  if (busy) return;
+  if (busy || !mapLayout) return false;
   busy = true;
   try {
     const result = await api("move", { x, y });
@@ -1418,14 +1429,16 @@ async function walk(x, y) {
       lastPoint = { x: px, y: py };
       player.style.left = px * 100 + "%";
       player.style.top = py * 100 + "%";
-      player.style.zIndex = Math.round(py * 100);
+      player.style.zIndex = sceneDepth(py);
       await new Promise((r) => setTimeout(r, 90));
     }
     mapPose = "idle";
     setAvatarMotion(player?.querySelector("canvas"), "idle", mapDirection);
     await refresh();
+    return true;
   } catch (e) {
     notify(e.message);
+    return false;
   } finally {
     mapPose = "idle";
     setAvatarMotion(
@@ -1449,6 +1462,13 @@ function startAvatarLoading() {
       if (state) draw();
     });
 }
+async function startMapLoading() {
+  mapLoadError = "";
+  try { mapLayout = await loadMapLayout(); }
+  catch (error) { mapLoadError = error.message; }
+  if (state) draw();
+}
+await startMapLoading();
 startAvatarLoading();
 if (demoRuntime.enabled) {
   demoControls();
