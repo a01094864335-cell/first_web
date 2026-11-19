@@ -1,6 +1,6 @@
 # Cafe Quest · The Credit
 
-Server-backed development implementation of the approved café concept. **Not production-ready or deployed.** The original greeting page has been replaced; the unrelated Saju source and design PR are untouched.
+Server-backed development implementation of the approved café concept. **Not production-ready.** A separately isolated static mock preview exists; this runtime-integration branch is not deployed. The original greeting page has been replaced; the unrelated Saju source and design PR are untouched.
 
 ## Run
 
@@ -24,13 +24,13 @@ Guest progress and transactions live in SQLite `data/cafe.sqlite3`, not localSto
 - Atomic coin rewards, ten catalogue items, ownership, purchases and one item per equipment slot.
 - Idempotency keys for transactions, serialized SQLite write transactions, nonnegative balance constraints.
 - Separate stamp ledger and protected staff approval/grant routes. Guest cannot become staff through UI/query parameters.
-- Real generated background/furniture assets, converted to WebP. Current character rendering is a development representation, not final approved animation sheets.
+- Real generated background/furniture assets, converted to WebP. The integration branch connects Avatar02’s 51 modular parts to game rendering and saved appearance. Asset fitting remains a review candidate, not a final production animation rig.
 
 ## Explicitly not complete
 
 The PRD demands full connected functionality; this implementation does **not** claim that goal is complete.
 
-- Kakao OAuth, existing-account guest merge/recovery, staff allowlist setup, logout/deletion and final policy text remain to be implemented and integration-tested. No fake authentication path exists.
+- Kakao OAuth, existing-account guest merge/recovery, staff allowlist setup, account deletion and final policy text remain to be implemented and integration-tested. No fake authentication path exists.
 - Stamp redemption server rule is implemented but unavailable to guests. Real staff QR scanning, paper-card handling and live receipt validation remain unfinished; audited reversal/adjustment API and forms are now implemented.
 - Conversion stays disabled until the user decides the real ratio; no assumed real benefit is issued.
 - Automatic business-hours scheduling and analytics remain unfinished; content versions/schedules, basic moderation console, cumulative quests and linked-order deduplication are now implemented.
@@ -75,3 +75,13 @@ npm run test:dom
 ```
 
 The DOM suite checks actual UI handlers against the mock module, including onboarding, reward, purchase/equipment, mock linking, operator grant, redemption and conversion, while rejecting all live fetch calls. jsdom is **not** a visual browser: this does not validate pixel layout, iOS Safari, camera access or real authentication.
+
+## Avatar runtime integration branch
+
+This branch combines the PR #2 game foundation and PR #3 catalogue without merging main or updating the public preview. See [remaining-work inventory](docs/REMAINING-WORK.md).
+
+- `/avatar02/` contains the same 51-part catalogue and compositor. Only manifest-referenced runtime PNGs, manifest and viewer are served by the game server; source artwork and QA generators are not public routes.
+- Appearance selections are cosmetic try-on only, not new purchase prices or real store rewards. Existing ten-item inventories/coins remain intact.
+- Four directions; seven four-frame source actions plus a **fixed default pose**, not an eighth animated idle.
+- Server mode persists appearance in SQLite; `?demo=1` persists it only in isolated browser storage. No external authentication is introduced.
+- Run all automated checks with `npm ci`, install Pillow for asset validation if absent, then `bash scripts/test-all.sh`. Browser/device rendering and all wardrobe permutations are separate verification work.

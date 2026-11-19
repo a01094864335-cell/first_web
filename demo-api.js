@@ -1,6 +1,26 @@
 /** Isolated browser-only demonstration. NEVER calls live APIs or authenticates anyone.
  * All balances, identities, receipts and the sample 1:50 conversion are fictitious.
  */
+// Generated from avatar02/manifest.json. Parity is enforced by tests/test_avatar.py.
+const AVATAR02_ITEMS = {"skin-warm": "skin", "skin-deep": "skin", "hair-short": "hair", "top-plain": "top", "top-vest": "top", "bottom-shorts": "bottom", "hat-baseball": "hat", "glasses-round": "glasses", "body-crossbody": "body", "hand-mug": "hand", "top-sailor": "top", "top-henley": "top", "top-polo": "top", "top-double-breasted": "top", "top-duffle": "top", "top-denim-jacket": "top", "top-kimono-wrap": "top", "top-puffer": "top", "top-capelet": "top", "top-apron": "top", "bottom-shorts-scallop": "bottom", "bottom-shorts-athletic": "bottom", "bottom-trousers-patchwork": "bottom", "bottom-trousers-pinstripe": "bottom", "bottom-trousers-cuffed": "bottom", "bottom-skirt-wrap": "bottom", "bottom-skirt-tiered": "bottom", "bottom-skirt-button": "bottom", "top-tee-plain": "top", "top-tee-striped": "top", "top-shirt-blue": "top", "top-cardigan-rust": "top", "top-hoodie-lavender": "top", "top-vest-moss": "top", "top-overall-denim": "top", "bottom-shorts-charcoal": "bottom", "bottom-trousers-navy": "bottom", "bottom-skirt-coral": "bottom", "bottom-overall-denim": "bottom", "shoes-high-tops": "shoes", "shoes-sandals": "shoes", "shoes-rain-boots": "shoes", "shoes-mary-jane": "shoes", "shoes-clogs": "shoes", "glasses-cat-eye": "glasses", "glasses-aviator": "glasses", "glasses-hexagon": "glasses", "glasses-sport-wrap": "glasses", "body-backpack": "body", "body-satchel": "body", "body-waist-pouch": "body", "body-scarf": "body", "hand-umbrella-folded": "hand", "hand-flower-pot": "hand", "hand-shopping-bag": "hand", "hair-buzz": "hair", "hair-afro": "hair", "hair-high-bun": "hair", "hair-side-ponytail": "hair", "hat-bucket": "hat", "body-tote": "body", "hand-camera": "hand", "shoes-sneakers": "shoes", "shoes-loafers": "shoes", "shoes-boots": "shoes", "body-mini-bag": "body", "body-headphones": "body", "hand-takeout-cup": "hand", "hand-book": "hand", "top-raglan": "top", "top-turtleneck": "top", "top-bomber": "top", "bottom-skirt-pleated": "bottom", "bottom-trousers-cargo": "bottom", "hair-curly-bob": "hair", "hair-pixie": "hair", "hair-pigtails": "hair", "hair-long-straight": "hair", "hair-braid": "hair", "hat-beanie": "hat", "hat-beret": "hat", "glasses-square": "glasses", "hair-bowl": "hair", "hair-center-part": "hair", "hair-spiky": "hair", "hair-wavy-lob": "hair", "hair-twin-buns": "hair", "hair-low-ponytail": "hair", "hair-swept-undercut": "hair", "hair-dread-bob": "hair", "hair-curtain-bob": "hair", "hair-mullet": "hair", "hat-straw": "hat", "hat-newsboy": "hat", "hat-visor": "hat", "hat-chef": "hat", "hat-rain": "hat", "hat-earflap": "hat", "eyes-dot": "eyes", "eyes-sleepy": "eyes", "eyes-smile": "eyes"};
+const AVATAR02_LENSES = ["charcoal", "green", "blue"];
+function defaultAvatar02() { return {selection: {}, lens: 'charcoal'}; }
+function validateAvatar02(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value) || Object.keys(value).some(k=>!['selection','lens'].includes(k))) fail('캐릭터 선택 형식을 확인해주세요');
+  const selected = value.selection === undefined ? {} : value.selection;
+  if (!selected || typeof selected !== 'object' || Array.isArray(selected)) fail('캐릭터 슬롯별 선택이 필요해요');
+  const slots = new Set(Object.values(AVATAR02_ITEMS)), selection = {};
+  for (const [slot,item] of Object.entries(selected)) {
+    if (!slots.has(slot)) fail('지원하지 않는 캐릭터 슬롯이에요');
+    if (item === null || item === '') continue;
+    if (typeof item !== 'string' || !Object.hasOwn(AVATAR02_ITEMS,item) || AVATAR02_ITEMS[item] !== slot) fail('해당 슬롯의 캐릭터 파츠를 선택해주세요');
+    selection[slot] = item;
+  }
+  const lens = value.lens === undefined ? 'charcoal' : value.lens;
+  if (!AVATAR02_LENSES.includes(lens)) fail('지원하지 않는 렌즈 색이에요');
+  return {selection, lens};
+}
+
 const STORAGE_KEY = "cafe-quest-demo-v1";
 const copy = (value) => JSON.parse(JSON.stringify(value));
 const id = (prefix) =>
@@ -51,7 +71,7 @@ function freshUser(
   return {
     id: uid,
     nickname,
-    appearance: { color },
+    appearance: { color, avatar02: defaultAvatar02() },
     coins: 0,
     stamps: 0,
     linked,
@@ -711,6 +731,7 @@ function dispatch(db, path, data) {
           ? data.appearance.color
           : undefined,
       );
+    if (data.appearance?.avatar02 !== undefined) u.appearance.avatar02 = validateAvatar02(data.appearance.avatar02);
     db.users[uid] = u;
     db.current = uid;
     db.customer = uid;
@@ -848,6 +869,8 @@ function dispatch(db, path, data) {
       drink: String(data.drink || "").slice(0, 40),
       active: time(db),
     });
+  } else if (path === "avatar") {
+    u.appearance = {...u.appearance, avatar02: validateAvatar02(data)};
   } else if (path === "profile") u.nickname = text(data, "nickname", 16);
   else if (path === "move") {
     const path = route(u.session, { x: Number(data.x), y: Number(data.y) });
@@ -984,6 +1007,7 @@ function stateAfterOperation(db, u, path, data) {
 }
 function run(path, data, key) {
   path = path.replace(/^\/api\//, "").replace(/^\//, "");
+  if (path === 'avatar' && data !== undefined && (!data || typeof data !== 'object' || Array.isArray(data))) fail('캐릭터 선택 형식을 확인해주세요');
   const db = load();
   const signature = JSON.stringify([path, data]),
     scope = `${db.current || "anonymous"}:${key || ""}`;

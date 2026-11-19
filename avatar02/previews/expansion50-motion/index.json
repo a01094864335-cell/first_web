@@ -1,0 +1,2102 @@
+[
+  {
+    "item": "top-sailor",
+    "action": "walk",
+    "path": "previews/expansion50-motion/top-sailor--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "top-sailor",
+    "action": "greet",
+    "path": "previews/expansion50-motion/top-sailor--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "top-sailor",
+    "action": "drink",
+    "path": "previews/expansion50-motion/top-sailor--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "top-sailor",
+    "action": "examine",
+    "path": "previews/expansion50-motion/top-sailor--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "top-sailor",
+    "action": "sit",
+    "path": "previews/expansion50-motion/top-sailor--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "top-sailor",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/top-sailor--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "top-sailor",
+    "action": "dress",
+    "path": "previews/expansion50-motion/top-sailor--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "top-henley",
+    "action": "walk",
+    "path": "previews/expansion50-motion/top-henley--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "top-henley",
+    "action": "greet",
+    "path": "previews/expansion50-motion/top-henley--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "top-henley",
+    "action": "drink",
+    "path": "previews/expansion50-motion/top-henley--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "top-henley",
+    "action": "examine",
+    "path": "previews/expansion50-motion/top-henley--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "top-henley",
+    "action": "sit",
+    "path": "previews/expansion50-motion/top-henley--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "top-henley",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/top-henley--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "top-henley",
+    "action": "dress",
+    "path": "previews/expansion50-motion/top-henley--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "top-polo",
+    "action": "walk",
+    "path": "previews/expansion50-motion/top-polo--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "top-polo",
+    "action": "greet",
+    "path": "previews/expansion50-motion/top-polo--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "top-polo",
+    "action": "drink",
+    "path": "previews/expansion50-motion/top-polo--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "top-polo",
+    "action": "examine",
+    "path": "previews/expansion50-motion/top-polo--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "top-polo",
+    "action": "sit",
+    "path": "previews/expansion50-motion/top-polo--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "top-polo",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/top-polo--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "top-polo",
+    "action": "dress",
+    "path": "previews/expansion50-motion/top-polo--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "top-double-breasted",
+    "action": "walk",
+    "path": "previews/expansion50-motion/top-double-breasted--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "top-double-breasted",
+    "action": "greet",
+    "path": "previews/expansion50-motion/top-double-breasted--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "top-double-breasted",
+    "action": "drink",
+    "path": "previews/expansion50-motion/top-double-breasted--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "top-double-breasted",
+    "action": "examine",
+    "path": "previews/expansion50-motion/top-double-breasted--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "top-double-breasted",
+    "action": "sit",
+    "path": "previews/expansion50-motion/top-double-breasted--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "top-double-breasted",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/top-double-breasted--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "top-double-breasted",
+    "action": "dress",
+    "path": "previews/expansion50-motion/top-double-breasted--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "top-duffle",
+    "action": "walk",
+    "path": "previews/expansion50-motion/top-duffle--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "top-duffle",
+    "action": "greet",
+    "path": "previews/expansion50-motion/top-duffle--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "top-duffle",
+    "action": "drink",
+    "path": "previews/expansion50-motion/top-duffle--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "top-duffle",
+    "action": "examine",
+    "path": "previews/expansion50-motion/top-duffle--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "top-duffle",
+    "action": "sit",
+    "path": "previews/expansion50-motion/top-duffle--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "top-duffle",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/top-duffle--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "top-duffle",
+    "action": "dress",
+    "path": "previews/expansion50-motion/top-duffle--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "top-denim-jacket",
+    "action": "walk",
+    "path": "previews/expansion50-motion/top-denim-jacket--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "top-denim-jacket",
+    "action": "greet",
+    "path": "previews/expansion50-motion/top-denim-jacket--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "top-denim-jacket",
+    "action": "drink",
+    "path": "previews/expansion50-motion/top-denim-jacket--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "top-denim-jacket",
+    "action": "examine",
+    "path": "previews/expansion50-motion/top-denim-jacket--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "top-denim-jacket",
+    "action": "sit",
+    "path": "previews/expansion50-motion/top-denim-jacket--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "top-denim-jacket",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/top-denim-jacket--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "top-denim-jacket",
+    "action": "dress",
+    "path": "previews/expansion50-motion/top-denim-jacket--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "top-kimono-wrap",
+    "action": "walk",
+    "path": "previews/expansion50-motion/top-kimono-wrap--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "top-kimono-wrap",
+    "action": "greet",
+    "path": "previews/expansion50-motion/top-kimono-wrap--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "top-kimono-wrap",
+    "action": "drink",
+    "path": "previews/expansion50-motion/top-kimono-wrap--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "top-kimono-wrap",
+    "action": "examine",
+    "path": "previews/expansion50-motion/top-kimono-wrap--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "top-kimono-wrap",
+    "action": "sit",
+    "path": "previews/expansion50-motion/top-kimono-wrap--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "top-kimono-wrap",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/top-kimono-wrap--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "top-kimono-wrap",
+    "action": "dress",
+    "path": "previews/expansion50-motion/top-kimono-wrap--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "top-puffer",
+    "action": "walk",
+    "path": "previews/expansion50-motion/top-puffer--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "top-puffer",
+    "action": "greet",
+    "path": "previews/expansion50-motion/top-puffer--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "top-puffer",
+    "action": "drink",
+    "path": "previews/expansion50-motion/top-puffer--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "top-puffer",
+    "action": "examine",
+    "path": "previews/expansion50-motion/top-puffer--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "top-puffer",
+    "action": "sit",
+    "path": "previews/expansion50-motion/top-puffer--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "top-puffer",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/top-puffer--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "top-puffer",
+    "action": "dress",
+    "path": "previews/expansion50-motion/top-puffer--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "top-capelet",
+    "action": "walk",
+    "path": "previews/expansion50-motion/top-capelet--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "top-capelet",
+    "action": "greet",
+    "path": "previews/expansion50-motion/top-capelet--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "top-capelet",
+    "action": "drink",
+    "path": "previews/expansion50-motion/top-capelet--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "top-capelet",
+    "action": "examine",
+    "path": "previews/expansion50-motion/top-capelet--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "top-capelet",
+    "action": "sit",
+    "path": "previews/expansion50-motion/top-capelet--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "top-capelet",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/top-capelet--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "top-capelet",
+    "action": "dress",
+    "path": "previews/expansion50-motion/top-capelet--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "top-apron",
+    "action": "walk",
+    "path": "previews/expansion50-motion/top-apron--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "top-apron",
+    "action": "greet",
+    "path": "previews/expansion50-motion/top-apron--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "top-apron",
+    "action": "drink",
+    "path": "previews/expansion50-motion/top-apron--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "top-apron",
+    "action": "examine",
+    "path": "previews/expansion50-motion/top-apron--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "top-apron",
+    "action": "sit",
+    "path": "previews/expansion50-motion/top-apron--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "top-apron",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/top-apron--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "top-apron",
+    "action": "dress",
+    "path": "previews/expansion50-motion/top-apron--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-shorts-scallop",
+    "action": "walk",
+    "path": "previews/expansion50-motion/bottom-shorts-scallop--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-shorts-scallop",
+    "action": "greet",
+    "path": "previews/expansion50-motion/bottom-shorts-scallop--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-shorts-scallop",
+    "action": "drink",
+    "path": "previews/expansion50-motion/bottom-shorts-scallop--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-shorts-scallop",
+    "action": "examine",
+    "path": "previews/expansion50-motion/bottom-shorts-scallop--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-shorts-scallop",
+    "action": "sit",
+    "path": "previews/expansion50-motion/bottom-shorts-scallop--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-shorts-scallop",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/bottom-shorts-scallop--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-shorts-scallop",
+    "action": "dress",
+    "path": "previews/expansion50-motion/bottom-shorts-scallop--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-shorts-athletic",
+    "action": "walk",
+    "path": "previews/expansion50-motion/bottom-shorts-athletic--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-shorts-athletic",
+    "action": "greet",
+    "path": "previews/expansion50-motion/bottom-shorts-athletic--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-shorts-athletic",
+    "action": "drink",
+    "path": "previews/expansion50-motion/bottom-shorts-athletic--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-shorts-athletic",
+    "action": "examine",
+    "path": "previews/expansion50-motion/bottom-shorts-athletic--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-shorts-athletic",
+    "action": "sit",
+    "path": "previews/expansion50-motion/bottom-shorts-athletic--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-shorts-athletic",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/bottom-shorts-athletic--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-shorts-athletic",
+    "action": "dress",
+    "path": "previews/expansion50-motion/bottom-shorts-athletic--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-patchwork",
+    "action": "walk",
+    "path": "previews/expansion50-motion/bottom-trousers-patchwork--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-patchwork",
+    "action": "greet",
+    "path": "previews/expansion50-motion/bottom-trousers-patchwork--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-patchwork",
+    "action": "drink",
+    "path": "previews/expansion50-motion/bottom-trousers-patchwork--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-patchwork",
+    "action": "examine",
+    "path": "previews/expansion50-motion/bottom-trousers-patchwork--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-patchwork",
+    "action": "sit",
+    "path": "previews/expansion50-motion/bottom-trousers-patchwork--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-patchwork",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/bottom-trousers-patchwork--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-patchwork",
+    "action": "dress",
+    "path": "previews/expansion50-motion/bottom-trousers-patchwork--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-pinstripe",
+    "action": "walk",
+    "path": "previews/expansion50-motion/bottom-trousers-pinstripe--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-pinstripe",
+    "action": "greet",
+    "path": "previews/expansion50-motion/bottom-trousers-pinstripe--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-pinstripe",
+    "action": "drink",
+    "path": "previews/expansion50-motion/bottom-trousers-pinstripe--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-pinstripe",
+    "action": "examine",
+    "path": "previews/expansion50-motion/bottom-trousers-pinstripe--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-pinstripe",
+    "action": "sit",
+    "path": "previews/expansion50-motion/bottom-trousers-pinstripe--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-pinstripe",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/bottom-trousers-pinstripe--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-pinstripe",
+    "action": "dress",
+    "path": "previews/expansion50-motion/bottom-trousers-pinstripe--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-cuffed",
+    "action": "walk",
+    "path": "previews/expansion50-motion/bottom-trousers-cuffed--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-cuffed",
+    "action": "greet",
+    "path": "previews/expansion50-motion/bottom-trousers-cuffed--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-cuffed",
+    "action": "drink",
+    "path": "previews/expansion50-motion/bottom-trousers-cuffed--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-cuffed",
+    "action": "examine",
+    "path": "previews/expansion50-motion/bottom-trousers-cuffed--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-cuffed",
+    "action": "sit",
+    "path": "previews/expansion50-motion/bottom-trousers-cuffed--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-cuffed",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/bottom-trousers-cuffed--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-trousers-cuffed",
+    "action": "dress",
+    "path": "previews/expansion50-motion/bottom-trousers-cuffed--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-wrap",
+    "action": "walk",
+    "path": "previews/expansion50-motion/bottom-skirt-wrap--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-wrap",
+    "action": "greet",
+    "path": "previews/expansion50-motion/bottom-skirt-wrap--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-wrap",
+    "action": "drink",
+    "path": "previews/expansion50-motion/bottom-skirt-wrap--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-wrap",
+    "action": "examine",
+    "path": "previews/expansion50-motion/bottom-skirt-wrap--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-wrap",
+    "action": "sit",
+    "path": "previews/expansion50-motion/bottom-skirt-wrap--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-wrap",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/bottom-skirt-wrap--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-wrap",
+    "action": "dress",
+    "path": "previews/expansion50-motion/bottom-skirt-wrap--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-tiered",
+    "action": "walk",
+    "path": "previews/expansion50-motion/bottom-skirt-tiered--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-tiered",
+    "action": "greet",
+    "path": "previews/expansion50-motion/bottom-skirt-tiered--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-tiered",
+    "action": "drink",
+    "path": "previews/expansion50-motion/bottom-skirt-tiered--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-tiered",
+    "action": "examine",
+    "path": "previews/expansion50-motion/bottom-skirt-tiered--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-tiered",
+    "action": "sit",
+    "path": "previews/expansion50-motion/bottom-skirt-tiered--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-tiered",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/bottom-skirt-tiered--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-tiered",
+    "action": "dress",
+    "path": "previews/expansion50-motion/bottom-skirt-tiered--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-button",
+    "action": "walk",
+    "path": "previews/expansion50-motion/bottom-skirt-button--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-button",
+    "action": "greet",
+    "path": "previews/expansion50-motion/bottom-skirt-button--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-button",
+    "action": "drink",
+    "path": "previews/expansion50-motion/bottom-skirt-button--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-button",
+    "action": "examine",
+    "path": "previews/expansion50-motion/bottom-skirt-button--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-button",
+    "action": "sit",
+    "path": "previews/expansion50-motion/bottom-skirt-button--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-button",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/bottom-skirt-button--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "bottom-skirt-button",
+    "action": "dress",
+    "path": "previews/expansion50-motion/bottom-skirt-button--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-high-tops",
+    "action": "walk",
+    "path": "previews/expansion50-motion/shoes-high-tops--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-high-tops",
+    "action": "greet",
+    "path": "previews/expansion50-motion/shoes-high-tops--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-high-tops",
+    "action": "drink",
+    "path": "previews/expansion50-motion/shoes-high-tops--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-high-tops",
+    "action": "examine",
+    "path": "previews/expansion50-motion/shoes-high-tops--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-high-tops",
+    "action": "sit",
+    "path": "previews/expansion50-motion/shoes-high-tops--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-high-tops",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/shoes-high-tops--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-high-tops",
+    "action": "dress",
+    "path": "previews/expansion50-motion/shoes-high-tops--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-sandals",
+    "action": "walk",
+    "path": "previews/expansion50-motion/shoes-sandals--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-sandals",
+    "action": "greet",
+    "path": "previews/expansion50-motion/shoes-sandals--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-sandals",
+    "action": "drink",
+    "path": "previews/expansion50-motion/shoes-sandals--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-sandals",
+    "action": "examine",
+    "path": "previews/expansion50-motion/shoes-sandals--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-sandals",
+    "action": "sit",
+    "path": "previews/expansion50-motion/shoes-sandals--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-sandals",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/shoes-sandals--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-sandals",
+    "action": "dress",
+    "path": "previews/expansion50-motion/shoes-sandals--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-rain-boots",
+    "action": "walk",
+    "path": "previews/expansion50-motion/shoes-rain-boots--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-rain-boots",
+    "action": "greet",
+    "path": "previews/expansion50-motion/shoes-rain-boots--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-rain-boots",
+    "action": "drink",
+    "path": "previews/expansion50-motion/shoes-rain-boots--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-rain-boots",
+    "action": "examine",
+    "path": "previews/expansion50-motion/shoes-rain-boots--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-rain-boots",
+    "action": "sit",
+    "path": "previews/expansion50-motion/shoes-rain-boots--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-rain-boots",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/shoes-rain-boots--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-rain-boots",
+    "action": "dress",
+    "path": "previews/expansion50-motion/shoes-rain-boots--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-mary-jane",
+    "action": "walk",
+    "path": "previews/expansion50-motion/shoes-mary-jane--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-mary-jane",
+    "action": "greet",
+    "path": "previews/expansion50-motion/shoes-mary-jane--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-mary-jane",
+    "action": "drink",
+    "path": "previews/expansion50-motion/shoes-mary-jane--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-mary-jane",
+    "action": "examine",
+    "path": "previews/expansion50-motion/shoes-mary-jane--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-mary-jane",
+    "action": "sit",
+    "path": "previews/expansion50-motion/shoes-mary-jane--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-mary-jane",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/shoes-mary-jane--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-mary-jane",
+    "action": "dress",
+    "path": "previews/expansion50-motion/shoes-mary-jane--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-clogs",
+    "action": "walk",
+    "path": "previews/expansion50-motion/shoes-clogs--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-clogs",
+    "action": "greet",
+    "path": "previews/expansion50-motion/shoes-clogs--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-clogs",
+    "action": "drink",
+    "path": "previews/expansion50-motion/shoes-clogs--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-clogs",
+    "action": "examine",
+    "path": "previews/expansion50-motion/shoes-clogs--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-clogs",
+    "action": "sit",
+    "path": "previews/expansion50-motion/shoes-clogs--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-clogs",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/shoes-clogs--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "shoes-clogs",
+    "action": "dress",
+    "path": "previews/expansion50-motion/shoes-clogs--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-cat-eye",
+    "action": "walk",
+    "path": "previews/expansion50-motion/glasses-cat-eye--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-cat-eye",
+    "action": "greet",
+    "path": "previews/expansion50-motion/glasses-cat-eye--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-cat-eye",
+    "action": "drink",
+    "path": "previews/expansion50-motion/glasses-cat-eye--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-cat-eye",
+    "action": "examine",
+    "path": "previews/expansion50-motion/glasses-cat-eye--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-cat-eye",
+    "action": "sit",
+    "path": "previews/expansion50-motion/glasses-cat-eye--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-cat-eye",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/glasses-cat-eye--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-cat-eye",
+    "action": "dress",
+    "path": "previews/expansion50-motion/glasses-cat-eye--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-aviator",
+    "action": "walk",
+    "path": "previews/expansion50-motion/glasses-aviator--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-aviator",
+    "action": "greet",
+    "path": "previews/expansion50-motion/glasses-aviator--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-aviator",
+    "action": "drink",
+    "path": "previews/expansion50-motion/glasses-aviator--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-aviator",
+    "action": "examine",
+    "path": "previews/expansion50-motion/glasses-aviator--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-aviator",
+    "action": "sit",
+    "path": "previews/expansion50-motion/glasses-aviator--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-aviator",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/glasses-aviator--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-aviator",
+    "action": "dress",
+    "path": "previews/expansion50-motion/glasses-aviator--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-hexagon",
+    "action": "walk",
+    "path": "previews/expansion50-motion/glasses-hexagon--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-hexagon",
+    "action": "greet",
+    "path": "previews/expansion50-motion/glasses-hexagon--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-hexagon",
+    "action": "drink",
+    "path": "previews/expansion50-motion/glasses-hexagon--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-hexagon",
+    "action": "examine",
+    "path": "previews/expansion50-motion/glasses-hexagon--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-hexagon",
+    "action": "sit",
+    "path": "previews/expansion50-motion/glasses-hexagon--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-hexagon",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/glasses-hexagon--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-hexagon",
+    "action": "dress",
+    "path": "previews/expansion50-motion/glasses-hexagon--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-sport-wrap",
+    "action": "walk",
+    "path": "previews/expansion50-motion/glasses-sport-wrap--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-sport-wrap",
+    "action": "greet",
+    "path": "previews/expansion50-motion/glasses-sport-wrap--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-sport-wrap",
+    "action": "drink",
+    "path": "previews/expansion50-motion/glasses-sport-wrap--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-sport-wrap",
+    "action": "examine",
+    "path": "previews/expansion50-motion/glasses-sport-wrap--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-sport-wrap",
+    "action": "sit",
+    "path": "previews/expansion50-motion/glasses-sport-wrap--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-sport-wrap",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/glasses-sport-wrap--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "glasses-sport-wrap",
+    "action": "dress",
+    "path": "previews/expansion50-motion/glasses-sport-wrap--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "body-backpack",
+    "action": "walk",
+    "path": "previews/expansion50-motion/body-backpack--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "body-backpack",
+    "action": "greet",
+    "path": "previews/expansion50-motion/body-backpack--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "body-backpack",
+    "action": "drink",
+    "path": "previews/expansion50-motion/body-backpack--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "body-backpack",
+    "action": "examine",
+    "path": "previews/expansion50-motion/body-backpack--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "body-backpack",
+    "action": "sit",
+    "path": "previews/expansion50-motion/body-backpack--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "body-backpack",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/body-backpack--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "body-backpack",
+    "action": "dress",
+    "path": "previews/expansion50-motion/body-backpack--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "body-satchel",
+    "action": "walk",
+    "path": "previews/expansion50-motion/body-satchel--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "body-satchel",
+    "action": "greet",
+    "path": "previews/expansion50-motion/body-satchel--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "body-satchel",
+    "action": "drink",
+    "path": "previews/expansion50-motion/body-satchel--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "body-satchel",
+    "action": "examine",
+    "path": "previews/expansion50-motion/body-satchel--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "body-satchel",
+    "action": "sit",
+    "path": "previews/expansion50-motion/body-satchel--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "body-satchel",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/body-satchel--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "body-satchel",
+    "action": "dress",
+    "path": "previews/expansion50-motion/body-satchel--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "body-waist-pouch",
+    "action": "walk",
+    "path": "previews/expansion50-motion/body-waist-pouch--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "body-waist-pouch",
+    "action": "greet",
+    "path": "previews/expansion50-motion/body-waist-pouch--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "body-waist-pouch",
+    "action": "drink",
+    "path": "previews/expansion50-motion/body-waist-pouch--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "body-waist-pouch",
+    "action": "examine",
+    "path": "previews/expansion50-motion/body-waist-pouch--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "body-waist-pouch",
+    "action": "sit",
+    "path": "previews/expansion50-motion/body-waist-pouch--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "body-waist-pouch",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/body-waist-pouch--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "body-waist-pouch",
+    "action": "dress",
+    "path": "previews/expansion50-motion/body-waist-pouch--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "body-scarf",
+    "action": "walk",
+    "path": "previews/expansion50-motion/body-scarf--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "body-scarf",
+    "action": "greet",
+    "path": "previews/expansion50-motion/body-scarf--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "body-scarf",
+    "action": "drink",
+    "path": "previews/expansion50-motion/body-scarf--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "body-scarf",
+    "action": "examine",
+    "path": "previews/expansion50-motion/body-scarf--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "body-scarf",
+    "action": "sit",
+    "path": "previews/expansion50-motion/body-scarf--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "body-scarf",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/body-scarf--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "body-scarf",
+    "action": "dress",
+    "path": "previews/expansion50-motion/body-scarf--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-umbrella-folded",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hand-umbrella-folded--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-umbrella-folded",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hand-umbrella-folded--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-umbrella-folded",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hand-umbrella-folded--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-umbrella-folded",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hand-umbrella-folded--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-umbrella-folded",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hand-umbrella-folded--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-umbrella-folded",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hand-umbrella-folded--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-umbrella-folded",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hand-umbrella-folded--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-flower-pot",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hand-flower-pot--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-flower-pot",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hand-flower-pot--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-flower-pot",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hand-flower-pot--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-flower-pot",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hand-flower-pot--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-flower-pot",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hand-flower-pot--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-flower-pot",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hand-flower-pot--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-flower-pot",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hand-flower-pot--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-shopping-bag",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hand-shopping-bag--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-shopping-bag",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hand-shopping-bag--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-shopping-bag",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hand-shopping-bag--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-shopping-bag",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hand-shopping-bag--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-shopping-bag",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hand-shopping-bag--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-shopping-bag",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hand-shopping-bag--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hand-shopping-bag",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hand-shopping-bag--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-bowl",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hair-bowl--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-bowl",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hair-bowl--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-bowl",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hair-bowl--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-bowl",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hair-bowl--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-bowl",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hair-bowl--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-bowl",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hair-bowl--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-bowl",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hair-bowl--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-center-part",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hair-center-part--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-center-part",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hair-center-part--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-center-part",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hair-center-part--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-center-part",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hair-center-part--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-center-part",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hair-center-part--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-center-part",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hair-center-part--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-center-part",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hair-center-part--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-spiky",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hair-spiky--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-spiky",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hair-spiky--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-spiky",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hair-spiky--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-spiky",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hair-spiky--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-spiky",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hair-spiky--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-spiky",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hair-spiky--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-spiky",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hair-spiky--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-wavy-lob",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hair-wavy-lob--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-wavy-lob",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hair-wavy-lob--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-wavy-lob",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hair-wavy-lob--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-wavy-lob",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hair-wavy-lob--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-wavy-lob",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hair-wavy-lob--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-wavy-lob",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hair-wavy-lob--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-wavy-lob",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hair-wavy-lob--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-twin-buns",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hair-twin-buns--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-twin-buns",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hair-twin-buns--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-twin-buns",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hair-twin-buns--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-twin-buns",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hair-twin-buns--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-twin-buns",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hair-twin-buns--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-twin-buns",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hair-twin-buns--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-twin-buns",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hair-twin-buns--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-low-ponytail",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hair-low-ponytail--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-low-ponytail",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hair-low-ponytail--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-low-ponytail",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hair-low-ponytail--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-low-ponytail",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hair-low-ponytail--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-low-ponytail",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hair-low-ponytail--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-low-ponytail",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hair-low-ponytail--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-low-ponytail",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hair-low-ponytail--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-swept-undercut",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hair-swept-undercut--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-swept-undercut",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hair-swept-undercut--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-swept-undercut",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hair-swept-undercut--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-swept-undercut",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hair-swept-undercut--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-swept-undercut",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hair-swept-undercut--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-swept-undercut",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hair-swept-undercut--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-swept-undercut",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hair-swept-undercut--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-dread-bob",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hair-dread-bob--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-dread-bob",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hair-dread-bob--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-dread-bob",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hair-dread-bob--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-dread-bob",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hair-dread-bob--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-dread-bob",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hair-dread-bob--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-dread-bob",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hair-dread-bob--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-dread-bob",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hair-dread-bob--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-curtain-bob",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hair-curtain-bob--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-curtain-bob",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hair-curtain-bob--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-curtain-bob",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hair-curtain-bob--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-curtain-bob",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hair-curtain-bob--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-curtain-bob",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hair-curtain-bob--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-curtain-bob",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hair-curtain-bob--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-curtain-bob",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hair-curtain-bob--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-mullet",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hair-mullet--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-mullet",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hair-mullet--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-mullet",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hair-mullet--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-mullet",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hair-mullet--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-mullet",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hair-mullet--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-mullet",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hair-mullet--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hair-mullet",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hair-mullet--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-straw",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hat-straw--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-straw",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hat-straw--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-straw",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hat-straw--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-straw",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hat-straw--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-straw",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hat-straw--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-straw",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hat-straw--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-straw",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hat-straw--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-newsboy",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hat-newsboy--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-newsboy",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hat-newsboy--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-newsboy",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hat-newsboy--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-newsboy",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hat-newsboy--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-newsboy",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hat-newsboy--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-newsboy",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hat-newsboy--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-newsboy",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hat-newsboy--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-visor",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hat-visor--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-visor",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hat-visor--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-visor",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hat-visor--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-visor",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hat-visor--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-visor",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hat-visor--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-visor",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hat-visor--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-visor",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hat-visor--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-chef",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hat-chef--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-chef",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hat-chef--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-chef",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hat-chef--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-chef",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hat-chef--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-chef",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hat-chef--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-chef",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hat-chef--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-chef",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hat-chef--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-rain",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hat-rain--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-rain",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hat-rain--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-rain",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hat-rain--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-rain",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hat-rain--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-rain",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hat-rain--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-rain",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hat-rain--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-rain",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hat-rain--dress.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-earflap",
+    "action": "walk",
+    "path": "previews/expansion50-motion/hat-earflap--walk.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-earflap",
+    "action": "greet",
+    "path": "previews/expansion50-motion/hat-earflap--greet.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-earflap",
+    "action": "drink",
+    "path": "previews/expansion50-motion/hat-earflap--drink.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-earflap",
+    "action": "examine",
+    "path": "previews/expansion50-motion/hat-earflap--examine.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-earflap",
+    "action": "sit",
+    "path": "previews/expansion50-motion/hat-earflap--sit.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-earflap",
+    "action": "celebrate",
+    "path": "previews/expansion50-motion/hat-earflap--celebrate.png",
+    "poses": 16
+  },
+  {
+    "item": "hat-earflap",
+    "action": "dress",
+    "path": "previews/expansion50-motion/hat-earflap--dress.png",
+    "poses": 16
+  }
+]

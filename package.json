@@ -5,7 +5,11 @@
   "scripts": {
     "test:client": "node scripts/test-client.cjs",
     "test:demo": "node scripts/test-demo.cjs",
-    "test:dom": "node scripts/test-ui.cjs"
+    "test:dom": "node scripts/test-ui.cjs",
+    "dev": "python server.py",
+    "test:all": "bash scripts/test-all.sh"
   },
-  "devDependencies": {"jsdom": "31.0.1"}
+  "devDependencies": {
+    "jsdom": "31.0.1"
+  }
 }

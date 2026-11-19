@@ -1,0 +1,52 @@
+[
+  {
+    "id": "top-raglan",
+    "slot": "top",
+    "path": "source/new_clothes/top-raglan.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "new_clothes",
+    "label": "래글런 티"
+  },
+  {
+    "id": "top-turtleneck",
+    "slot": "top",
+    "path": "source/new_clothes/top-turtleneck.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "new_clothes",
+    "label": "터틀넥 니트"
+  },
+  {
+    "id": "top-bomber",
+    "slot": "top",
+    "path": "source/new_clothes/top-bomber.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "new_clothes",
+    "label": "봄버 재킷"
+  },
+  {
+    "id": "bottom-skirt-pleated",
+    "slot": "bottom",
+    "path": "source/new_clothes/bottom-skirt-pleated.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "new_clothes",
+    "label": "플리츠 스커트"
+  },
+  {
+    "id": "bottom-trousers-cargo",
+    "slot": "bottom",
+    "path": "source/new_clothes/bottom-trousers-cargo.png",
+    "row": 0,
+    "rows": 1,
+    "cols": 4,
+    "fit": "new_clothes",
+    "label": "카고 바지"
+  }
+]

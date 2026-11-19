@@ -1,0 +1,2099 @@
+{
+  "audited_asset_commit": "1eb0d7a37de14be1df98ae87766ee510864e4754",
+  "method": "Actual static worn-frame inspection, not runtime playback or exhaustive outfit permutations",
+  "source_poses": 5712,
+  "duplicate_idle_views": 204,
+  "records": [
+    {
+      "id": "skin-warm",
+      "slot": "skin",
+      "report": "QA-full-bottoms-face.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "352f6d129f730e589951bec0b1a5f8df9f35a73f429371d8cc9107f958db84d1",
+        "greet": "b2aa94752d5d038650a00d1c55df59b3b4d97fc3947b3cf6a7e4740af7417d10",
+        "drink": "ea779ce4b05ee73447a10ea7a3b438e5e45aa491110a2631312267b5f407c910",
+        "examine": "b2bdf62abc7289678f9f2baacddba03fb17927f6a540e2eda8ec1c496de94b23",
+        "sit": "2546cb300203718213f9e6388c62ce3513ecd9963d552002a27c974d24f51df6",
+        "celebrate": "d5e51f3702a201b8405e4c78aaa52b72a45039211bf259a24c7e34415f7a78f7",
+        "dress": "ee96a2292c2f9a4d8d642ea02aae27ae0ed7a48c50879ee2c4e01d20c1f09827"
+      }
+    },
+    {
+      "id": "skin-deep",
+      "slot": "skin",
+      "report": "QA-full-bottoms-face.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "17d8bf359a24beca381d1ab138323965acc0b50275d5fbe198a6c9a94e4b32e0",
+        "greet": "35553ac326e6fe2d916bdaa2a19a1f9f41fe7007441407e9525fb5678251aef6",
+        "drink": "30806e35884a3d6d993798ef9497d14ea7e1daf10b97236feecefd2a8ba9ba69",
+        "examine": "6593b3789fbde7d59c217ebe4b6e56ea55ef95cb44a856749766a7e8ca37d2fe",
+        "sit": "564378b773be552497290cbb01391f61e4fa139f3142c70f299b47eefdc014bc",
+        "celebrate": "0624f1c4dccd2fa069c2a4ca396b1abfa4cbdbdc459f32042bf9e62273e2e7e8",
+        "dress": "1fa5024aeaae883cdad833acda6243dd6b2fba4c4842ea718dba5cc05262bc56"
+      }
+    },
+    {
+      "id": "hair-short",
+      "slot": "hair",
+      "report": "QA-full-head.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "4be5894cd2d702bafbc97ddd02415157571eeb8da5c755d39a5b89af693486e6",
+        "greet": "2b9e2f5be264ed59c61cc3be01dd56b3c830b373efafb73a63b118359d6e1d6d",
+        "drink": "730ac668f9b0d67ffd2d88345d9bf38c7ad6b14169f93f026994203469f72cf7",
+        "examine": "8327b941beb608f3f574e32609527e20ff32d07cee87c6a9b62af57239cdf7a4",
+        "sit": "ee05a77fa21adc38f959468ba37c7feeb8e90d4ddb94b2b6d444407cb27c2bd5",
+        "celebrate": "b194d0768daf6cc281088a67ec926f090721257234e75f0b6a88a406f562ee79",
+        "dress": "548666bdc6d5032ae76b3e9601137187b472b2ad1c07b9371b93740980defa31"
+      }
+    },
+    {
+      "id": "top-plain",
+      "slot": "top",
+      "report": "QA-full-tops.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "da407753b24eb4d439cdceb0ca1de1ec82d6abf62bcf4c134b100a2a1e195acb",
+        "greet": "2d324610ba3ee466507a6bd0eb4e5e4a81be4326f948ce0671f61e7d82cf0b51",
+        "drink": "709b907837d5dad0899a3476abcbcd3f962f37eaa9df19424685cfbcd0730c16",
+        "examine": "9bb2d07c52b6c80c738f790177672fe19c24af1d8e9c45d37e27037c5c8002bb",
+        "sit": "22c42388603c53def5e02d6a9fe0a5b1c1a316ef86daf92521a9a4b8df0daaac",
+        "celebrate": "d6c430e0674357c4d06be97bb69f7f2bc612d8187b427ee4457308dc506a20e0",
+        "dress": "f90f0b56aac015db5f49d80227d403961e29c925110e34ec17673b15f0df66b8"
+      }
+    },
+    {
+      "id": "top-vest",
+      "slot": "top",
+      "report": "QA-full-tops.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "00c45624822567a8a27d1332ca69e76e964670b6809560e667b645907b04decd",
+        "greet": "fcd68e2c87564b35005c6c49b290d936391a0d8fd03da7b8efb0c8de203370aa",
+        "drink": "db7d90e4d143a9b18be2f22aa84221eaa889ff449e19bc577ea236e144485678",
+        "examine": "32983a65768c073e283b8d8e2e959ff7bac848f52883875ae940956383d69ff7",
+        "sit": "2dcb6a0aa95be020941a208e54f8193cb50c554a4c8d35f822dfc2070b2f413c",
+        "celebrate": "d330c8f5fc1a596c5983cbb8ceea9648a4ee0db98ad418662079632ad9150d7a",
+        "dress": "dd3f0fd6a249f0a36d6c65fc4923a8702464b57908b07d51f350a7fb2e7d00f0"
+      }
+    },
+    {
+      "id": "bottom-shorts",
+      "slot": "bottom",
+      "report": "QA-full-bottoms-face.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "d9de8e32105d261661304874afb7030f7e058a3b29a7445cba26ddc010752cec",
+        "greet": "48c071e44352b6b70f82cc3062a03edbc3ed128e2eddce81054be2b0bb119317",
+        "drink": "e3cd001bb198a51363bc9747118eea634420b92fb9f7c05a83a6056e9f6bf7aa",
+        "examine": "9f4903da462d9dcfe8850ff176e02d58642532c659fe3c61d39bda914bf7679a",
+        "sit": "72b9df10f8a4b6f7c2eeb970200107244af76ee3c98a0887934d2d85583ffe7d",
+        "celebrate": "50c9c7227db65835dfb1ad548821905901074ea96ae54a7186e602cc2a8b248f",
+        "dress": "f47a1afbc7879980d7f0ae5a2212912f3af7e75cc755691fc63d0b8547afdd59"
+      }
+    },
+    {
+      "id": "hat-baseball",
+      "slot": "hat",
+      "report": "QA-full-head.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "d5892a29a0333aa10bcdea4ef7cb57d4c0d6fccb0d67d348f2b9a003b68be86a",
+        "greet": "79e7b3f0654cbfee7477f1e1b5e217134e18ecc392ca7251b86489eab6ccadab",
+        "drink": "6cb7175ddaa31c48929b028b7a0df0b24cdeca46496958e6b5bd022f1bcd76d0",
+        "examine": "77def13694b327a860c3a83af2b9c9a984c17bd71a6b90242fd144dd9563de3e",
+        "sit": "73ee4248f00106779d7d1485b76010ad349c23dbfa488b8a82bd58060c2d24b5",
+        "celebrate": "ab21d62c5e8c817ae1b21023caee8817e6e2c45e9205df189fb8519b65ba1ae1",
+        "dress": "0764323df0f60cd3b3ad8c00a45c93bc0b7755e176580557db21bc629cdad27b"
+      }
+    },
+    {
+      "id": "glasses-round",
+      "slot": "glasses",
+      "report": "QA-full-head.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "52b2d022e0bf21d89552a13b9cf52e61e4b90de585e18a8feb4ebebd46b6bfe4",
+        "greet": "0bfe9d4d3c9d46ded34cda82809e4c59dd52f035752de86b8112f7814c0b3da5",
+        "drink": "ec92921dafe4f1a88a86c33e1d52294e59411d045fb6e781a8f9174b89b24c65",
+        "examine": "0fbe6d842a82bf2b6ca3617f8f0a6f8159065a5e7224bbd0eb08982e20d2ff53",
+        "sit": "83856bc278dab61d201ab7471da4ea0a59ca95df7f94ffed2e8eb052b6108d81",
+        "celebrate": "ea79503267507f7833ff20ca2be7a359810f9c0ba90ab12c97ece538705db6fa",
+        "dress": "1b6656fed3b30cb42bf3184c6291f6a506991ef537ccf9021f6d1e4665519668"
+      }
+    },
+    {
+      "id": "body-crossbody",
+      "slot": "body",
+      "report": "QA-full-accessories.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "406f22289f5310c8db7c281461bcd0b611bc6472d5f12f9aacb88fdd6e5e29d4",
+        "greet": "b4980da3fc3efb0b54c96bf8baac990bc16c4c5a1a3bf8463cf3c5f3eb81a250",
+        "drink": "dc77f5cceaea180724150440cc60ab793ad26e38a62abf59bb7146e01d8f589a",
+        "examine": "4cdd2f6b48720dcea4f12fe3376c38494b667e7c37415c90bbf0bf90e3187ec1",
+        "sit": "cf0cebaeccb0ce2bc100ddb7c29fd9592a0562a60e80689afae875fc199e24eb",
+        "celebrate": "8b8fab32ec9d1329e6426d2ffcbc0f94fd51e516a2f9789c28588f0a52b90e3c",
+        "dress": "cdba4898fa14fb1802f30b5a55c8689d1f8803f96f3da8fde35dae0e908d9f06"
+      }
+    },
+    {
+      "id": "hand-mug",
+      "slot": "hand",
+      "report": "QA-full-accessories.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "0229f690bf48f75f3c6b4e5b6546bb56ff1f9170bda7729718acca112c73f70f",
+        "greet": "1835c79e1eb279509b60f1fa8fd59e1279e2618f1635801b595f04575243d934",
+        "drink": "3e70ee9008ef6a77792505dbeb4efdeaff266295e299a3a491a099bd20cbce35",
+        "examine": "5f26faa70a77e4ba3e53179f21873adc9768ce26326a002ae3dd74d673ad8763",
+        "sit": "08ad5a5aee3bfc85d8c454b372bb16a869c5de56b840058a85fbd70fd7505e7d",
+        "celebrate": "910d519b23ffd0c25e015befbb5b09360a4d6edb9425ee4ad2ab6d528ed699b4",
+        "dress": "8ae5dfea4ef211dacbd81f1c97c1094ad6417d0108ff8cae6e91747faba77346"
+      }
+    },
+    {
+      "id": "shoes-sneakers",
+      "slot": "shoes",
+      "report": "QA-full-accessories.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "2e3fdf901857df03f9e6af0f399985d574dda92643b92012f09b3440f07fa2bd",
+        "greet": "89a874d30e675bd7d1c0973f02dbc3d5c1331177806620416ac3dc2177ed9352",
+        "drink": "4a0cb5d5cf322f6fa7acc07c1c05597d550e689e48f208cff556598b93346feb",
+        "examine": "227a0aa844501b02146837e8659ffb2aecf93097ba54990a7c1479b5345baa94",
+        "sit": "990d8600f6094ad66122bc2e87cb939f783951fe9d3dd52847aff6fd0d95b0ac",
+        "celebrate": "a075e586f5f5de44344d9ff05d392651df8ed6c02526b2d81eb55b7fcbe6a49a",
+        "dress": "6567e8932a9bb014cf8df0c8df266d4ee70bf6316fca8979fc67f52d38c65da9"
+      }
+    },
+    {
+      "id": "shoes-loafers",
+      "slot": "shoes",
+      "report": "QA-full-accessories.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "c6287c1ad37ce9971007978b6b34d7328fb8cbed7553ad8ca85d7612e103a07d",
+        "greet": "d5b6ec178b541440cf93472a982689d17cf7e30f873bc807e3e8989b9553010a",
+        "drink": "415b34a92ba3a4aa77d7dc8b47acb4988a84ba5148c8c07674c74a100f021231",
+        "examine": "c4fb6654590e48a9f57848d31296579d5ab82fc5b63594f590df6db78fb91ef3",
+        "sit": "58229905faf3d79ddd48730033401e7146ff6ae7b33f2bd5eaa6adbc97184901",
+        "celebrate": "91575f0bd7d779c9d83a889064cf68b40aa57d23511f20a83ee9067113d9b863",
+        "dress": "3fb9af5ff92b504df0a7852de64d093661c18b1febd4915e828dcc0fbdc67776"
+      }
+    },
+    {
+      "id": "shoes-boots",
+      "slot": "shoes",
+      "report": "QA-full-accessories.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "2f8c32a4af13af03d52a180ef4508b6e0516094b4e282d7cf98cce4bc0dbd148",
+        "greet": "5c8c64bdc6322a0602e874773eb7be23b3a20d8d5ccc3dccecfe8e327ba25fac",
+        "drink": "9d9de72e6be1a34f74775ee607222c4aa2fd7a13eba001a695f39853aa11fc5a",
+        "examine": "37255eda65493996460a0481414b821688eec88747061fd20cc14f40eb972b05",
+        "sit": "e89b339f5f0003a4878a2292931bba5531cfd728681174ab77fdeb637c69ae71",
+        "celebrate": "1894c755ff5a61b432f01e30d441d2026256111f4c6b7b0bd4882a57671aa1ac",
+        "dress": "41c8bf9a556c57dd51311030ae9988553ba7476e1f02067818641525260604fa"
+      }
+    },
+    {
+      "id": "body-mini-bag",
+      "slot": "body",
+      "report": "QA-full-accessories.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "21f4a4262e2ed0b091e3cb58e8dd86e26d54853a01c2d01a3c63ee04c6978e1e",
+        "greet": "939e3992c869dc3d0dba81da13817751c6dac7a94862f1e471729f153803c444",
+        "drink": "ad8e5ffc1b6bf744714c2289040af7514375a3f80420921fc82eb0568ca236d5",
+        "examine": "47d78beef300277bf634ed739278210c18f3e99a9b871dcbd3185c1e95644e20",
+        "sit": "c70922d67e11afa15d98288a5318ae78f53022a88a9666eb2fd1731b41271fd2",
+        "celebrate": "60abc90090820b14168ccff87d91b949b2939e9468e5ba68a52294640a842ac1",
+        "dress": "ff019eaa6e91b09ea640672106408ad443529d7d8cc0c7a770f0a228b0fda223"
+      }
+    },
+    {
+      "id": "body-headphones",
+      "slot": "body",
+      "report": "QA-full-accessories.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "de1e068245e321b4d49065a662c607b1e62993481f860e97417e5041272ceb83",
+        "greet": "71ffc67e55537ab841115c369453be2206e6ee57e1499ae00bd7d32ce8ad5f08",
+        "drink": "42d24533937397ce849fa6b14d5e00fab9896c7be0c3a10e08608df8e706e996",
+        "examine": "6b21633f7091326935edd9a49a355138e0d998e595560f551106a45fbd032778",
+        "sit": "f1969900302ba03d66aa44230d1360ab44660ee5ddd05600920d0e35824a6674",
+        "celebrate": "da602a2fcefde9b52332aca6c21dcaad42a94335c44699dce4522c08ffe3bc7e",
+        "dress": "382f45f83abbfba6fab3288471a5140c52ce7269e1f6cfd8da8cc0d39ed5b591"
+      }
+    },
+    {
+      "id": "hand-takeout-cup",
+      "slot": "hand",
+      "report": "QA-full-accessories.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "a45a73ccf052029907d596b5bd3478c43c3e0adfc112ccf646e4769c653a043f",
+        "greet": "d3c4b1fa1067326ff7f0e9ab7dc0788105bf3411ac15edae1a72ec829d07935c",
+        "drink": "4fbac9da002d2c7d65729ef10400e4ffae79887bd4d50af39c5a4044142c276f",
+        "examine": "c38c893d836594291c49501fa64b3a2b47f29133c61b1d7dc5d410cb104a4b51",
+        "sit": "012d23c2d5987f30404801199353eea392bce9e0dc658b5053c06fb30075bf6f",
+        "celebrate": "05dfad6e25318546a002c361f380ff086014353357d5c9870b95841e74887a78",
+        "dress": "aa598e79462601792ab43e2397e34db59c7c263e4eda99963b7a1088547b7832"
+      }
+    },
+    {
+      "id": "hand-book",
+      "slot": "hand",
+      "report": "QA-full-accessories.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "a8b77ae97ba5a237a02261481b495a45323bab047352ee665b1a07648490b075",
+        "greet": "4c0932ef385e71bb2478983c2cedcc0d174ceffdee56e3f8ad2c61c1c35a20e3",
+        "drink": "f40ff8b8d556b2eb1f0f218eff058b7d511b2012505cf02af5e664ea398c870a",
+        "examine": "3c3fe9359370bf2d149e3afa6b4c7a213764d6f62a184c3ca76f904f45a3f8d2",
+        "sit": "f63a3a4f5af7d0e9842d89dcac6ae4d3f6d022a8be2d453fe6ba7798aa6cd99d",
+        "celebrate": "a1e4d86d9cf3bca6e3c45e9569629706a7f4c03af441abe9fcffb8e4707a6ce6",
+        "dress": "2b4ecca857fd10160fec29d33a691288525fc6f9ceec91a43f61b686033ef542"
+      }
+    },
+    {
+      "id": "top-raglan",
+      "slot": "top",
+      "report": "QA-full-tops.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "1d1f27f89d107d5baf98f97d6e37843300dd780e4c9fba8818f8d972131d9257",
+        "greet": "7dc40ce31606d4a9dd14fbf7c6059b3c9ead1e61b8a359a89e78aa30cd436e46",
+        "drink": "da5b2b2669637fa9623942c4e429cbd47d78061e7a76f93d832593a85151fdc3",
+        "examine": "411e6db62f23bccd4897697b1246713ca36665de5ee28334149946a8e679cf29",
+        "sit": "97ff2824c72d774d48af635998bb8502ea4f9afebd2ae858b9667d914c9f1112",
+        "celebrate": "f8557a404691ba547ac30a8e558e7e62886b38ec587aa2c3263c648006e0591d",
+        "dress": "4da737cba9e399fbb05a5f39a04e45df9f9a410950549615e03da60817a3cd5b"
+      }
+    },
+    {
+      "id": "top-turtleneck",
+      "slot": "top",
+      "report": "QA-full-tops.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "204585d0d806d71696cb3008aed6e92bcdc8e67736847dd15bebeb19cb43a41d",
+        "greet": "edf2b220e96b564c5612afc5a174657fc9795694d1c80bbd58eb4db50402402c",
+        "drink": "fddd7d1350e2891a7522e31e6391239598216fd75b2de229c347cc359dde4b6d",
+        "examine": "e0786adf5d1edd0a55ccb840eb363987376a12afb6113903ec514bba8e6dde6c",
+        "sit": "73683a5f0f4e3b9d66094dc94c3b76f6b4cba6f3fbe58719e040e0eca2a25094",
+        "celebrate": "dcfadcf1763bdc881a628cdfb484933579bf29cc14a55d1f6b1c1bc5c9365761",
+        "dress": "0d1f087468b71f7ab10dcaf7dc44bb0fece34395672cbbc06db28ff7c29ce14c"
+      }
+    },
+    {
+      "id": "top-bomber",
+      "slot": "top",
+      "report": "QA-full-tops.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "57389a66e97437b8f3b297a9add37d60be4631240097fc551bae90e781f3c4ad",
+        "greet": "39a8c668032c5231e8c71a1d90f70a1ef761329795e059148b7e0343baa3d857",
+        "drink": "072e41d07184cbffa8f2ed467f8a274905edef8ebf706ec2a43f8ca714db4842",
+        "examine": "f3870628f89210cf79838dadbd70b9a6de1fc249907413d7507e062ef14ba17d",
+        "sit": "e1e53b167ad4f263e97c056d3f74e12bff4ad6b4d482e60381ef9da6019b65b3",
+        "celebrate": "7607d11ca4fd670adade3ec72af75077a397a784511efec7b89ebc50af477784",
+        "dress": "0a0c2b4d5d1d95549bca9bf4ef71de92ddfdf3680e211deabddc8b2a40871fba"
+      }
+    },
+    {
+      "id": "bottom-skirt-pleated",
+      "slot": "bottom",
+      "report": "QA-full-bottoms-face.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "0af49302ee00b9e1f166566c218a2e40339b54f1ee95ba0af4f00b6d82310110",
+        "greet": "dfb73e8f9f9573a014d838fb8c9b4488dd92eb39fd104fbe67f7e29693e02b28",
+        "drink": "dd48f88bbe4f633adb2e02c13d9903ce09bf856ac46770039397339039cb6872",
+        "examine": "af7ad2ff488a20b113b000620b4c171de8e5da75573188d8d0b6f731c9df6929",
+        "sit": "f162af7af7e935938babd56f29767705ea019e84fa4d25710431ba8cb9bec23a",
+        "celebrate": "0e3f4876eb8ef5216eb0862858abf5b9510a8e0ff3188ba380140dd8c2366b81",
+        "dress": "c7ba48261dfc28f6774538196e5fb0e4849a0bef7a25f77c6ef64e03127005d2"
+      }
+    },
+    {
+      "id": "bottom-trousers-cargo",
+      "slot": "bottom",
+      "report": "QA-full-bottoms-face.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "6dc9a8efceb123df2d33084384b78113d2c0f42128b4f9bd704932b138693110",
+        "greet": "daef02a772e72ffc4c787a8054116a7bc07f877ed6667a90d171cded857322d1",
+        "drink": "32ae8de68336aaa00b9f42d4553c99b1bfb469fde42c913817375c6f3d7b6b5c",
+        "examine": "6a6851b27e1e71f0bf92f8f6f2b18fdbb85e92d8a4c527c17661aa638b4768e7",
+        "sit": "27f1756d0ff94aff44512418308414771b2481d85ba6cd952414ceb47e26c335",
+        "celebrate": "5923de543196fbfafb822f13bfe087ce65638ff823697a2d38f467e646125362",
+        "dress": "196f13ed6ee18dc59a76c33a793fdbe5117ed38ba2fff60623d12ea0d838d13a"
+      }
+    },
+    {
+      "id": "hair-curly-bob",
+      "slot": "hair",
+      "report": "QA-full-head.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "b999b72bb7fcf88062dfe4fea938e8e3820b42bf6bc548328a242ba20a2e332f",
+        "greet": "89944114b4db54fdc827f11e28d27b21cde6635c2a12d267b7fb1939754320dc",
+        "drink": "58b2bc1ec02b86e621d47fb5972be60c1fa8d5d2dcd708996b708ac08c8b91a9",
+        "examine": "e46677dbe0e28a51b2d2df7614eacf6953d70f2271b8fe3460e3465b29845b5d",
+        "sit": "b14ae2b5b261dcd04d86378c1afddffaabad1d7e1ef3f1cc6d7d512d7c273ae6",
+        "celebrate": "7cb9832122df0c67248d016913f0f951f3d728471034fbf5a870e2ec55ade5ae",
+        "dress": "061513c4efdd0d0e433432ff652cb90f0f8ae0e5753c06c0c45bbc8802efb3d3"
+      }
+    },
+    {
+      "id": "hair-pixie",
+      "slot": "hair",
+      "report": "QA-full-head.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "02a2014390cca07efd3af9b2e9b3be548a864cff1d98ff9054237b74479d6a0e",
+        "greet": "20af0f7edbe182edcc0eb7fae2bf4117405d775a55d0f0bb0c02e62b604d74a7",
+        "drink": "081df4526aea1dec5921199483738e1920c441082beb4f47ede105a4a20bfe87",
+        "examine": "b12213fcf66a23d4be9395a62f012a5227baa53372b6b1dfff6e2670aa9e5480",
+        "sit": "ee96904dc3931dea8957fdf89f4bf78c4c02f013108909ed31293b7042479c02",
+        "celebrate": "2acbbcfb71d066042ff5c7dd8890c2de79a9f4f1458195b9d53343d63dbc5412",
+        "dress": "2aa6dcca7f4947467b2c215ac8d9c8d5f0582fa03309ed031673c29e26bdc8ec"
+      }
+    },
+    {
+      "id": "hair-pigtails",
+      "slot": "hair",
+      "report": "QA-full-head.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "07affc39c07d4b0eb998361f0120540f1abff78fe237948284f1dfc92d1b49f6",
+        "greet": "eb9fa9b1ddd8e6a4c49bbbc244299fb6ab9515a1bd7d35bdd73424a3041bc514",
+        "drink": "6b675e570787ed588f63afaf4e5c817f5625a4314702882d12c83fe5c846eba5",
+        "examine": "77b55b98ceb66a907f62903cab8c1700e13dc51435442ccdd113fd218ea2f3b9",
+        "sit": "e35df35fb59a532acc5cc54daa0a035bfe17035c0fb06c718e687e8083566956",
+        "celebrate": "cd9589e93d073aa773026503e33b05d4079ae68a0258de287ff28bd133312e86",
+        "dress": "ad6394dabd5e1900551e88e92c46025f5fd24e16bc23e0b0a6ffd3954318ccb1"
+      }
+    },
+    {
+      "id": "hair-long-straight",
+      "slot": "hair",
+      "report": "QA-full-head.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "6c8dd601e13c65cbfc5f1724152d8dfb821f054a232c85bfdeed5fd20fb121b0",
+        "greet": "4a4c072064eaf2c7aefdb94e6945ea2cb06bb3d82db5e4a18dc0f68d1826e115",
+        "drink": "18deeddab47c4a0a30e356f492abb50909449623d42fa58e01d9c9f2e54eed16",
+        "examine": "3b120943257c8f710d2d9a1ded15cfdca3a3b097a3be771ad66d4c4b17d9ed57",
+        "sit": "f43919837ab13a1fe54ce576e85b71dea104bd55bb790e58e2bcdfdd3a73d9e4",
+        "celebrate": "e1b5e03f2cacb89b4c2c67ad3678d064ffe1ceef292991355d046a4e01c2f3e0",
+        "dress": "631fd1ed4692ede67de25b3ade268ec1ee79470965a119342705f6cfecaaaf31"
+      }
+    },
+    {
+      "id": "hair-braid",
+      "slot": "hair",
+      "report": "QA-full-head.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "4612c8064ca29db6dde46ae0dd7f6863ef25f891d34b6930700171c2a52237c6",
+        "greet": "bd1ba31298d201cd75dc11bad8154aa0c094db539a596082c3be584de4191942",
+        "drink": "584f526f1ad5631302163705d3352e900969f58d7f8667369ec606eb9fed9f95",
+        "examine": "f779c18df2a99eaf68b25e14d8c3417c8575ec39160343d1b79a55cb4224256c",
+        "sit": "226d24aa769375a2882e97cb6cd11ebe735a3c874ac00ec68416e91600d9dd0a",
+        "celebrate": "d06aec3a361520491e9111a3eac52e8b5acbe845902c3659f705853e8732ecea",
+        "dress": "cc0f320082edc0a4167dd96bb1b57d22173b7958ac5e649c2a0dbcdfbc988f19"
+      }
+    },
+    {
+      "id": "hat-beanie",
+      "slot": "hat",
+      "report": "QA-full-head.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "a04af7f0702f145013661e8ff74388ab7cbecd63048ddb96db82fd4f030eea57",
+        "greet": "cd0256f96ff8a4a1ae445e84b54648e6c6c3cfd4c438249b7236d5ea0b7ddd51",
+        "drink": "ce584cde13f70c44b8ddfa2d950fbdf17eefbc181388f672ef14f2a0567e8100",
+        "examine": "892eacde5b086c09dc8607e1c595cd36d36a878709d3ec3c2b596225a4f064fc",
+        "sit": "2fb3b8ea9c2984069710e35a43cae6a7cac8de40ca2f7e995bdc92174a53390e",
+        "celebrate": "9122632d185a883a5509f779b1902f62c23fed57eba2affd39aae3f5ed3b90d7",
+        "dress": "44b5bf3324e9e532bc13eb47e1858e4e94959c79f9eaad68e44543eeed8a3380"
+      }
+    },
+    {
+      "id": "hat-beret",
+      "slot": "hat",
+      "report": "QA-full-head.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "f86527460eed8fdd910ac2d5b9140c82eb0d20be77278ef2daffb406b1232d3d",
+        "greet": "39da4063637bcccb9110b47f8bf3ecac8dce41f2402e4e4eb78bf4798c094327",
+        "drink": "95667fbfe7094b4ec4bf807896c625120bb42dec4e238893a508caeb0b8f6066",
+        "examine": "03df076a304d868afa83cce7ce731ae6525eff8721bb4c706dffae82a12e4a23",
+        "sit": "714995524662903c559570d453d0c0a44b698a4de3e9b104d8c7fb1c2cd90ed4",
+        "celebrate": "5c8126565762a3e20122cb35ac0474a3c3dc29e413f2fc930c932af35b19d37c",
+        "dress": "74a489cac0ec1cc8e413eb9f785216668895c5123e89918341978006f3d34fbe"
+      }
+    },
+    {
+      "id": "glasses-square",
+      "slot": "glasses",
+      "report": "QA-full-head.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "83e00a6cba7137abc2b94bd29f5903e39caefde9415d3520506927e905ca1f19",
+        "greet": "2e015cb41974e766f9bf38b90b04b40d0c54a41c5a4efd39413cf1839d7998fe",
+        "drink": "e6bb96b9f179f3dee6a53243d77778a971e5b080369c884ad5a7475ab4e62496",
+        "examine": "9fabd3d0941227d5e246085dc582d4632808f883377d1f8c17b7cdfe36cbd154",
+        "sit": "f736931758c62250e005256a525195e32e482126f61bd595076ba9e5aca2dc14",
+        "celebrate": "25707f8943e5adecca9f501bb3be3ae704a2db1bb639628e28eca69164a7dcd4",
+        "dress": "d01c2a2ecd9ee9875185de9d386b3c8e021233fc9341ce8413d0783d64f5c5a2"
+      }
+    },
+    {
+      "id": "hair-buzz",
+      "slot": "hair",
+      "report": "QA-full-head.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "32dbea9f048bb9f5d5b7ac1dd4c6621137508f5bdc900c7f9596f803f03459ae",
+        "greet": "a47950f1fb1681e4654d8e0879943aeff5d5847f485bf9918f9d1acf7efcf0e4",
+        "drink": "347570143f20729b568541077c47edc443e6167b54d3eab4e555784d419e760c",
+        "examine": "b9438cfddc089bc2554854c94dda4c154a5e8d681b77629fe6777c40f6817e2a",
+        "sit": "5fbc71855551f4580120d15084be89b2e87b7e9f6e0eed5cf470fe621d7f7a6b",
+        "celebrate": "3f002b40918bb5387207fbfcdf26be3ea6995cc19e800872f770460420517d9d",
+        "dress": "0b732d5f976c1f88dd780692df0def1bf8a22bbf74e6d9653034ca688bc46034"
+      }
+    },
+    {
+      "id": "hair-afro",
+      "slot": "hair",
+      "report": "QA-full-head.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "a0097f87abf00b70c4aaf79b859e4993f4843a0748f77f0c7b00c28a97e26911",
+        "greet": "413700a13c62dd86e317175d3973ae3cc97e2c8b19d57c3765bb2e225ed69abd",
+        "drink": "52a85f17252023aa5bf0170b9f126c332b16b4f10c4bd513dd7fa582861c5b4c",
+        "examine": "f143240821a16d5811b7c6a001e69b099115bf737fda276bbe16cc24ca75d705",
+        "sit": "79722c234c70dd9c6c8542437bfe572ef5f0e71e44c98a69927a5e7eacea5c5f",
+        "celebrate": "9235a6c2a726129d5a0ae35d875b1fa05f9e64d1dc283122f3432e827acf5bd8",
+        "dress": "0847968dea1fea770de35e5bc33a1d8ee574d06dccc233f2911b22b74a3a36e0"
+      }
+    },
+    {
+      "id": "hair-high-bun",
+      "slot": "hair",
+      "report": "QA-full-head.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "cbc881686ad5bddd9f5241c049acdab72f5575ed88751f8771e5626341e3d881",
+        "greet": "8d4c90787fbb315bc91a7ca7b3abc1e9ad2311d31fc693cc99a886292c579b45",
+        "drink": "9dd1c54a8c31e3e4d4b480c00bea2e1c613a6765fc5c2ad9782adff7e61eee53",
+        "examine": "e7312f5bb1313b827c47a7ec6b4a2292a22e0b5bc7355413bd438af2e1584e1b",
+        "sit": "3a80e7b0526c9372fddfd9bb20866ce2d58dcce36d9e4b2a509a50d70ec0f8b3",
+        "celebrate": "d5a221d5cb1049a175e51e31c13d199bf9bde2fa94fc64cfce507bf5773d8354",
+        "dress": "3127c880186274c0d87a8fe16347230e9947d200edfe7ec239dc4ea773ca3caa"
+      }
+    },
+    {
+      "id": "hair-side-ponytail",
+      "slot": "hair",
+      "report": "QA-full-head.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "3b640bc67cf012d8e698ec02e08de0732f7b250c9eb79e31891010647873b2ca",
+        "greet": "d7ff645f5ed69866753ccc0143d39df6c2f9b5e9378b2a4e6903fe44f031a381",
+        "drink": "470757a324cb98f08862b765ee5de927e6be884f9fd46578b9529f07d95b5bcf",
+        "examine": "0ae3270b5579340ecc220064ee2230223cfe7d9c9d28213e16815c5d613378d6",
+        "sit": "68bf2ee9e2446ce71b11e6a44d9ea2b706c73983e355ce0d5a48b0daf6dc0cb9",
+        "celebrate": "63e1253947ee21435818db919c6160763e7f1e3bf8ec7da92093e012eeaec201",
+        "dress": "67433258b6b570f4e0c24a43b2ee9bc67dcfe4985eece7ce43a2cfb2100edf71"
+      }
+    },
+    {
+      "id": "top-tee-plain",
+      "slot": "top",
+      "report": "QA-full-tops.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "b4f1f99e737bafaab3de68e9dc73f8e1723489c05ae965259c2793f72a34f939",
+        "greet": "1d5f534be00823328c95b2d3f992ef4eac2ef78c06a946d97d143d6c7bcbea52",
+        "drink": "e1ab152601e4916cc2980058cb9882b3215b3d284e92a7187ad6fbe7457c9712",
+        "examine": "6a4353c4d172b6935aacfa7962f9b4158584b41229e8ffdf3ffd5da2f633aaf6",
+        "sit": "6d505db8be094782d1a04ee2ef56ae75649cb2f348563c8b9459a8891118a4a9",
+        "celebrate": "f71066275fb5ccd48a24b47b65dcf2712843f40ae1725a816221707a1674e53b",
+        "dress": "cf6c532a98d6a4672104d098319a120c1cf29a540ddfb15c0912c1e79bd0a35b"
+      }
+    },
+    {
+      "id": "top-tee-striped",
+      "slot": "top",
+      "report": "QA-full-tops.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "f0b9841b2ac626f888160b629d193b9c65e5091d8aaddcd5c13749581c7940d7",
+        "greet": "954d7f9d9ab866da2cb5a34aee602618e35ff3aa73c7431ca789a04d7354c8fb",
+        "drink": "e883820dff23974221687e8bb4395c41bf4b68af6b704996068c3c25f0a37739",
+        "examine": "5c303c08301c492d8b765b3c2ad3954242b451f89c1fe2c05c65db28d5bd7b5e",
+        "sit": "fa68cdc55d87f0d6feb8729f3355264a47912c58317c0639e901dabbacbf84eb",
+        "celebrate": "64a31d56f7c3f5efee84a10a23c44986f72aef17cba6b100ba52e8a2bc75abf6",
+        "dress": "a106f33a8607c1d49ab93210b5597c0b00bef6eb3d9a0a39d0f01958d8a47562"
+      }
+    },
+    {
+      "id": "top-shirt-blue",
+      "slot": "top",
+      "report": "QA-full-tops.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "5841a09d40b2446457f3656978c5122597e0b4ac17ec40b9b26a6735efd229c3",
+        "greet": "a55fc4048eec175e5cad1f332e721cf4f8eabd269be8bc6ab1933d9f22a7a86c",
+        "drink": "365a5412537f4439db7029ead40433431588e2bfb3e4728ff58680f292987d10",
+        "examine": "d8aeef5cdc2c71454dd8492502e4cfce620b4acbf25be8a611c8ee7f99bc620d",
+        "sit": "2310094d98a5d3fe3d076f8e4bbf2b37f68cd283a219f7f67b15f4f2745dfcd2",
+        "celebrate": "70fc95f6c897e2c3b6642b5beb9bdfdb5a901a1d6ab7d3c98ca6c9124514d9a5",
+        "dress": "e2c70bf9c10fbc0851a6f55b3005852c3bbb0ed29eaf519edea5c90723b6be3d"
+      }
+    },
+    {
+      "id": "top-cardigan-rust",
+      "slot": "top",
+      "report": "QA-full-tops.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "fb7ab818c0dc0e2b4247570e654b0e1fdc35e5971d35c57d5afa7fcff3d2986a",
+        "greet": "58ca995ddb7d42fc34ab72f8c0ec2df4f6d064cc34ab7c648ebbfc2857fcb149",
+        "drink": "e59a619bf74fc443b9cfbab03d705b908d40756fecee3bef8621d238c6ba9637",
+        "examine": "20845c628a38af2c631db09527c481295467acc370674039232cfe3e49ccec3c",
+        "sit": "68bc52ee19802d4a8da4dce1173610602dbc6152e1b89dd2fe16152b30f9234d",
+        "celebrate": "3e72f56fb50766275b608a31660d821c7251f46f2c8e659824eeda360bee1ba4",
+        "dress": "dfef22484cd63f62b5870258b95b1178bb686e6b48cf68d122288428f9dc2c93"
+      }
+    },
+    {
+      "id": "top-hoodie-lavender",
+      "slot": "top",
+      "report": "QA-full-tops.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "0de8e56d644583023ffd27a52eb17e88655ee909be8be7bcd5f814834506a261",
+        "greet": "296742bced96c2bb36200c97ed9a6260b1f35bbbc8490a248d6938b3c1a24765",
+        "drink": "3ef4b17da62caa5b6fc2354b9f66e48dd1cb0264569d7c8cca06d6dffe48ad69",
+        "examine": "94698bb7c6a10a80d345267809cce54569071d168fb8987b8faeb716b92122fe",
+        "sit": "658015ea609a64eb58bcf514255045c4529244a44cc89ac0320d40d2be5448ce",
+        "celebrate": "40299121b4182bcc04fd0ca6fa33384ec7016de077bb6683e56d7e0012110a92",
+        "dress": "38f6037d7eaf513b1fe923d8b7cf3b883a766927de830e115ee79294193d24da"
+      }
+    },
+    {
+      "id": "top-vest-moss",
+      "slot": "top",
+      "report": "QA-full-tops.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "408c40ae5137fcb060b37bf282bd72685cf615e2841e5a0b12706308fae9be64",
+        "greet": "ac70bcb46292db0708722ac70f47a4305dc7a60d8fd9bd25d90498af5d31ae70",
+        "drink": "27f2e0cfaff8068be95c1dce14c77c0514d3da315f679a50dfd858cc263272f4",
+        "examine": "4df386c83b3fc398f7644b5dc231e0d58db414c28d130b1b07f3caa7b849807b",
+        "sit": "aea40c1d6139414ec12dfda57dadd14cb7a75831d7a8a6f735128f9fc126a22f",
+        "celebrate": "530c3c1cda1e7cb84ec8db33066875c1a7354301faaa8d042f3d3ce69f6dccd0",
+        "dress": "cb7c7ba43c58466fcad37674d0fbb4c99c2cce43df3aed6d5ecac84bab84eebc"
+      }
+    },
+    {
+      "id": "top-overall-denim",
+      "slot": "top",
+      "report": "QA-full-tops.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "eb92e1bbac0db858fd364207610cb38771a5b41d4b2454b8040bf836f6c7b6a2",
+        "greet": "7e5cef80cb71a57c42b40257554bcb0ce76dfa613fdfc4dcf917f61ca2bd202d",
+        "drink": "bf348f41d27f30ca50da160d61a5730ef361bbf580366579dfdde0950eeb22db",
+        "examine": "33e5a70c3b5323915137bb9b4e365b2730270121ff9b5b8ca16f97fd3f9a722f",
+        "sit": "f55d457629d383b6a0ae09269cb6d03767372ce84826fa201e81188912d6b3e3",
+        "celebrate": "14fe7cfcf55ee61c063c86ff8757bc82f42501197443bfbad8e0651e350a7d7b",
+        "dress": "6448f73cca609d55e447be3e4926370d0a126a7e22ee69ce895f25f0e23ba5f6"
+      }
+    },
+    {
+      "id": "bottom-shorts-charcoal",
+      "slot": "bottom",
+      "report": "QA-full-bottoms-face.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "5253f0ceabf1c33cd56d14dd9e5538b4e6b582c55affe9f8d439f5309abcf0a9",
+        "greet": "606bdf749c35970eceed1057cf28f9ed5b50b3bffaf15b07d29113fa947d1bb9",
+        "drink": "6d4d3c0a16174a2c3482c803d8cf4e95c6d43234bacbfaa38737949d9dd4d855",
+        "examine": "3a5adb96b3aaece08a48f24e24c5a253b07c68892faf3c20a25bd9fdaf05b3e3",
+        "sit": "bc2689b5252f516dd0003b9d743e4edc30a17d55965aea8bade908891a3757d8",
+        "celebrate": "0d9320e3d3650582dace7258299065405bff7735884e293d76a0f5b47a27069a",
+        "dress": "2ab526215a2031f3a6430c422734a41659c21c0b0f1b40a6629fca1e9091e6de"
+      }
+    },
+    {
+      "id": "bottom-trousers-navy",
+      "slot": "bottom",
+      "report": "QA-full-bottoms-face.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "5fc099652e98aeb895f7fc4e8d0a6822ea23b513b480dc12dcea8091ecb3cc85",
+        "greet": "c778462b1bac7855b48a564d91f7ac55fa302aa44a9007b5ddcd590dd8d49876",
+        "drink": "d247dbb1e173d1e58e1947bf790f708a5b151b2d5b0124390c8060b01a931be6",
+        "examine": "8d6e175ad9296e94074ccd46ac21cdafa5c8e6dd7366d0326c860efa11986fb6",
+        "sit": "d018534e29b690be1b0210460db6c93e22117e0994e226bc4e70b4f3aa725f10",
+        "celebrate": "67afcdc51ac54ddd36632f3825c065236ee186950021b760a195bbc8a82e6c37",
+        "dress": "c74eec254f5babdb2f8f6ddbf84ffca8acb0c2dcab5612ff5531265f7b354ac6"
+      }
+    },
+    {
+      "id": "bottom-skirt-coral",
+      "slot": "bottom",
+      "report": "QA-full-bottoms-face.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "73e248e415401d609118a3a845feb2571fab5c8905a958bac7ceecb0770894ef",
+        "greet": "f84a3841c24439ed78633a3bbb80aaa78c967cd8f85cc507edca8938dec5feef",
+        "drink": "94910eef9d778d84bee95288904bdf5f970918f69f724cd69299c88959ffd645",
+        "examine": "6f14b29995a435b50c4c2ce050c70b2a97d51a50384db8b219f8197b9feded22",
+        "sit": "c76aa1420394589a7b91ecd617e625ea20cafe9d0c34b1893fa5c363cffbfb15",
+        "celebrate": "80ea36c3037c98f6651a9a72fcebdafbe5da81477440fa3bb81517133c52e669",
+        "dress": "8e11a721f19af9a92f137d81512090d716694398bcdefdb4c2b9c569c5fb918d"
+      }
+    },
+    {
+      "id": "bottom-overall-denim",
+      "slot": "bottom",
+      "report": "QA-full-bottoms-face.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "15120daffbe2cc7b7f88f1162f5b628328a3a1175b8e76e0c7f45556ca64edad",
+        "greet": "4e16e010c504187dc8ae777023823fbbdaad35f9d58fdadab41e5b9dd4f7e240",
+        "drink": "ff071be2693456a3fdc488cbc7024086fe3e3cc7bf7bf04a4bb0832353d46ae4",
+        "examine": "e9440c2c5f82062d33ccbb34d9858e48d5a9b81ae542797345e00dca0b7a8e92",
+        "sit": "c61b67352466dcfff809316002d0e47d19cba3e7f78d327bcb1b5da1f7ced02b",
+        "celebrate": "2ef41b071dcb4831cc4047ffb1d34da965461a0c413f123cddd387d274c6d2d9",
+        "dress": "5128591fabc19a8873ece4d7017c7d54abb3021cfdac4443fe00de74505aad29"
+      }
+    },
+    {
+      "id": "hat-bucket",
+      "slot": "hat",
+      "report": "QA-full-head.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "15eba783046d239eb1315315926a77a177fc575f8da3ad1a30b85db75ae9b9d4",
+        "greet": "4ad0c48eea60bd814d773684dea6e01064009c4d6e942d1a766683c63d7c9ecf",
+        "drink": "b235a40653ac9befb4e763993cbb8c4256072a3c3cf0da5acd01dc13a382ed04",
+        "examine": "9f4ca0eea743b53c2b02c782b3a7335bb03f4e2fe14389366acfa27423483b22",
+        "sit": "3127ec937c93712d6e5d786eeea40673846137303d6e50669d466e093716cdcb",
+        "celebrate": "67539650b97aa89ae02c115814a5d7c1826c3d879e367b3eb6feeac4018aa607",
+        "dress": "dce16e8bc69a4bb2e0b53e02328f23d6d1f58ecab85c6741fda6f27e79afdbdb"
+      }
+    },
+    {
+      "id": "body-tote",
+      "slot": "body",
+      "report": "QA-full-accessories.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "8311ede006ee717f3977f912f162a0c7db9d778f591f4a42080d591443b10434",
+        "greet": "5a14c39635d6b687ff969d2d14619f8f01087c3bf41babbcef35bbfbdadc921e",
+        "drink": "acc03dc766092a9f20f3e4cb96ed5dcd799bb02e4fd1032015606b8b9b864fc0",
+        "examine": "e84cf713b84966b13ec2f92f869da6e918335d32c5abb2d579c058d55b4e5515",
+        "sit": "91a5e3d33931927092f72dc6677b468bf2a0ff4bd272b5206490e21b9888ee78",
+        "celebrate": "3b98af592765e7a5c9b1f8bf0c4bd8369bd9eae5c26d2b8dba5b044b1fb5badb",
+        "dress": "47c72196bf2d4d07d36a9d7c3d9b76ad895a36026c9d6c034533d8d946e16761"
+      }
+    },
+    {
+      "id": "hand-camera",
+      "slot": "hand",
+      "report": "QA-full-accessories.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "db33e3bad8e8d4b10116f431e67595c7b01928a2da2d75e9e3cafc2263f8f881",
+        "greet": "df9d5d23e3e7dc6cb3cc3627b4b9abc2eba05def2df9eb9672427dc586ebcb39",
+        "drink": "f40ff8b8d556b2eb1f0f218eff058b7d511b2012505cf02af5e664ea398c870a",
+        "examine": "67b8bf392a24c7f945d6eba053ce5831336b718cf435f4613a200f282ac5b30b",
+        "sit": "59fd7aec205a410f3155e8bb84085b05d80d82f611ba3e7363561e6938edfb85",
+        "celebrate": "cbc11d5bbaae87fb666c3fb378e65b6c07c8ebeb33a0c3bca700ce451d32bddc",
+        "dress": "eba0089684af93c97d160dff43fe4923dec370a91276cdd708cf6cb18a4e4e3b"
+      }
+    },
+    {
+      "id": "eyes-dot",
+      "slot": "eyes",
+      "report": "QA-full-bottoms-face.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "9663c313d7199f4dc1ef6d3396870833a397165c66d0f284426fd37e4aceae3a",
+        "greet": "afb325bb6915eb66334ea8e6ddaecea75b5140b5cd2a095dca4c95956114259c",
+        "drink": "884e1965688106faa561ab5fc7ac462ea3e4f8223f2e12a46368c5f735109d22",
+        "examine": "5d9a61898838f4e9c8b9a09016b207372fa86a816768b55acf18406c52986024",
+        "sit": "6e282344dfe5b2d2e1f7456e0c83c1381173adcb2dc8f5c6426315cca0f04a65",
+        "celebrate": "87d035a3df37ee3db11a7dbaf8b1e3abd6d3913e6534eaa267c8f503558ec0f2",
+        "dress": "53eab99e5fca654ce6911f0c02ca0909cd11a080c616cfd1639495d831e8e458"
+      }
+    },
+    {
+      "id": "eyes-sleepy",
+      "slot": "eyes",
+      "report": "QA-full-bottoms-face.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "40a8e53929ab8e29e0878b324a05a943dfdb46f18df26fbeff907f34e7e4a574",
+        "greet": "5303d0e45f0d6ec1d11b1f25aa976245fb6148482dcce9d375d61eaab1aad529",
+        "drink": "87a71ffe9b5b57196a1b447288fd106040a4efa1c28a1994189c18c9d6ef372a",
+        "examine": "ca1797281d99a8703fa13314bde3b7fcc43e77a15412f5ef2542eccb2456a897",
+        "sit": "df46c5fcf576c6b76828027732a65f18cde350808d703aa8e4bed8d01e955f50",
+        "celebrate": "78a161ef5bb69034e4147db77365a985342a652f01f811c414b6888f68932a9b",
+        "dress": "3a2f1105becc9477c9e29cbbb58cda100c26120be74cb9310084ddddaa191922"
+      }
+    },
+    {
+      "id": "eyes-smile",
+      "slot": "eyes",
+      "report": "QA-full-bottoms-face.md",
+      "source_actions": [
+        "walk",
+        "greet",
+        "drink",
+        "examine",
+        "sit",
+        "celebrate",
+        "dress"
+      ],
+      "directions": [
+        "front",
+        "right",
+        "back",
+        "left"
+      ],
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "visually_reviewed_source_poses": 112,
+      "separately_reviewed_idle_views": 4,
+      "idle_is_duplicate_source": {
+        "action": "walk",
+        "frame": 1
+      },
+      "atlas_sha256": {
+        "walk": "6bc7bf43c08170d1029bb687b7652f27797e8df67b74b622244fa8a43ac6e5e0",
+        "greet": "c2c3e5dd6087c1df101c30eb1467a629ad439d18ab54eb85f8847daecc7ccfd0",
+        "drink": "39a13bbfd84881dc7eb6abe728854abcc83f7ae6c593e8f3ac7e0e4f2b6597aa",
+        "examine": "befd38bd04321a4e484a468e65e31e3b4f4b7c0c4474654d39f083c3cbfbfa70",
+        "sit": "8770d5ce4f3c96a7d9ac658c5377fb38deb3117cd149d9fdad11c271105de554",
+        "celebrate": "065b53f7ef86f3e2689cb512427c5456bf243a33918edc3274647670cfaca799",
+        "dress": "20939bc6b9f5979d936a226b605201ca9f39b7c7460c3fbc809f6890138ba55c"
+      }
+    }
+  ]
+}

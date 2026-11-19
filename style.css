@@ -653,3 +653,192 @@ input[type="checkbox"] {
   max-width: 220px;
   height: auto;
 }
+/* Avatar02 canvas cells share a stable foot pivot at (40,74) in 80px cells. */
+.person.avatar-person {
+  width: 64px;
+  height: 64px;
+  transform: translate(-50%, -92.5%);
+  filter: drop-shadow(0 2px 1px #39271c44);
+}
+.avatar-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+.avatar-person.self:after {
+  bottom: 2px;
+  left: 15px;
+  width: 34px;
+  height: 10px;
+}
+.avatar-person .tag {
+  left: 12px;
+  top: -7px;
+}
+.avatar-fallback {
+  position: absolute;
+  bottom: 13px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 9px;
+  padding: 2px;
+  background: #47342be6;
+  color: #fff0d5;
+  border-radius: 5px;
+}
+.avatar-canvas[data-ready="true"] + .avatar-fallback {
+  display: none;
+}
+.avatar-preview-stage {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  background: radial-gradient(#ead5af, #a4815d);
+  border-radius: 16px;
+  margin: 16px 0;
+}
+.avatar-preview-stage canvas {
+  width: 192px;
+  height: 192px;
+  image-rendering: pixelated;
+}
+.avatar-select-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 15px 0;
+}
+.avatar-select-grid label {
+  font-size: 13px;
+  color: #dac8ad;
+}
+.avatar-select-grid select {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px 6px;
+  color: #ffedc8;
+  background: #382920;
+  border: 1px solid #8c6c50;
+  border-radius: 9px;
+  min-height: 44px;
+}
+.legacy-inventory {
+  margin: 26px 0;
+}
+.legacy-inventory summary {
+  cursor: pointer;
+  padding: 15px;
+  border: 1px solid #806249;
+  border-radius: 10px;
+}
+.map-avatar-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.map-avatar-actions button {
+  font-size: 12px;
+  padding: 6px 14px;
+  min-height: 34px;
+}
+.map-avatar-actions + .quest-strip {
+  margin-top: 8px;
+}
+@media (min-width: 600px) {
+  .avatar-select-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 400px) {
+  .person.avatar-person {
+    width: 52px;
+    height: 52px;
+  }
+  .avatar-person.self:after {
+    left: 10px;
+    width: 30px;
+  }
+}
+.avatar-preview-stage {
+  position: relative;
+}
+.avatar-preview-stage .avatar-fallback {
+  bottom: 8px;
+  left: 25%;
+  right: 25%;
+  font-size: 12px;
+}
+.avatar-canvas[data-error="true"] + .avatar-fallback {
+  display: block;
+  background: #7d3b2b;
+}
+.avatar-parts-browser {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #826246;
+}
+.avatar-search-row {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+}
+.avatar-search-row label {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+}
+.avatar-search-row input {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  border: 1px solid #a3815e;
+  border-radius: 10px;
+  background: #241c18;
+  color: #ffedc8;
+  min-height: 44px;
+}
+.avatar-search-row button {
+  font-size: 12px;
+  padding: 10px;
+  flex-shrink: 0;
+}
+.avatar-slot-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 14px 0;
+}
+.avatar-slot-filters button {
+  font-size: 12px;
+  padding: 8px 12px;
+  min-height: 36px;
+}
+.avatar-slot-filters button.active {
+  background: #ffedc8;
+  color: #405a3c;
+}
+.avatar-part-group small {
+  display: block;
+  font-size: 11px;
+  margin: 4px 0;
+  color: #bca58a;
+}
+#avatar-search-status {
+  min-height: 2.8em;
+  margin-top: 6px;
+}
+@media (max-width: 360px) {
+  .avatar-search-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .avatar-search-row button {
+    align-self: flex-end;
+  }
+}
+
+.avatar-render-info{margin-top:22px;border:1px dashed #826246;padding:12px;border-radius:10px;font-size:13px}.avatar-render-info>summary{cursor:pointer;min-height:30px;font-weight:600}.avatar-render-stats{display:grid;grid-template-columns:1fr auto;gap:8px;margin:12px 0}.avatar-render-stats dt{color:#cbb49d}.avatar-render-stats dd{margin:0;font-variant-numeric:tabular-nums}.avatar-render-info li{overflow-wrap:anywhere}.avatar-render-info .muted{margin:10px 0}
